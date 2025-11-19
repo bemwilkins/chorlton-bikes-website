@@ -190,45 +190,49 @@ if (newsletterForm) {
 }
 
 // Mobile Menu Toggle
-const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-const navLinks = document.querySelector('.nav-links');
+document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
 
-if (mobileMenuToggle && navLinks) {
-    const overlay = document.querySelector('.mobile-menu-overlay');
-    
-    const openMenu = () => {
-        mobileMenuToggle.setAttribute('aria-expanded', 'true');
-        navLinks.classList.add('active');
-        if (overlay) overlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    };
-    
-    const closeMenu = () => {
-        mobileMenuToggle.setAttribute('aria-expanded', 'false');
-        navLinks.classList.remove('active');
-        if (overlay) overlay.classList.remove('active');
-        document.body.style.overflow = '';
-    };
-    
-    mobileMenuToggle.addEventListener('click', () => {
-        const isExpanded = mobileMenuToggle.getAttribute('aria-expanded') === 'true';
-        if (isExpanded) {
-            closeMenu();
-        } else {
-            openMenu();
+    if (mobileMenuToggle && navLinks) {
+        const overlay = document.querySelector('.mobile-menu-overlay');
+        
+        const openMenu = () => {
+            mobileMenuToggle.setAttribute('aria-expanded', 'true');
+            navLinks.classList.add('active');
+            if (overlay) overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        };
+        
+        const closeMenu = () => {
+            mobileMenuToggle.setAttribute('aria-expanded', 'false');
+            navLinks.classList.remove('active');
+            if (overlay) overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        };
+        
+        mobileMenuToggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const isExpanded = mobileMenuToggle.getAttribute('aria-expanded') === 'true';
+            if (isExpanded) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
+        });
+
+        // Close menu when clicking on a link (important for one-page sites)
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        // Close menu when clicking on overlay
+        if (overlay) {
+            overlay.addEventListener('click', closeMenu);
         }
-    });
-
-    // Close menu when clicking on a link (important for one-page sites)
-    navLinks.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', closeMenu);
-    });
-
-    // Close menu when clicking on overlay
-    if (overlay) {
-        overlay.addEventListener('click', closeMenu);
     }
-}
+});
 
 // Hero Carousel
 const heroCarousel = document.querySelector('.hero-carousel');
@@ -306,15 +310,20 @@ if (heroCarousel) {
     }
 }
 
-// Smooth scrolling for navigation links
+// Smooth scrolling for navigation links with offset for sticky navbar
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
+        const targetId = this.getAttribute('href');
+        const target = document.querySelector(targetId);
         if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
+            const navbar = document.querySelector('.navbar');
+            const navbarHeight = navbar ? navbar.offsetHeight : 0;
+            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navbarHeight - 20;
+            
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
             });
         }
     });
