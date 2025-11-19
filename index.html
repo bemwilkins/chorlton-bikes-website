@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chorlton Bikes - Community Benefit Society</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Quicksand:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <img src="assets/images/logo.png" alt="Chorlton Bikes Logo" class="logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <h1 class="logo-text">Chorlton Bikes</h1>
+            </div>
+            <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="#services">Services</a></li>
+                <li><a href="#membership">Join Us</a></li>
+                <li><a href="#donate">Donate</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+            <div class="mobile-menu-overlay"></div>
+        </div>
+    </nav>
+
+    <!-- Hero Section - Action First -->
+    <section class="hero">
+        <div class="hero-carousel">
+            <div class="carousel-slide active" style="background-image: url('assets/images/hero-carousel-1.jpg');"></div>
+            <div class="carousel-slide" style="background-image: url('assets/images/hero-carousel-2.jpg');"></div>
+            <div class="carousel-slide" style="background-image: url('assets/images/hero-carousel-3.jpg');"></div>
+            <div class="carousel-slide" style="background-image: url('assets/images/hero-carousel-4.jpg');"></div>
+            <div class="carousel-slide" style="background-image: url('assets/images/hero-carousel-5.jpg');"></div>
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Chorlton Bikes</h1>
+                <p class="hero-subtitle">Building a Greener, More Connected Community</p>
+                <p class="hero-tagline">
+                    A Community Benefit Society removing CO₂ from our streets, supporting local communities, 
+                    and creating meaningful jobs that pay the Real Living Wage.
+                </p>
+                <div class="hero-cta-grid">
+                    <a href="#services" class="hero-cta-card">
+                        <div class="hero-cta-icon">🚴</div>
+                        <h3>Request a Service</h3>
+                        <p>Shop N Drop, Trishaw, Deliveries & more</p>
+                    </a>
+                    <a href="#membership" class="hero-cta-card">
+                        <div class="hero-cta-icon">👥</div>
+                        <h3>Become a Member</h3>
+                        <p>Join us, ride with us, or volunteer</p>
+                    </a>
+                    <a href="#donate" class="hero-cta-card">
+                        <div class="hero-cta-icon">❤️</div>
+                        <h3>Donate</h3>
+                        <p>Support our community work</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-dots"></div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">Request a Service</h2>
+            <p class="section-intro">We offer a range of community and commercial services. Choose what you need below.</p>
+            
+            <div class="services-split">
+                <!-- Community Services -->
+                <div class="services-column">
+                    <h3 class="services-column-title">Community Services</h3>
+                    <div class="service-cards">
+                        <!-- Shop N Drop -->
+                        <div class="service-card" id="shop-drop">
+                            <h4>Shop N Drop</h4>
+                            <p>For people with mobility issues or other significant barriers getting to the Unicorn Grocery. We offer Shop & Drop or You Shop, We Drop services.</p>
+                            <div class="service-inquiry">
+                                <p><strong>Get in touch:</strong></p>
+                                <a href="mailto:hello@chorltonbikes.coop?subject=Shop N Drop Inquiry" class="btn btn-email">Email Us</a>
+                            </div>
+                        </div>
+
+                        <!-- Trishaw Rides (Community) -->
+                        <div class="service-card" id="trishaw-community">
+                            <h4>Trishaw Rides (Community)</h4>
+                            <p>We operate a Trishaw scheme across South Manchester, giving older people and those with limited mobility the opportunity to experience being back out and about. Free rides when offered through community organisations.</p>
+                            <div class="service-inquiry">
+                                <p><strong>Get in touch:</strong></p>
+                                <a href="mailto:hello@chorltonbikes.coop?subject=Community Trishaw Ride Inquiry" class="btn btn-email">Email Us</a>
+                            </div>
+                        </div>
+
+                        <!-- Bikes 4 Refugees -->
+                        <div class="service-card" id="bikes-refugees">
+                            <h4>Bikes 4 Refugees</h4>
+                            <p>We work with Refugee Aid (Care UK) reviving unused bikes to be used by asylum-seekers and refugees. Donate your bike to help someone access opportunities and build connections in the community.</p>
+                            <div class="service-inquiry">
+                                <p><strong>Donate a bike:</strong></p>
+                                <div class="airtable-embed-placeholder">
+                                    <p style="padding: 1.5rem; background: var(--bg-light); border: 2px dashed var(--light-green); border-radius: 8px; text-align: center; color: var(--text-light);">
+                                        <strong>Bikes 4 Refugees Form</strong><br>
+                                        Embed Airtable form with photo upload here
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Community Deliveries -->
+                        <div class="service-card" id="community-deliveries">
+                            <h4>Community Deliveries</h4>
+                            <p>We work with a range of community organisations, made possible by our dedicated group of volunteer riders. Need help with community deliveries? Get in touch.</p>
+                            <div class="service-inquiry">
+                                <p><strong>Get in touch:</strong></p>
+                                <a href="mailto:hello@chorltonbikes.coop?subject=Community Delivery Inquiry" class="btn btn-email">Email Us</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Commercial Services -->
+                <div class="services-column">
+                    <h3 class="services-column-title">Commercial Services</h3>
+                    <div class="service-cards">
+                        <!-- Commercial Deliveries -->
+                        <div class="service-card" id="commercial-deliveries">
+                            <h4>Commercial Deliveries</h4>
+                            <p>Are you a business or public sector organisation that cares about the planet and community? We provide green, reliable deliveries every day of the week, both business to customer and business to business.</p>
+                            <div class="service-inquiry">
+                                <p><strong>Get in touch:</strong></p>
+                                <a href="mailto:hello@chorltonbikes.coop?subject=Commercial Delivery Inquiry" class="btn btn-email">Email Us</a>
+                            </div>
+                        </div>
+
+                        <!-- Trishaw Hire (Commercial/Events) -->
+                        <div class="service-card" id="trishaw-commercial">
+                            <h4>Trishaw Hire (Events)</h4>
+                            <p>Perfect for special events like weddings, birthdays, celebrations, or corporate events. Make your occasion memorable with our unique trishaw service. Hire the trishaw and pilot for your special day.</p>
+                            <div class="service-inquiry">
+                                <p><strong>Get in touch:</strong></p>
+                                <a href="mailto:hello@chorltonbikes.coop?subject=Trishaw Event Hire Inquiry" class="btn btn-email">Email Us</a>
+                            </div>
+                        </div>
+
+                        <!-- NHS Deliveries -->
+                        <div class="service-card" id="nhs-deliveries">
+                            <h4>NHS Deliveries</h4>
+                            <p>We are proud to keep vital services running and have an ongoing contract with the NHS. We've removed 6 tonnes of CO₂ on NHS routes alone, delivering transport and specimen collection services sustainably.</p>
+                            <div class="service-info">
+                                <p><em>This is a contract-based service. For NHS-related inquiries, please contact us directly.</em></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Become a Member Section -->
+    <section id="membership" class="membership">
+        <div class="container">
+            <h2 class="section-title">Become a Member</h2>
+            <p class="section-intro">There are many ways to get involved with Chorlton Bikes. Choose the path that's right for you.</p>
+            
+            <div class="membership-pathways">
+                <!-- Pathway 1: Become a Member -->
+                <div class="membership-pathway">
+                    <div class="pathway-content">
+                        <h3>Become a Member</h3>
+                        <p>As a Community Benefit Society, membership is open and accessible to everyone. To become a member, you simply need to hold one £1 share, which gives you a real stake in Chorlton Bikes and an equal say in how we're run.</p>
+                        <p><strong>Why join us?</strong> You might want to get involved in running the organisation, ride as a volunteer or to get paid, or simply because you believe in our values and what we're doing. Membership means you have a voice in our future direction and can help shape how we serve our community.</p>
+                    </div>
+                    <div class="pathway-form">
+                        <h4>Join Chorlton Bikes</h4>
+                        <p class="form-intro">Membership requires one £1 share, giving you an equal say in how we're run.</p>
+                        <div class="airtable-embed-placeholder">
+                            <p style="padding: 2rem; background: var(--bg-light); border: 2px dashed var(--light-green); border-radius: 8px; text-align: center; color: var(--text-light);">
+                                <strong>Airtable Membership Form</strong><br>
+                                Embed your Airtable form here
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pathway 2: Join as a Rider -->
+                <div class="membership-pathway">
+                    <div class="pathway-content">
+                        <h3>Join as a Rider</h3>
+                        <p>Our pool of friendly dedicated riders is growing and we offer both volunteer and paid opportunities. We're looking for enthusiastic bike riders from all members of our local community (no cargo bike experience needed).</p>
+                        <p>If you'd like to:</p>
+                        <ul>
+                            <li>Be involved with a lovely community based cooperative</li>
+                            <li>Work for an ethical organisation who pays the Real Living Wage (for our paid riders)</li>
+                            <li>Contribute to your community by helping take cars and vans off the road</li>
+                            <li>Have FUN in the process, riding our fleet of wonderful cargo bikes</li>
+                        </ul>
+                        <p>Then we'd love to hear from you!</p>
+                    </div>
+                    <div class="pathway-inquiry">
+                        <h4>Interested in Riding?</h4>
+                        <p>Just drop us an email - we'd love to hear from you!</p>
+                        <a href="mailto:hello@chorltonbikes.coop?subject=Rider Application" class="btn btn-primary btn-large">Email Us to Get Started</a>
+                    </div>
+                </div>
+
+                <!-- Pathway 3: Volunteer -->
+                <div class="membership-pathway">
+                    <div class="pathway-content">
+                        <h3>Volunteer with Us</h3>
+                        <p>There are many ways to get involved beyond riding. Whether you want to help with operations, support our community projects, or contribute in other ways, we'd love to have you on board.</p>
+                        <p>As a Real Living Wage employer, we value all contributions to our mission. Your support helps us build a greener, more connected community.</p>
+                    </div>
+                    <div class="pathway-inquiry">
+                        <h4>Want to Volunteer?</h4>
+                        <p>Just drop us an email - we'd love to hear from you!</p>
+                        <a href="mailto:hello@chorltonbikes.coop?subject=Volunteer Inquiry" class="btn btn-primary btn-large">Email Us to Get Started</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Donate Section -->
+    <section id="donate" class="donate">
+        <div class="container">
+            <div class="cta-section">
+                <div class="cta-content">
+                    <h2 class="section-title">Donate</h2>
+                    <p class="cta-lead">
+                        Through our <strong>Friends of Chorlton Bikes</strong> programme, regular monthly 
+                        donations help us plan ahead with confidence. Our goal is to raise £1,000 per month 
+                        - achievable if 100 people give £10 a month.
+                    </p>
+                    <p>
+                        As a Real Living Wage employer, around 80% of our costs go to people - our 
+                        dedicated team of riders and staff. Every contribution, no matter the size, 
+                        makes a real difference to our community impact.
+                    </p>
+                    <p>
+                        <strong>What your donation supports:</strong>
+                    </p>
+                    <ul>
+                        <li>Real Living Wage employment for our riders and staff</li>
+                        <li>Community benefit projects across South Manchester</li>
+                        <li>Zero-emission delivery services</li>
+                        <li>Local community impact and carbon reduction</li>
+                    </ul>
+                    <p>
+                        <strong>If you can't afford to donate, that's absolutely fine</strong> - your 
+                        support as a rider, resident, partner, or advocate still means just as much.
+                    </p>
+                </div>
+                <div class="form-container">
+                    <h3>Make a Donation</h3>
+                    <p class="form-intro">Join our Friends of Chorlton Bikes programme with a monthly donation, or make a one-off contribution.</p>
+                    <div class="airtable-embed-placeholder">
+                        <p style="padding: 2rem; background: var(--bg-light); border: 2px dashed var(--orange); border-radius: 8px; text-align: center; color: var(--text-light);">
+                            <strong>Airtable Donation Form</strong><br>
+                            Embed your Airtable form here
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Media Feed Section -->
+    <section id="updates" class="social-updates">
+        <div class="container">
+            <h2 class="section-title">Stay in the Loop</h2>
+            <p class="section-intro">Follow us on social media for the latest updates, news, and community stories.</p>
+            
+            <div class="social-feed">
+                <div class="social-feed-grid">
+                    <!-- Instagram Feed Placeholder -->
+                    <div class="social-feed-item">
+                        <div class="social-feed-placeholder">
+                            <p><strong>Instagram Feed</strong></p>
+                            <p>Embed Instagram feed here</p>
+                            <p style="margin-top: 1rem;">
+                                <a href="https://www.instagram.com/chorltonbikedeliveries" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Follow on Instagram</a>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Facebook Feed Placeholder -->
+                    <div class="social-feed-item">
+                        <div class="social-feed-placeholder">
+                            <p><strong>Facebook Feed</strong></p>
+                            <p>Embed Facebook feed here</p>
+                            <p style="margin-top: 1rem;">
+                                <a href="https://www.facebook.com/chorltonbikedeliveries/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Follow on Facebook</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="social-links-main">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/chorltonbikedeliveries/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">Facebook</a>
+                        <a href="https://twitter.com/bikechorlton" target="_blank" rel="noopener noreferrer" aria-label="Twitter">Twitter</a>
+                        <a href="https://www.instagram.com/chorltonbikedeliveries" target="_blank" rel="noopener noreferrer" aria-label="Instagram">Instagram</a>
+                        <a href="https://www.youtube.com/channel/UCryuqxAEJiO3s4XRG4WWYKA" target="_blank" rel="noopener noreferrer" aria-label="YouTube">YouTube</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section id="partners" class="partners">
+        <div class="container">
+            <h2 class="section-title">Our Partners</h2>
+            <p class="section-intro">We work with amazing organisations across South Manchester.</p>
+            <div class="partners-grid">
+                <!-- Partner logos placeholder -->
+                <div class="partner-logo-placeholder">
+                    <p>Partner logos from Open Social presentation</p>
+                </div>
+                <div class="partner-logo-placeholder">
+                    <p>Add partner logos here</p>
+                </div>
+                <div class="partner-logo-placeholder">
+                    <p>Add partner logos here</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section (Minimal, Contextual) -->
+    <section id="about" class="about-impact">
+        <div class="container">
+            <div class="about-impact-content">
+                <div class="about-text">
+                    <h2 class="section-title">Who We Are</h2>
+                    <p>
+                        Chorlton Bikes started as a grassroots response to COVID-19 and have grown 
+                        into a thriving cooperative with a mission to reduce carbon emissions, support 
+                        local communities, and create meaningful employment opportunities across South Manchester.
+                    </p>
+                    <p>
+                        As a Community Benefit Society, we're member-owned and community-focused. We're 
+                        proud to be a Real Living Wage employer, with around 80% of our costs going to 
+                        people - our dedicated team of riders and staff who make everything possible.
+                    </p>
+                </div>
+                <div class="impact-stats">
+                    <div class="stat">
+                        <div class="stat-number">10+</div>
+                        <div class="stat-label">Tonnes of CO₂ Removed</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">20</div>
+                        <div class="stat-label">New Riders in 2025</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">100+</div>
+                        <div class="stat-label">Community Ride Participants</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">£1</div>
+                        <div class="stat-label">Share Price for Membership</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p><a href="mailto:hello@chorltonbikes.coop" style="color: white;">hello@chorltonbikes.coop</a></p>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/chorltonbikedeliveries/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">Facebook</a>
+                        <a href="https://twitter.com/bikechorlton" target="_blank" rel="noopener noreferrer" aria-label="Twitter">Twitter</a>
+                        <a href="https://www.instagram.com/chorltonbikedeliveries" target="_blank" rel="noopener noreferrer" aria-label="Instagram">Instagram</a>
+                        <a href="https://www.youtube.com/channel/UCryuqxAEJiO3s4XRG4WWYKA" target="_blank" rel="noopener noreferrer" aria-label="YouTube">YouTube</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Chorlton Bikes. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
