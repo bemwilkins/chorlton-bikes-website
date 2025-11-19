@@ -195,8 +195,13 @@ if (newsletterForm) {
     });
 }
 
-// Mobile Menu Toggle
-(function() {
+// Mobile Menu Toggle - Global function for onclick fallback
+function toggleMobileMenu(e) {
+    if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+    
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
     const navLinks = document.querySelector('.nav-links');
     const overlay = document.querySelector('.mobile-menu-overlay');
@@ -206,30 +211,45 @@ if (newsletterForm) {
         return;
     }
 
-    const openMenu = () => {
+    const isExpanded = mobileMenuToggle.getAttribute('aria-expanded') === 'true';
+    
+    if (isExpanded) {
+        // Close menu
+        mobileMenuToggle.setAttribute('aria-expanded', 'false');
+        navLinks.classList.remove('active');
+        if (overlay) overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    } else {
+        // Open menu
         mobileMenuToggle.setAttribute('aria-expanded', 'true');
         navLinks.classList.add('active');
         if (overlay) overlay.classList.add('active');
         document.body.style.overflow = 'hidden';
-    };
-    
+    }
+}
+
+// Mobile Menu Toggle - Event listeners
+(function() {
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    const overlay = document.querySelector('.mobile-menu-overlay');
+
+    if (!mobileMenuToggle || !navLinks) {
+        return;
+    }
+
     const closeMenu = () => {
         mobileMenuToggle.setAttribute('aria-expanded', 'false');
         navLinks.classList.remove('active');
         if (overlay) overlay.classList.remove('active');
         document.body.style.overflow = '';
     };
-    
-    // Toggle menu on button click
+
+    // Add click listener (in addition to onclick)
     mobileMenuToggle.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
-        const isExpanded = this.getAttribute('aria-expanded') === 'true';
-        if (isExpanded) {
-            closeMenu();
-        } else {
-            openMenu();
-        }
+        toggleMobileMenu(e);
     }, false);
 
     // Close menu when clicking on a link
