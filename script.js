@@ -195,8 +195,8 @@ if (newsletterForm) {
     });
 }
 
-// Mobile Menu Toggle - Global function for onclick fallback
-function toggleMobileMenu(e) {
+// Mobile Menu Toggle - Define globally so onclick can access it
+window.toggleMobileMenu = function(e) {
     if (e) {
         e.preventDefault();
         e.stopPropagation();
@@ -226,7 +226,7 @@ function toggleMobileMenu(e) {
         if (overlay) overlay.classList.add('active');
         document.body.style.overflow = 'hidden';
     }
-}
+};
 
 // Mobile Menu Toggle - Event listeners
 (function() {
@@ -249,7 +249,7 @@ function toggleMobileMenu(e) {
     mobileMenuToggle.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
-        toggleMobileMenu(e);
+        window.toggleMobileMenu(e);
     }, false);
 
     // Close menu when clicking on a link
