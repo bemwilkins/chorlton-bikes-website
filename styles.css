@@ -103,11 +103,12 @@ body {
     cursor: pointer;
     padding: 0.5rem;
     gap: 5px;
-    z-index: 1001;
+    z-index: 1002;
     position: absolute;
     right: 20px;
     top: 50%;
     transform: translateY(-50%);
+    -webkit-tap-highlight-color: transparent;
 }
 
 .mobile-menu-toggle span {
