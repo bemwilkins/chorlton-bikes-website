@@ -1,3 +1,82 @@
+// Mobile Menu Toggle - Define globally FIRST so onclick can access it
+// This must be at the very top before any other code
+window.toggleMobileMenu = function(e) {
+    if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+    
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    const overlay = document.querySelector('.mobile-menu-overlay');
+
+    if (!mobileMenuToggle || !navLinks) {
+        return;
+    }
+
+    const isExpanded = mobileMenuToggle.getAttribute('aria-expanded') === 'true';
+    
+    if (isExpanded) {
+        // Close menu
+        mobileMenuToggle.setAttribute('aria-expanded', 'false');
+        navLinks.classList.remove('active');
+        if (overlay) overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    } else {
+        // Open menu
+        mobileMenuToggle.setAttribute('aria-expanded', 'true');
+        navLinks.classList.add('active');
+        if (overlay) overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+};
+
+// Initialize mobile menu immediately
+(function() {
+    try {
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        const overlay = document.querySelector('.mobile-menu-overlay');
+
+        if (!mobileMenuToggle || !navLinks) {
+            return;
+        }
+
+        const closeMenu = () => {
+            mobileMenuToggle.setAttribute('aria-expanded', 'false');
+            navLinks.classList.remove('active');
+            if (overlay) overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        };
+
+        // Add click listener (in addition to onclick)
+        mobileMenuToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            window.toggleMobileMenu(e);
+        }, false);
+
+        // Close menu when clicking on a link
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', closeMenu, false);
+        });
+
+        // Close menu when clicking on overlay
+        if (overlay) {
+            overlay.addEventListener('click', closeMenu, false);
+        }
+
+        // Close menu on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+                closeMenu();
+            }
+        });
+    } catch (error) {
+        console.error('Error initializing mobile menu:', error);
+    }
+})();
+
 // Airtable Integration
 // Replace these with your actual Airtable base ID, table names, and API key
 const AIRTABLE_CONFIG = {
@@ -195,7 +274,8 @@ if (newsletterForm) {
     });
 }
 
-// Mobile Menu Toggle - Define globally so onclick can access it
+// Mobile Menu Toggle - Define globally FIRST so onclick can access it
+// This must be defined before any other code that might error
 window.toggleMobileMenu = function(e) {
     if (e) {
         e.preventDefault();
@@ -227,6 +307,52 @@ window.toggleMobileMenu = function(e) {
         document.body.style.overflow = 'hidden';
     }
 };
+
+// Initialize mobile menu immediately
+(function() {
+    try {
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        const overlay = document.querySelector('.mobile-menu-overlay');
+
+        if (!mobileMenuToggle || !navLinks) {
+            return;
+        }
+
+        const closeMenu = () => {
+            mobileMenuToggle.setAttribute('aria-expanded', 'false');
+            navLinks.classList.remove('active');
+            if (overlay) overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        };
+
+        // Add click listener (in addition to onclick)
+        mobileMenuToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            window.toggleMobileMenu(e);
+        }, false);
+
+        // Close menu when clicking on a link
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', closeMenu, false);
+        });
+
+        // Close menu when clicking on overlay
+        if (overlay) {
+            overlay.addEventListener('click', closeMenu, false);
+        }
+
+        // Close menu on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+                closeMenu();
+            }
+        });
+    } catch (error) {
+        console.error('Error initializing mobile menu:', error);
+    }
+})();
 
 // Mobile Menu Toggle - Event listeners
 (function() {
@@ -270,81 +396,6 @@ window.toggleMobileMenu = function(e) {
     });
 })();
 
-// Hero Carousel
-const heroCarousel = document.querySelector('.hero-carousel');
-if (heroCarousel) {
-    const slides = heroCarousel.querySelectorAll('.carousel-slide:not(.fallback)');
-    const dotsContainer = document.querySelector('.carousel-dots');
-    let currentSlide = 0;
-    let carouselInterval;
-
-    // Only proceed if we have slides
-    if (slides.length > 0) {
-        // Ensure first slide is active
-        slides[0].classList.add('active');
-
-        // Create dots for navigation
-        if (slides.length > 1 && dotsContainer) {
-            slides.forEach((slide, index) => {
-                const dot = document.createElement('button');
-                dot.className = 'carousel-dot';
-                dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
-                if (index === 0) dot.classList.add('active');
-                dot.addEventListener('click', () => goToSlide(index));
-                dotsContainer.appendChild(dot);
-            });
-        } else if (dotsContainer) {
-            dotsContainer.style.display = 'none';
-        }
-
-        // Auto-advance carousel every 3 seconds if multiple slides
-        if (slides.length > 1) {
-            function startCarousel() {
-                carouselInterval = setInterval(() => {
-                    nextSlide();
-                }, 3000);
-            }
-
-            function stopCarousel() {
-                if (carouselInterval) {
-                    clearInterval(carouselInterval);
-                }
-            }
-
-            // Start the carousel
-            startCarousel();
-            
-            // Pause on hover
-            heroCarousel.addEventListener('mouseenter', stopCarousel);
-            heroCarousel.addEventListener('mouseleave', startCarousel);
-        }
-    }
-
-    function goToSlide(index) {
-        if (slides.length === 0) return;
-
-        // Remove active class from all slides and dots
-        slides.forEach(slide => slide.classList.remove('active'));
-        const dots = dotsContainer?.querySelectorAll('.carousel-dot');
-        dots?.forEach(dot => dot.classList.remove('active'));
-
-        // Add active class to current slide and dot
-        if (slides[index]) {
-            slides[index].classList.add('active');
-            if (dots && dots[index]) {
-                dots[index].classList.add('active');
-            }
-        }
-        currentSlide = index;
-    }
-
-    function nextSlide() {
-        if (slides.length > 1) {
-            const next = (currentSlide + 1) % slides.length;
-            goToSlide(next);
-        }
-    }
-}
 
 // Smooth scrolling for navigation links with offset for sticky navbar
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
