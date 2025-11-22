@@ -579,7 +579,10 @@ window.addEventListener('scroll', () => {
         const debugDiv = document.getElementById('fb-debug') || document.createElement('div');
         debugDiv.id = 'fb-debug';
         debugDiv.style.cssText = 'position:fixed;top:10px;right:10px;background:rgba(0,0,0,0.8);color:white;padding:10px;z-index:9999;font-size:12px;max-width:200px;';
-        debugDiv.innerHTML = `FB Width: ${containerWidth}px<br>Screen: ${window.innerWidth}px<br>Mobile: ${window.innerWidth <= 768}`;
+        const isChrome = /CriOS|Chrome/i.test(navigator.userAgent);
+        const sdkLoaded = window.FB ? 'Yes' : 'No';
+        const iframeExists = container.querySelector('.fb-page iframe') ? 'Yes' : 'No';
+        debugDiv.innerHTML = `FB Width: ${containerWidth}px<br>Screen: ${window.innerWidth}px<br>Mobile: ${window.innerWidth <= 768}<br>Chrome: ${isChrome}<br>SDK: ${sdkLoaded}<br>Iframe: ${iframeExists}`;
         if (!document.getElementById('fb-debug')) {
             document.body.appendChild(debugDiv);
         }
@@ -593,14 +596,53 @@ window.addEventListener('scroll', () => {
             fbPage.setAttribute('data-width', width.toString());
             
             // Force re-render Facebook plugin
+            const isChrome = /CriOS|Chrome/i.test(navigator.userAgent);
+            
             if (window.FB) {
                 console.log('Facebook SDK found, parsing XFBML');
-                window.FB.XFBML.parse(container);
+                try {
+                    window.FB.XFBML.parse(container);
+                } catch (e) {
+                    console.error('Error parsing XFBML:', e);
+                }
+                
+                // Chrome-specific: Force re-parse after a delay
+                if (isChrome) {
+                    setTimeout(function() {
+                        if (window.FB) {
+                            console.log('Chrome: Re-parsing Facebook XFBML');
+                            try {
+                                window.FB.XFBML.parse(container);
+                            } catch (e) {
+                                console.error('Chrome re-parse error:', e);
+                            }
+                        }
+                    }, 1500);
+                }
             } else {
                 console.warn('Facebook SDK not loaded yet');
+                // If SDK not loaded and we're in Chrome, try to wait longer
+                if (isChrome) {
+                    const checkSDK = setInterval(function() {
+                        if (window.FB) {
+                            console.log('Chrome: SDK loaded, parsing XFBML');
+                            clearInterval(checkSDK);
+                            try {
+                                window.FB.XFBML.parse(container);
+                            } catch (e) {
+                                console.error('Chrome parse error:', e);
+                            }
+                        }
+                    }, 500);
+                    setTimeout(function() {
+                        clearInterval(checkSDK);
+                    }, 10000);
+                }
             }
             
             // Scale the iframe if container is wider than 500px (desktop only)
+            // Chrome needs longer timeout
+            const iframeTimeout = isChrome ? 3000 : 2000;
             setTimeout(function() {
                 const iframe = container.querySelector('.fb-page iframe');
                 if (iframe) {
@@ -617,8 +659,19 @@ window.addEventListener('scroll', () => {
                     }
                 } else {
                     console.warn('Facebook iframe not found after timeout');
+                    // Chrome: Try one more time
+                    if (isChrome && window.FB) {
+                        console.log('Chrome: Retrying Facebook parse');
+                        setTimeout(function() {
+                            try {
+                                window.FB.XFBML.parse(container);
+                            } catch (e) {
+                                console.error('Chrome retry error:', e);
+                            }
+                        }, 1000);
+                    }
                 }
-            }, 2000); // Wait for Facebook to render
+            }, iframeTimeout);
         } else {
             console.warn('Container width is 0 or invalid');
         }
