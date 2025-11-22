@@ -129,6 +129,7 @@
 
         function toggleMenu() {
             const isExpanded = mobileMenuToggle.getAttribute('aria-expanded') === 'true';
+            const navbar = document.querySelector('.navbar');
             
             if (isExpanded) {
                 // Close menu
@@ -136,12 +137,16 @@
                 navLinks.classList.remove('active');
                 if (overlay) overlay.classList.remove('active');
                 document.body.style.overflow = '';
+                document.documentElement.style.overflow = '';
+                if (navbar) navbar.classList.remove('menu-open');
             } else {
                 // Open menu
                 mobileMenuToggle.setAttribute('aria-expanded', 'true');
                 navLinks.classList.add('active');
                 if (overlay) overlay.classList.add('active');
                 document.body.style.overflow = 'hidden';
+                document.documentElement.style.overflow = 'hidden';
+                if (navbar) navbar.classList.add('menu-open');
             }
         }
 
@@ -155,30 +160,39 @@
         // Close on link click
         navLinks.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', function() {
+                const navbar = document.querySelector('.navbar');
                 mobileMenuToggle.setAttribute('aria-expanded', 'false');
                 navLinks.classList.remove('active');
                 if (overlay) overlay.classList.remove('active');
                 document.body.style.overflow = '';
+                document.documentElement.style.overflow = '';
+                if (navbar) navbar.classList.remove('menu-open');
             });
         });
 
         // Close on overlay click
         if (overlay) {
             overlay.addEventListener('click', function() {
+                const navbar = document.querySelector('.navbar');
                 mobileMenuToggle.setAttribute('aria-expanded', 'false');
                 navLinks.classList.remove('active');
                 overlay.classList.remove('active');
                 document.body.style.overflow = '';
+                document.documentElement.style.overflow = '';
+                if (navbar) navbar.classList.remove('menu-open');
             });
         }
 
         // Close on escape key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+                const navbar = document.querySelector('.navbar');
                 mobileMenuToggle.setAttribute('aria-expanded', 'false');
                 navLinks.classList.remove('active');
                 if (overlay) overlay.classList.remove('active');
                 document.body.style.overflow = '';
+                document.documentElement.style.overflow = '';
+                if (navbar) navbar.classList.remove('menu-open');
             }
         });
     }

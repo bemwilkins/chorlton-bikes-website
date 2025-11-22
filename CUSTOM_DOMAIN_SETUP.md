@@ -69,10 +69,38 @@ Note: CNAME records typically don't work for root domains (apex domains) like `c
 - Typically takes 1-2 hours
 - You can check propagation status at: https://www.whatsmydns.net/
 
-## Step 4: Verify Setup
+## Step 4: Handle www Subdomain (Optional)
+
+GitHub may automatically detect `www.chorltonbikes.coop` as an alternate domain. You have two options:
+
+### Option A: Set Up www (Recommended)
+
+If you want both `chorltonbikes.coop` and `www.chorltonbikes.coop` to work:
+
+1. Go to Gandi.net DNS management
+2. Add a **CNAME record**:
+   - **Type**: CNAME
+   - **Name**: www
+   - **Value**: `bemwilkins.github.io`
+   - **TTL**: 3600
+3. **Remove any existing www records** (A records or other CNAME records)
+4. Save changes
+5. Wait 5-10 minutes for DNS propagation
+6. GitHub will automatically detect and verify the www subdomain
+
+### Option B: Remove www from GitHub
+
+If you only want `chorltonbikes.coop` (no www):
+
+1. Go to GitHub Pages settings
+2. In the custom domain field, ensure only `chorltonbikes.coop` is listed
+3. Remove `www.chorltonbikes.coop` if it appears
+4. Save changes
+
+## Step 5: Verify Setup
 
 1. After DNS propagates, go back to GitHub Pages settings
-2. You should see a green checkmark next to your custom domain
+2. You should see a green checkmark next to your custom domain(s)
 3. GitHub will automatically set up HTTPS/SSL (this may take a few hours)
 4. Visit `https://chorltonbikes.coop` to verify it's working
 

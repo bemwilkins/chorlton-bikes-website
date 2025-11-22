@@ -70,10 +70,18 @@ body {
     position: -webkit-sticky;
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: 1003; /* Higher than mobile menu to stay on top */
     padding: 1rem 0;
     width: 100%;
     margin: 0;
+}
+
+/* Ensure navbar stays fixed when menu is open */
+.navbar.menu-open {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
 }
 
 .navbar .container {
@@ -1725,7 +1733,7 @@ section {
 
     .mobile-menu-toggle {
         display: flex !important;
-        z-index: 1002 !important;
+        z-index: 1004 !important; /* Higher than navbar to ensure it's clickable */
         pointer-events: auto !important;
         -webkit-tap-highlight-color: transparent;
     }
