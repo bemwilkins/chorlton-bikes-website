@@ -657,72 +657,11 @@ window.addEventListener('scroll', () => {
             setTimeout(function() {
                 const iframe = container.querySelector('.fb-page iframe');
                 if (iframe) {
-                    const iframeWidth = iframe.offsetWidth;
-                    const iframeHeight = iframe.offsetHeight;
-                    const computedStyle = window.getComputedStyle(iframe);
-                    const display = computedStyle.display;
-                    const visibility = computedStyle.visibility;
-                    const opacity = computedStyle.opacity;
-                    const zIndex = computedStyle.zIndex;
-                    const position = computedStyle.position;
-                    const top = computedStyle.top;
-                    const left = computedStyle.left;
-                    
-                    // Check parent elements
+                    // Force visibility on iframe and parents
                     const parentSpan = iframe.closest('span');
                     const parentFbPage = iframe.closest('.fb-page');
                     const parentContainer = iframe.closest('.social-feed-embed');
                     
-                    const parentSpanStyle = parentSpan ? window.getComputedStyle(parentSpan) : null;
-                    const parentFbPageStyle = parentFbPage ? window.getComputedStyle(parentFbPage) : null;
-                    const parentContainerStyle = parentContainer ? window.getComputedStyle(parentContainer) : null;
-                    
-                    console.log('Facebook iframe found:', {
-                        width: iframeWidth,
-                        height: iframeHeight,
-                        display: display,
-                        visibility: visibility,
-                        opacity: opacity,
-                        zIndex: zIndex,
-                        position: position,
-                        top: top,
-                        left: left,
-                        src: iframe.src ? iframe.src.substring(0, 80) : 'no src',
-                        parentSpan: {
-                            display: parentSpanStyle ? parentSpanStyle.display : 'N/A',
-                            visibility: parentSpanStyle ? parentSpanStyle.visibility : 'N/A',
-                            opacity: parentSpanStyle ? parentSpanStyle.opacity : 'N/A',
-                            width: parentSpan ? parentSpan.offsetWidth : 'N/A',
-                            height: parentSpan ? parentSpan.offsetHeight : 'N/A'
-                        },
-                        parentFbPage: {
-                            display: parentFbPageStyle ? parentFbPageStyle.display : 'N/A',
-                            visibility: parentFbPageStyle ? parentFbPageStyle.visibility : 'N/A',
-                            opacity: parentFbPageStyle ? parentFbPageStyle.opacity : 'N/A',
-                            width: parentFbPage ? parentFbPage.offsetWidth : 'N/A',
-                            height: parentFbPage ? parentFbPage.offsetHeight : 'N/A'
-                        },
-                        parentContainer: {
-                            display: parentContainerStyle ? parentContainerStyle.display : 'N/A',
-                            visibility: parentContainerStyle ? parentContainerStyle.visibility : 'N/A',
-                            overflow: parentContainerStyle ? parentContainerStyle.overflow : 'N/A',
-                            width: parentContainer ? parentContainer.offsetWidth : 'N/A',
-                            height: parentContainer ? parentContainer.offsetHeight : 'N/A'
-                        }
-                    });
-                    
-                    // Update debug overlay with iframe details
-                    const debugDiv = document.getElementById('fb-debug');
-                    if (debugDiv) {
-                        const parentSpanDisplay = parentSpanStyle ? parentSpanStyle.display : 'N/A';
-                        const parentSpanVis = parentSpanStyle ? parentSpanStyle.visibility : 'N/A';
-                        const parentSpanW = parentSpan ? parentSpan.offsetWidth : 'N/A';
-                        const parentSpanH = parentSpan ? parentSpan.offsetHeight : 'N/A';
-                        const containerOverflow = parentContainerStyle ? parentContainerStyle.overflow : 'N/A';
-                        debugDiv.innerHTML = `FB Width: ${containerWidth}px<br>Screen: ${window.innerWidth}px<br>Mobile: ${window.innerWidth <= 768}<br>Chrome: ${isChrome}<br>SDK: ${window.FB ? 'Yes' : 'No'}<br>Iframe: Yes<br>IF W: ${iframeWidth}px<br>IF H: ${iframeHeight}px<br>Display: ${display}<br>Vis: ${visibility}<br>Opacity: ${opacity}<br>Pos: ${position}<br>Span D: ${parentSpanDisplay}<br>Span V: ${parentSpanVis}<br>Span W: ${parentSpanW}px<br>Span H: ${parentSpanH}px<br>Overflow: ${containerOverflow}`;
-                    }
-                    
-                    // Force visibility on iframe and parents
                     if (parentSpan) {
                         parentSpan.style.display = 'block';
                         parentSpan.style.visibility = 'visible';
@@ -858,7 +797,6 @@ window.addEventListener('scroll', () => {
                                     setTimeout(function() {
                                         if (window.FB) {
                                             window.FB.XFBML.parse();
-                                            console.log('Chrome: Facebook XFBML re-parsed');
                                         }
                                     }, 1000);
                                 }
@@ -871,8 +809,6 @@ window.addEventListener('scroll', () => {
             } catch (e) {
                 console.error('Error initializing Facebook SDK:', e);
             }
-        } else {
-            console.warn('Facebook SDK object not available');
         }
         // Call original if it existed
         if (originalFbAsyncInit && typeof originalFbAsyncInit === 'function') {
@@ -882,12 +818,15 @@ window.addEventListener('scroll', () => {
     
     // Also try to initialize if SDK is already loaded
     if (window.FB) {
-        console.log('Facebook SDK already loaded');
-        window.FB.init({
-            xfbml: true,
-            version: 'v18.0'
-        });
-        setTimeout(resizeFacebookPlugin, 1000);
+        try {
+            window.FB.init({
+                xfbml: true,
+                version: 'v18.0'
+            });
+            setTimeout(resizeFacebookPlugin, isChrome ? 2000 : 1000);
+        } catch (e) {
+            console.error('Error initializing pre-loaded SDK:', e);
+        }
     }
 })();
 
