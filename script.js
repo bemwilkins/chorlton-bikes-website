@@ -432,3 +432,239 @@ window.addEventListener('scroll', () => {
     lastScroll = currentScroll;
 });
 
+// Partners Carousel - Load logos dynamically
+(function() {
+    const partnersCarousel = document.getElementById('partnersCarousel');
+    if (!partnersCarousel) return;
+
+    // ============================================
+    // ADD YOUR PARTNER LOGO FILENAMES HERE
+    // ============================================
+    // Simply add the filename of each logo you place in assets/images/partners/
+    const partnerLogos = [
+        'barbakan.jpg',
+        'british-cycling.png',
+        'care-uk.webp',
+        'chorlton-cheesmongers.png',
+        'chorlton-traders.webp',
+        'crack-magazine.png',
+        'cracking-good-food.png',
+        'emmelines-pantry.png',
+        'feedr.svg',
+        'forest-foods.png',
+        'holy-grain.png',
+        'live-from-wythenshaw-park.png',
+        'makers-market.jpeg',
+        'manchester-south-central-foodbank.webp',
+        'mcqueen-independent.avif',
+        'mcr-active.png',
+        'nhs.png',
+        'quids-in.jpeg',
+        'refugee-aid.png',
+        'tea-hive.png',
+        'tfgm.png',
+        'the-8th-day.png',
+        'unicorn-grocery.jpeg',
+        'university-of-manchester.png',
+        'veg-box-people.png'
+    ];
+    // ============================================
+
+    // Function to load logos
+    function loadPartnerLogos() {
+        if (partnerLogos.length === 0) {
+            // Show helpful message if no logos are configured
+            const message = document.createElement('div');
+            message.style.cssText = 'text-align: center; padding: 3rem; color: var(--text-light);';
+            message.innerHTML = `
+                <p><strong>No partner logos configured yet.</strong></p>
+                <p style="margin-top: 1rem; font-size: 0.9rem;">
+                    Add logos to <code>assets/images/partners/</code> folder<br>
+                    and update the <code>partnerLogos</code> array in <code>script.js</code>
+                </p>
+            `;
+            partnersCarousel.appendChild(message);
+            return;
+        }
+
+        partnerLogos.forEach((logo, index) => {
+            createLogoElement(logo, index);
+        });
+
+        // Duplicate logos for seamless infinite scroll
+        duplicateLogos();
+    }
+
+    function createLogoElement(filename, index) {
+        const logoDiv = document.createElement('div');
+        logoDiv.className = 'partner-logo';
+        logoDiv.setAttribute('data-index', index);
+
+        const img = document.createElement('img');
+        img.src = `assets/images/partners/${filename}`;
+        img.alt = `Partner logo ${index + 1}`;
+        img.loading = 'lazy';
+        
+        // Handle image load errors
+        img.onerror = function() {
+            console.warn(`Failed to load partner logo: ${filename}`);
+            logoDiv.style.display = 'none';
+        };
+
+        logoDiv.appendChild(img);
+        partnersCarousel.appendChild(logoDiv);
+    }
+
+    function duplicateLogos() {
+        // Clone all logos for seamless infinite scroll
+        const logos = partnersCarousel.querySelectorAll('.partner-logo');
+        if (logos.length === 0) return;
+
+        logos.forEach(logo => {
+            const clone = logo.cloneNode(true);
+            partnersCarousel.appendChild(clone);
+        });
+
+        // Update animation duration based on number of logos
+        updateAnimationDuration();
+    }
+
+    function updateAnimationDuration() {
+        const logos = partnersCarousel.querySelectorAll('.partner-logo');
+        const logoCount = logos.length;
+        if (logoCount === 0) return;
+
+        // Calculate duration: ~2 seconds per logo for smooth scrolling
+        // We duplicate logos, so we only need to animate through half
+        const originalLogoCount = logoCount / 2;
+        const duration = originalLogoCount * 2;
+        partnersCarousel.style.setProperty('--animation-duration', `${duration}s`);
+        
+        // Update keyframe to move by half the total width (since we duplicate)
+        const totalWidth = logoCount * (200 + 48); // 200px width + 3rem (48px) gap
+        const moveDistance = totalWidth / 2;
+        
+        // Update CSS custom property for animation distance
+        document.documentElement.style.setProperty('--carousel-move-distance', `-${moveDistance}px`);
+    }
+
+    // Initialize on page load
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadPartnerLogos);
+    } else {
+        loadPartnerLogos();
+    }
+})();
+
+// Facebook Page Plugin - Ensure responsive scaling
+(function() {
+    function resizeFacebookPlugin() {
+        const fbPage = document.querySelector('.fb-page');
+        if (fbPage) {
+            const container = fbPage.closest('.social-feed-embed');
+            if (container) {
+                const containerWidth = container.offsetWidth;
+                if (containerWidth > 0) {
+                    // Facebook max width is 500px, set to container width (capped at 500)
+                    const width = Math.min(containerWidth, 500);
+                    fbPage.setAttribute('data-width', width);
+                    
+                    // Scale the iframe if container is wider than 500px
+                    setTimeout(function() {
+                        const iframe = container.querySelector('.fb-page iframe');
+                        if (iframe && containerWidth > 500) {
+                            const scale = containerWidth / 500;
+                            iframe.style.transform = `scale(${scale})`;
+                            iframe.style.transformOrigin = 'top left';
+                            container.style.height = `${600 * scale}px`;
+                        } else if (iframe) {
+                            iframe.style.transform = 'scale(1)';
+                            container.style.height = '600px';
+                        }
+                    }, 1500); // Wait for Facebook to render
+                    
+                    // Re-render Facebook plugin if SDK is loaded
+                    if (window.FB) {
+                        window.FB.XFBML.parse();
+                    }
+                }
+            }
+        }
+    }
+
+    // Resize on load and window resize
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(resizeFacebookPlugin, 1000); // Wait for Facebook SDK to load
+        });
+    } else {
+        setTimeout(resizeFacebookPlugin, 1000);
+    }
+
+    window.addEventListener('resize', function() {
+        clearTimeout(window.fbResizeTimeout);
+        window.fbResizeTimeout = setTimeout(resizeFacebookPlugin, 250);
+    });
+
+    // Also resize after Facebook SDK loads
+    if (typeof window.fbAsyncInit === 'undefined') {
+        window.fbAsyncInit = function() {
+            if (window.FB) {
+                window.FB.init({
+                    xfbml: true,
+                    version: 'v18.0'
+                });
+                setTimeout(resizeFacebookPlugin, 500);
+            }
+        };
+    }
+})();
+
+// Instagram Feed - Force 2-column layout
+(function() {
+    function forceInstagram2Columns() {
+        const instagramBlockquote = document.querySelector('.instagram-embed-container blockquote');
+        if (!instagramBlockquote) return;
+
+        // Wait for Instagram's embed.js to render content
+        const checkInterval = setInterval(function() {
+            const instagramContent = instagramBlockquote.querySelector('div');
+            if (instagramContent) {
+                // Try to find and modify grid layouts
+                const allDivs = instagramBlockquote.querySelectorAll('div');
+                allDivs.forEach(function(div) {
+                    const computedStyle = window.getComputedStyle(div);
+                    if (computedStyle.display === 'grid' || computedStyle.gridTemplateColumns) {
+                        div.style.setProperty('grid-template-columns', 'repeat(2, 1fr)', 'important');
+                    }
+                });
+                
+                clearInterval(checkInterval);
+            }
+        }, 500);
+
+        // Stop checking after 10 seconds
+        setTimeout(function() {
+            clearInterval(checkInterval);
+        }, 10000);
+    }
+
+    // Run after Instagram embed script loads
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(forceInstagram2Columns, 2000);
+        });
+    } else {
+        setTimeout(forceInstagram2Columns, 2000);
+    }
+
+    // Also run when Instagram embed script loads
+    const instagramScript = document.querySelector('script[src*="instagram.com/embed.js"]');
+    if (instagramScript) {
+        instagramScript.addEventListener('load', function() {
+            setTimeout(forceInstagram2Columns, 1000);
+        });
+    }
+})();
+
+
