@@ -575,6 +575,15 @@ window.addEventListener('scroll', () => {
         const containerWidth = container.offsetWidth || container.clientWidth || container.getBoundingClientRect().width || window.innerWidth;
         console.log('Facebook container width:', containerWidth);
         
+        // Also log to page for mobile debugging
+        const debugDiv = document.getElementById('fb-debug') || document.createElement('div');
+        debugDiv.id = 'fb-debug';
+        debugDiv.style.cssText = 'position:fixed;top:10px;right:10px;background:rgba(0,0,0,0.8);color:white;padding:10px;z-index:9999;font-size:12px;max-width:200px;';
+        debugDiv.innerHTML = `FB Width: ${containerWidth}px<br>Screen: ${window.innerWidth}px<br>Mobile: ${window.innerWidth <= 768}`;
+        if (!document.getElementById('fb-debug')) {
+            document.body.appendChild(debugDiv);
+        }
+        
         if (containerWidth > 0) {
             // Facebook max width is 500px, set to container width (capped at 500)
             // On mobile, use the full container width (minimum 280px)
@@ -714,6 +723,42 @@ window.addEventListener('scroll', () => {
             setTimeout(forceInstagram2Columns, 1000);
         });
     }
+})();
+
+// Stats Grid Debug - Show width info on mobile (visible overlay)
+(function() {
+    function showStatsDebug() {
+        const statsGrid = document.getElementById('impact-stats');
+        const debugDiv = document.getElementById('stats-debug');
+        if (statsGrid && debugDiv) {
+            const gridWidth = statsGrid.offsetWidth;
+            const screenWidth = window.innerWidth;
+            const container = statsGrid.closest('.container');
+            const containerWidth = container ? container.offsetWidth : 0;
+            
+            debugDiv.innerHTML = `Grid: ${gridWidth}px<br>Screen: ${screenWidth}px<br>Container: ${containerWidth}px`;
+            debugDiv.classList.add('active');
+            
+            // Hide after 5 seconds
+            setTimeout(function() {
+                debugDiv.classList.remove('active');
+            }, 5000);
+        }
+    }
+    
+    // Show debug on load
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(showStatsDebug, 1000);
+        });
+    } else {
+        setTimeout(showStatsDebug, 1000);
+    }
+    
+    // Show on resize
+    window.addEventListener('resize', function() {
+        setTimeout(showStatsDebug, 100);
+    });
 })();
 
 
