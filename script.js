@@ -653,6 +653,18 @@ window.addEventListener('scroll', () => {
                     const visibility = computedStyle.visibility;
                     const opacity = computedStyle.opacity;
                     const zIndex = computedStyle.zIndex;
+                    const position = computedStyle.position;
+                    const top = computedStyle.top;
+                    const left = computedStyle.left;
+                    
+                    // Check parent elements
+                    const parentSpan = iframe.closest('span');
+                    const parentFbPage = iframe.closest('.fb-page');
+                    const parentContainer = iframe.closest('.social-feed-embed');
+                    
+                    const parentSpanStyle = parentSpan ? window.getComputedStyle(parentSpan) : null;
+                    const parentFbPageStyle = parentFbPage ? window.getComputedStyle(parentFbPage) : null;
+                    const parentContainerStyle = parentContainer ? window.getComputedStyle(parentContainer) : null;
                     
                     console.log('Facebook iframe found:', {
                         width: iframeWidth,
@@ -661,25 +673,86 @@ window.addEventListener('scroll', () => {
                         visibility: visibility,
                         opacity: opacity,
                         zIndex: zIndex,
-                        src: iframe.src ? iframe.src.substring(0, 50) + '...' : 'no src'
+                        position: position,
+                        top: top,
+                        left: left,
+                        src: iframe.src ? iframe.src.substring(0, 80) : 'no src',
+                        parentSpan: {
+                            display: parentSpanStyle ? parentSpanStyle.display : 'N/A',
+                            visibility: parentSpanStyle ? parentSpanStyle.visibility : 'N/A',
+                            opacity: parentSpanStyle ? parentSpanStyle.opacity : 'N/A',
+                            width: parentSpan ? parentSpan.offsetWidth : 'N/A',
+                            height: parentSpan ? parentSpan.offsetHeight : 'N/A'
+                        },
+                        parentFbPage: {
+                            display: parentFbPageStyle ? parentFbPageStyle.display : 'N/A',
+                            visibility: parentFbPageStyle ? parentFbPageStyle.visibility : 'N/A',
+                            opacity: parentFbPageStyle ? parentFbPageStyle.opacity : 'N/A',
+                            width: parentFbPage ? parentFbPage.offsetWidth : 'N/A',
+                            height: parentFbPage ? parentFbPage.offsetHeight : 'N/A'
+                        },
+                        parentContainer: {
+                            display: parentContainerStyle ? parentContainerStyle.display : 'N/A',
+                            visibility: parentContainerStyle ? parentContainerStyle.visibility : 'N/A',
+                            overflow: parentContainerStyle ? parentContainerStyle.overflow : 'N/A',
+                            width: parentContainer ? parentContainer.offsetWidth : 'N/A',
+                            height: parentContainer ? parentContainer.offsetHeight : 'N/A'
+                        }
                     });
                     
                     // Update debug overlay with iframe details
                     const debugDiv = document.getElementById('fb-debug');
                     if (debugDiv) {
-                        debugDiv.innerHTML = `FB Width: ${containerWidth}px<br>Screen: ${window.innerWidth}px<br>Mobile: ${window.innerWidth <= 768}<br>Chrome: ${isChrome}<br>SDK: ${window.FB ? 'Yes' : 'No'}<br>Iframe: Yes<br>IF W: ${iframeWidth}px<br>IF H: ${iframeHeight}px<br>Display: ${display}<br>Vis: ${visibility}<br>Opacity: ${opacity}`;
+                        const parentSpanDisplay = parentSpanStyle ? parentSpanStyle.display : 'N/A';
+                        const parentSpanVis = parentSpanStyle ? parentSpanStyle.visibility : 'N/A';
+                        const parentSpanW = parentSpan ? parentSpan.offsetWidth : 'N/A';
+                        const parentSpanH = parentSpan ? parentSpan.offsetHeight : 'N/A';
+                        const containerOverflow = parentContainerStyle ? parentContainerStyle.overflow : 'N/A';
+                        debugDiv.innerHTML = `FB Width: ${containerWidth}px<br>Screen: ${window.innerWidth}px<br>Mobile: ${window.innerWidth <= 768}<br>Chrome: ${isChrome}<br>SDK: ${window.FB ? 'Yes' : 'No'}<br>Iframe: Yes<br>IF W: ${iframeWidth}px<br>IF H: ${iframeHeight}px<br>Display: ${display}<br>Vis: ${visibility}<br>Opacity: ${opacity}<br>Pos: ${position}<br>Span D: ${parentSpanDisplay}<br>Span V: ${parentSpanVis}<br>Span W: ${parentSpanW}px<br>Span H: ${parentSpanH}px<br>Overflow: ${containerOverflow}`;
                     }
                     
-                    // Force visibility if hidden
-                    if (display === 'none' || visibility === 'hidden' || opacity === '0' || iframeWidth === 0 || iframeHeight === 0) {
-                        console.warn('Iframe appears hidden or has zero dimensions, forcing visibility');
-                        iframe.style.display = 'block';
-                        iframe.style.visibility = 'visible';
-                        iframe.style.opacity = '1';
-                        iframe.style.width = width + 'px';
-                        iframe.style.height = '600px';
-                        iframe.style.minWidth = width + 'px';
-                        iframe.style.minHeight = '600px';
+                    // Force visibility on iframe and parents
+                    if (parentSpan) {
+                        parentSpan.style.display = 'block';
+                        parentSpan.style.visibility = 'visible';
+                        parentSpan.style.opacity = '1';
+                        parentSpan.style.width = '100%';
+                        parentSpan.style.height = '600px';
+                        parentSpan.style.minWidth = width + 'px';
+                        parentSpan.style.minHeight = '600px';
+                        parentSpan.style.position = 'relative';
+                        parentSpan.style.zIndex = '1';
+                    }
+                    
+                    if (parentFbPage) {
+                        parentFbPage.style.display = 'block';
+                        parentFbPage.style.visibility = 'visible';
+                        parentFbPage.style.opacity = '1';
+                        parentFbPage.style.width = '100%';
+                        parentFbPage.style.height = '600px';
+                        parentFbPage.style.minWidth = width + 'px';
+                        parentFbPage.style.minHeight = '600px';
+                        parentFbPage.style.position = 'relative';
+                        parentFbPage.style.zIndex = '1';
+                    }
+                    
+                    // Force iframe visibility
+                    iframe.style.display = 'block';
+                    iframe.style.visibility = 'visible';
+                    iframe.style.opacity = '1';
+                    iframe.style.width = width + 'px';
+                    iframe.style.height = '600px';
+                    iframe.style.minWidth = width + 'px';
+                    iframe.style.minHeight = '600px';
+                    iframe.style.position = 'relative';
+                    iframe.style.zIndex = '2';
+                    iframe.style.top = '0';
+                    iframe.style.left = '0';
+                    
+                    // Ensure container allows content
+                    if (parentContainer) {
+                        parentContainer.style.overflow = 'visible';
+                        parentContainer.style.position = 'relative';
                     }
                     
                     if (!isMobile && containerWidth > 500) {
