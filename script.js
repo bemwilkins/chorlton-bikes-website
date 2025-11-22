@@ -325,13 +325,10 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         const targetId = this.getAttribute('href');
         const target = document.querySelector(targetId);
         if (target) {
-            const navbar = document.querySelector('.navbar');
-            const navbarHeight = navbar ? navbar.offsetHeight : 0;
-            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navbarHeight - 20;
-            
-            window.scrollTo({
-                top: targetPosition,
-                behavior: 'smooth'
+            // Use scrollIntoView which respects CSS scroll-padding-top
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
             });
         }
     });

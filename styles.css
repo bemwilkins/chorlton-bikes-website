@@ -34,9 +34,16 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 120px;
+    scroll-padding-top: 122px; /* Navbar height: 90px logo + 16px top padding + 16px bottom padding */
     overflow-x: hidden;
     height: 100%;
+}
+
+/* Mobile scroll offset - navbar is smaller on mobile */
+@media (max-width: 768px) {
+    html {
+        scroll-padding-top: 82px; /* Mobile navbar height: 50px logo + 16px top padding + 16px bottom padding */
+    }
 }
 
 body {
@@ -1193,7 +1200,7 @@ section {
 .pathway-content p {
     color: var(--text-light);
     line-height: 1.8;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 .pathway-content ul {
