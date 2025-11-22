@@ -773,14 +773,12 @@ window.addEventListener('scroll', () => {
     const isChrome = /CriOS|Chrome/i.test(navigator.userAgent);
     const originalFbAsyncInit = window.fbAsyncInit;
     window.fbAsyncInit = function() {
-        console.log('Facebook SDK async init called', 'Chrome:', isChrome);
         if (window.FB) {
             try {
                 window.FB.init({
                     xfbml: true,
                     version: 'v18.0'
                 });
-                console.log('Facebook SDK initialized');
                 // Chrome needs more time
                 const initDelay = isChrome ? 1500 : 500;
                 const parseDelay = isChrome ? 2000 : 1000;
@@ -791,7 +789,6 @@ window.addEventListener('scroll', () => {
                         if (window.FB) {
                             try {
                                 window.FB.XFBML.parse();
-                                console.log('Facebook XFBML parsed');
                                 // Chrome: One more retry
                                 if (isChrome) {
                                     setTimeout(function() {
