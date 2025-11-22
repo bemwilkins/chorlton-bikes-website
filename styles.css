@@ -398,6 +398,7 @@ section {
     width: 100%;
     box-sizing: border-box;
     padding: 0;
+    overflow: hidden;
 }
 
 .stat {
@@ -1034,11 +1035,18 @@ section {
 @media (max-width: 768px) {
     .social-feed-embed .fb-page {
         width: 100% !important;
+        min-width: 280px !important;
+    }
+    
+    .social-feed-embed .fb-page span {
+        width: 100% !important;
+        min-width: 280px !important;
     }
     
     .social-feed-embed .fb-page iframe {
         width: 100% !important;
-        min-width: 100% !important;
+        min-width: 280px !important;
+        max-width: 100% !important;
     }
 }
 
@@ -1492,12 +1500,18 @@ section {
 
     .impact-stats {
         grid-template-columns: repeat(3, 1fr);
-        gap: 0.75rem;
+        gap: 0.5rem;
         max-width: 100%;
         width: 100%;
         padding: 0;
         box-sizing: border-box;
         margin: 0 auto;
+        overflow: hidden;
+    }
+    
+    .stat {
+        min-width: 0;
+        overflow: hidden;
     }
 
     .stat {
@@ -1570,11 +1584,18 @@ section {
 
     .impact-stats {
         grid-template-columns: repeat(3, 1fr);
-        gap: 0.5rem;
+        gap: 0.4rem;
         width: 100%;
         padding: 0;
         box-sizing: border-box;
         margin: 0 auto;
+        overflow: hidden;
+    }
+    
+    .stat {
+        min-width: 0;
+        overflow: hidden;
+        padding: 0.5rem;
     }
 
     .stat {

@@ -563,13 +563,13 @@ window.addEventListener('scroll', () => {
         if (fbPage) {
             const container = fbPage.closest('.social-feed-embed');
             if (container) {
-                const containerWidth = container.offsetWidth;
+                const containerWidth = container.offsetWidth || container.clientWidth;
                 if (containerWidth > 0) {
                     // Facebook max width is 500px, set to container width (capped at 500)
                     // On mobile, use the full container width (minimum 280px)
                     const isMobile = window.innerWidth <= 768;
-                    const width = isMobile ? Math.max(containerWidth, 280) : Math.min(containerWidth, 500);
-                    fbPage.setAttribute('data-width', width);
+                    const width = isMobile ? Math.max(Math.floor(containerWidth), 280) : Math.min(Math.floor(containerWidth), 500);
+                    fbPage.setAttribute('data-width', width.toString());
                     
                     // Scale the iframe if container is wider than 500px (desktop only)
                     setTimeout(function() {
