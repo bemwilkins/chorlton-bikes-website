@@ -678,12 +678,15 @@ window.addEventListener('scroll', () => {
     }
 
     // Resize on load and window resize
+    const isChromeBrowser = /CriOS|Chrome/i.test(navigator.userAgent);
+    const initialDelay = isChromeBrowser ? 2000 : 1000; // Chrome needs more time
+    
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(resizeFacebookPlugin, 1000); // Wait for Facebook SDK to load
+            setTimeout(resizeFacebookPlugin, initialDelay);
         });
     } else {
-        setTimeout(resizeFacebookPlugin, 1000);
+        setTimeout(resizeFacebookPlugin, initialDelay);
     }
 
     window.addEventListener('resize', function() {
@@ -692,25 +695,46 @@ window.addEventListener('scroll', () => {
     });
 
     // Also resize after Facebook SDK loads
+    const isChrome = /CriOS|Chrome/i.test(navigator.userAgent);
     const originalFbAsyncInit = window.fbAsyncInit;
     window.fbAsyncInit = function() {
-        console.log('Facebook SDK async init called');
+        console.log('Facebook SDK async init called', 'Chrome:', isChrome);
         if (window.FB) {
-            window.FB.init({
-                xfbml: true,
-                version: 'v18.0'
-            });
-            console.log('Facebook SDK initialized');
-            setTimeout(function() {
-                resizeFacebookPlugin();
-                // Try parsing again after a delay
+            try {
+                window.FB.init({
+                    xfbml: true,
+                    version: 'v18.0'
+                });
+                console.log('Facebook SDK initialized');
+                // Chrome needs more time
+                const initDelay = isChrome ? 1500 : 500;
+                const parseDelay = isChrome ? 2000 : 1000;
                 setTimeout(function() {
-                    if (window.FB) {
-                        window.FB.XFBML.parse();
-                        console.log('Facebook XFBML parsed');
-                    }
-                }, 1000);
-            }, 500);
+                    resizeFacebookPlugin();
+                    // Try parsing again after a delay (longer for Chrome)
+                    setTimeout(function() {
+                        if (window.FB) {
+                            try {
+                                window.FB.XFBML.parse();
+                                console.log('Facebook XFBML parsed');
+                                // Chrome: One more retry
+                                if (isChrome) {
+                                    setTimeout(function() {
+                                        if (window.FB) {
+                                            window.FB.XFBML.parse();
+                                            console.log('Chrome: Facebook XFBML re-parsed');
+                                        }
+                                    }, 1000);
+                                }
+                            } catch (e) {
+                                console.error('Error parsing XFBML:', e);
+                            }
+                        }
+                    }, parseDelay);
+                }, initDelay);
+            } catch (e) {
+                console.error('Error initializing Facebook SDK:', e);
+            }
         } else {
             console.warn('Facebook SDK object not available');
         }
