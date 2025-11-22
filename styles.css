@@ -391,7 +391,7 @@ section {
 
 .impact-stats {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1.5rem;
     max-width: 900px;
     margin: 0 auto;
@@ -413,6 +413,9 @@ section {
     align-items: center;
     aspect-ratio: 1 / 1;
     width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .stat-logo {
@@ -1499,8 +1502,8 @@ section {
     }
 
     .impact-stats {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 0.5rem;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.4rem;
         max-width: 100%;
         width: 100%;
         padding: 0;
@@ -1511,7 +1514,10 @@ section {
     
     .stat {
         min-width: 0;
+        max-width: 100%;
         overflow: hidden;
+        padding: 0.75rem;
+        box-sizing: border-box;
     }
 
     .stat {
@@ -1583,8 +1589,8 @@ section {
     }
 
     .impact-stats {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 0.4rem;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.3rem;
         width: 100%;
         padding: 0;
         box-sizing: border-box;
@@ -1594,8 +1600,10 @@ section {
     
     .stat {
         min-width: 0;
+        max-width: 100%;
         overflow: hidden;
         padding: 0.5rem;
+        box-sizing: border-box;
     }
 
     .stat {

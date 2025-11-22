@@ -560,40 +560,58 @@ window.addEventListener('scroll', () => {
 (function() {
     function resizeFacebookPlugin() {
         const fbPage = document.querySelector('.fb-page');
-        if (fbPage) {
-            const container = fbPage.closest('.social-feed-embed');
-            if (container) {
-                const containerWidth = container.offsetWidth || container.clientWidth;
-                if (containerWidth > 0) {
-                    // Facebook max width is 500px, set to container width (capped at 500)
-                    // On mobile, use the full container width (minimum 280px)
-                    const isMobile = window.innerWidth <= 768;
-                    const width = isMobile ? Math.max(Math.floor(containerWidth), 280) : Math.min(Math.floor(containerWidth), 500);
-                    fbPage.setAttribute('data-width', width.toString());
-                    
-                    // Scale the iframe if container is wider than 500px (desktop only)
-                    setTimeout(function() {
-                        const iframe = container.querySelector('.fb-page iframe');
-                        if (iframe) {
-                            if (!isMobile && containerWidth > 500) {
-                                const scale = containerWidth / 500;
-                                iframe.style.transform = `scale(${scale})`;
-                                iframe.style.transformOrigin = 'top left';
-                                container.style.height = `${600 * scale}px`;
-                            } else {
-                                iframe.style.transform = 'scale(1)';
-                                iframe.style.transformOrigin = 'top left';
-                                container.style.height = '600px';
-                            }
-                        }
-                    }, 1500); // Wait for Facebook to render
-                    
-                    // Re-render Facebook plugin if SDK is loaded
-                    if (window.FB) {
-                        window.FB.XFBML.parse();
-                    }
-                }
+        if (!fbPage) {
+            console.warn('Facebook page element not found');
+            return;
+        }
+        
+        const container = fbPage.closest('.social-feed-embed');
+        if (!container) {
+            console.warn('Facebook container not found');
+            return;
+        }
+        
+        // Get container width with multiple fallbacks
+        const containerWidth = container.offsetWidth || container.clientWidth || container.getBoundingClientRect().width || window.innerWidth;
+        console.log('Facebook container width:', containerWidth);
+        
+        if (containerWidth > 0) {
+            // Facebook max width is 500px, set to container width (capped at 500)
+            // On mobile, use the full container width (minimum 280px)
+            const isMobile = window.innerWidth <= 768;
+            const width = isMobile ? Math.max(Math.floor(containerWidth), 280) : Math.min(Math.floor(containerWidth), 500);
+            console.log('Setting Facebook width to:', width, 'isMobile:', isMobile);
+            fbPage.setAttribute('data-width', width.toString());
+            
+            // Force re-render Facebook plugin
+            if (window.FB) {
+                console.log('Facebook SDK found, parsing XFBML');
+                window.FB.XFBML.parse(container);
+            } else {
+                console.warn('Facebook SDK not loaded yet');
             }
+            
+            // Scale the iframe if container is wider than 500px (desktop only)
+            setTimeout(function() {
+                const iframe = container.querySelector('.fb-page iframe');
+                if (iframe) {
+                    console.log('Facebook iframe found, width:', iframe.offsetWidth);
+                    if (!isMobile && containerWidth > 500) {
+                        const scale = containerWidth / 500;
+                        iframe.style.transform = `scale(${scale})`;
+                        iframe.style.transformOrigin = 'top left';
+                        container.style.height = `${600 * scale}px`;
+                    } else {
+                        iframe.style.transform = 'scale(1)';
+                        iframe.style.transformOrigin = 'top left';
+                        container.style.height = '600px';
+                    }
+                } else {
+                    console.warn('Facebook iframe not found after timeout');
+                }
+            }, 2000); // Wait for Facebook to render
+        } else {
+            console.warn('Container width is 0 or invalid');
         }
     }
 
@@ -612,16 +630,42 @@ window.addEventListener('scroll', () => {
     });
 
     // Also resize after Facebook SDK loads
-    if (typeof window.fbAsyncInit === 'undefined') {
-        window.fbAsyncInit = function() {
-            if (window.FB) {
-                window.FB.init({
-                    xfbml: true,
-                    version: 'v18.0'
-                });
-                setTimeout(resizeFacebookPlugin, 500);
-            }
-        };
+    const originalFbAsyncInit = window.fbAsyncInit;
+    window.fbAsyncInit = function() {
+        console.log('Facebook SDK async init called');
+        if (window.FB) {
+            window.FB.init({
+                xfbml: true,
+                version: 'v18.0'
+            });
+            console.log('Facebook SDK initialized');
+            setTimeout(function() {
+                resizeFacebookPlugin();
+                // Try parsing again after a delay
+                setTimeout(function() {
+                    if (window.FB) {
+                        window.FB.XFBML.parse();
+                        console.log('Facebook XFBML parsed');
+                    }
+                }, 1000);
+            }, 500);
+        } else {
+            console.warn('Facebook SDK object not available');
+        }
+        // Call original if it existed
+        if (originalFbAsyncInit && typeof originalFbAsyncInit === 'function') {
+            originalFbAsyncInit();
+        }
+    };
+    
+    // Also try to initialize if SDK is already loaded
+    if (window.FB) {
+        console.log('Facebook SDK already loaded');
+        window.FB.init({
+            xfbml: true,
+            version: 'v18.0'
+        });
+        setTimeout(resizeFacebookPlugin, 1000);
     }
 })();
 
