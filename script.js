@@ -558,6 +558,35 @@ window.addEventListener('scroll', () => {
 
 // Facebook Page Plugin - Ensure responsive scaling
 (function() {
+    // Fallback for when Facebook embed is blocked (e.g., Chrome iOS)
+    function showFacebookFallback(container) {
+        // Check if fallback already exists
+        if (container.querySelector('.fb-fallback')) {
+            return;
+        }
+        
+        const fallback = document.createElement('div');
+        fallback.className = 'fb-fallback';
+        fallback.style.cssText = 'width:100%;height:600px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#f5f5f5;border-radius:8px;padding:2rem;text-align:center;';
+        fallback.innerHTML = `
+            <h3 style="margin-bottom:1rem;color:#333;">Follow Us on Facebook</h3>
+            <p style="margin-bottom:1.5rem;color:#666;">Visit our Facebook page to see the latest updates and community news.</p>
+            <a href="https://www.facebook.com/chorltonbikedeliveries" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               style="display:inline-block;padding:0.75rem 2rem;background:#1877f2;color:white;text-decoration:none;border-radius:6px;font-weight:bold;font-size:1.1rem;">
+                Visit Facebook Page
+            </a>
+        `;
+        
+        // Hide the Facebook embed and show fallback
+        const fbPage = container.querySelector('.fb-page');
+        if (fbPage) {
+            fbPage.style.display = 'none';
+        }
+        container.appendChild(fallback);
+    }
+
     function resizeFacebookPlugin() {
         const fbPage = document.querySelector('.fb-page');
         if (!fbPage) {
@@ -765,6 +794,24 @@ window.addEventListener('scroll', () => {
                         iframe.style.transformOrigin = 'top left';
                         container.style.height = '600px';
                     }
+                    
+                    // Check if iframe actually loaded content (Chrome iOS detection)
+                    // Wait a bit longer to see if content appears
+                    setTimeout(function() {
+                        const iframeStillEmpty = iframe.offsetHeight > 0 && iframe.contentWindow && 
+                                                 (!iframe.contentDocument || !iframe.contentDocument.body || 
+                                                  iframe.contentDocument.body.children.length === 0);
+                        
+                        // Check if iframe has a src but isn't showing content
+                        const hasSrcButNoContent = iframe.src && iframe.src.length > 0 && 
+                                                   (iframe.offsetWidth === 0 || iframe.offsetHeight === 0 || 
+                                                    !iframe.contentWindow);
+                        
+                        if (hasSrcButNoContent || (isChrome && isMobile && !iframe.contentWindow)) {
+                            console.warn('Chrome iOS: Facebook iframe may be blocked, showing fallback');
+                            showFacebookFallback(container);
+                        }
+                    }, 5000); // Wait 5 seconds to see if content loads
                 } else {
                     console.warn('Facebook iframe not found after timeout');
                     // Chrome: Try one more time
@@ -777,6 +824,15 @@ window.addEventListener('scroll', () => {
                                 console.error('Chrome retry error:', e);
                             }
                         }, 1000);
+                    } else if (isChrome && isMobile) {
+                        // Chrome iOS: Show fallback if iframe never appears
+                        setTimeout(function() {
+                            const iframe = container.querySelector('.fb-page iframe');
+                            if (!iframe) {
+                                console.warn('Chrome iOS: No iframe after retry, showing fallback');
+                                showFacebookFallback(container);
+                            }
+                        }, 3000);
                     }
                 }
             }, iframeTimeout);
