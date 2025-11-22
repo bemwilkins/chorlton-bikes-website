@@ -1,43 +1,30 @@
 # Hero Carousel Images
 
-The hero section now includes an image carousel that showcases the Chorlton Bikes community.
+The hero section includes an image carousel that automatically cycles through images.
 
-## Image Files Needed
+## How to Add Images
 
-Place your carousel images in the `assets/images/` directory with these exact names:
-
-- `hero-carousel-1.jpg` - Community ride scene (group of cyclists)
-- `hero-carousel-2.jpg` - Cargo bike delivery
-- `hero-carousel-3.jpg` - Trishaw ride
-- `hero-carousel-4.jpg` - Community event/gathering
-- `hero-carousel-5.jpg` - Cargo bike in action
-- `hero-carousel-6.jpg` - Group cycling scene
-- `hero-carousel-7.jpg` - Community cycling event
-- `hero-carousel-8.jpg` - Delivery rider in action
+1. **Name your images** with 2-digit numbers: `01.png`, `02.png`, `03.png`, etc. (up to `99.png`)
+2. **Place them** in the `assets/images/carousel/` folder
+3. **The carousel will automatically detect and use them** in numerical order
 
 ## Image Requirements
 
-- **Format**: JPG or PNG
-- **Recommended size**: 2000px width (or larger)
+- **Format**: PNG or JPG
+- **Recommended size**: 2000px width or larger
 - **Aspect ratio**: 16:9 or similar landscape format
 - **File size**: Keep under 500KB per image for fast loading
-- **Content**: Images should showcase community, cycling, and the diverse work of Chorlton Bikes
+- **Naming**: Must use 2-digit format (01, 02, 03... not 1, 2, 3)
 
 ## How It Works
 
-- The carousel automatically cycles through images every 5 seconds
-- Users can click the dots at the bottom to jump to specific images
-- The carousel pauses when you hover over it
-- If carousel images don't exist, it falls back to the original `hero-image.jpg`
+- Images are automatically detected and sorted numerically
+- The carousel transitions every 5 seconds with a smooth crossfade
+- Images cycle infinitely
+- If no images are found, the hero section will show a fallback
 
-## Adding Your Images
+## Reordering Images
 
-1. Export your images from your video or use the stills provided
-2. Name them exactly as listed above (hero-carousel-1.jpg through hero-carousel-8.jpg)
-3. Place them in the `assets/images/` folder
-4. The carousel will automatically detect and use them
-
-## Current Status
-
-The carousel structure is ready. Once you add the image files, they will automatically appear in the carousel.
-
+To change the order, simply rename the files with different numbers. For example:
+- To move an image to the front: rename it to `01.png` (and renumber others)
+- To add a new image: use the next available number (e.g., `14.png`)

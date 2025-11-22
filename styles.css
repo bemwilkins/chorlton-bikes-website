@@ -34,7 +34,9 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 120px; /* Offset for sticky navbar */
+    scroll-padding-top: 120px;
+    overflow-x: hidden;
+    height: 100%;
 }
 
 body {
@@ -43,6 +45,9 @@ body {
     line-height: 1.7;
     color: var(--text-dark);
     background-color: var(--bg-cream);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
 }
 
 .container {
@@ -55,10 +60,13 @@ body {
 .navbar {
     background: linear-gradient(135deg, var(--logo-green) 0%, var(--light-green) 100%);
     box-shadow: var(--shadow);
+    position: -webkit-sticky;
     position: sticky;
     top: 0;
     z-index: 1000;
     padding: 1rem 0;
+    width: 100%;
+    margin: 0;
 }
 
 .navbar .container {
@@ -72,6 +80,13 @@ body {
     display: flex;
     align-items: center;
     gap: 1rem;
+    text-decoration: none;
+    color: inherit;
+    transition: opacity 0.3s ease;
+}
+
+.nav-brand:hover {
+    opacity: 0.8;
 }
 
 .nav-brand .logo {
@@ -161,6 +176,10 @@ body {
     min-height: 600px;
     display: flex;
     align-items: center;
+    width: 100%;
+    margin: 0;
+    left: 0;
+    right: 0;
 }
 
 .hero-background {
@@ -173,6 +192,31 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    transition: opacity 1.5s ease-in-out;
+    opacity: 1;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.hero-background-next {
+    z-index: -1;
+    opacity: 0;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+/* Hero Text Animation */
+@keyframes fallInFromTop {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .hero-overlay {
@@ -181,7 +225,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.5);
     z-index: 1;
 }
 
@@ -208,6 +252,9 @@ body {
     margin-bottom: 1rem;
     line-height: 1.2;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    animation: fallInFromTop 0.8s ease-out forwards;
+    opacity: 0;
+    transform: translateY(-30px);
 }
 
 .hero-subtitle {
@@ -215,8 +262,21 @@ body {
     font-size: 1.5rem;
     font-weight: 700;
     margin-bottom: 1.5rem;
-    opacity: 0.95;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    animation: fallInFromTopSubtitle 0.8s ease-out 0.2s forwards;
+    opacity: 0;
+    transform: translateY(-30px);
+}
+
+@keyframes fallInFromTopSubtitle {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 0.95;
+        transform: translateY(0);
+    }
 }
 
 .hero-description {
@@ -240,6 +300,9 @@ body {
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
+    animation: fallInFromTop 0.8s ease-out 0.4s forwards;
+    opacity: 0;
+    transform: translateY(-30px);
 }
 
 .hero-cta-grid {
@@ -250,45 +313,31 @@ body {
     max-width: 1000px;
     margin-left: auto;
     margin-right: auto;
+    animation: fallInFromTop 0.8s ease-out 0.6s forwards;
+    opacity: 0;
+    transform: translateY(-30px);
 }
 
 .hero-cta-card {
-    background: rgba(255, 255, 255, 0.95);
-    color: var(--text-dark);
-    padding: 2.5rem 2rem;
-    border-radius: 12px;
+    background-color: var(--orange);
+    color: white;
+    padding: 0.875rem 2rem;
+    border-radius: 6px;
     text-decoration: none;
     text-align: center;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
+    font-weight: 600;
+    font-size: 1rem;
+    display: inline-block;
+    border: none;
+    cursor: pointer;
 }
 
 .hero-cta-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-    background: white;
-}
-
-.hero-cta-icon {
-    font-size: 3rem;
-    margin-bottom: 0.5rem;
-}
-
-.hero-cta-card h3 {
-    font-family: 'Lilita One', cursive;
-    font-size: 1.5rem;
-    color: var(--logo-green);
-    margin: 0;
-}
-
-.hero-cta-card p {
-    font-size: 0.95rem;
-    color: var(--text-light);
-    margin: 0;
+    background-color: var(--warm-brown);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
 }
 
 /* Buttons */
@@ -329,9 +378,12 @@ body {
 }
 
 .btn-email {
-    background-color: var(--logo-green);
+    background-color: var(--orange);
     color: white;
     font-weight: 700;
+    line-height: 1.5;
+    box-sizing: border-box;
+    vertical-align: middle;
 }
 
 .btn-email:hover {
@@ -380,6 +432,7 @@ section {
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
     align-items: center;
+    margin-top: 3rem;
 }
 
 .about-text p {
@@ -683,6 +736,73 @@ section {
     resize: vertical;
 }
 
+.form-group input[type="file"] {
+    padding: 0.5rem;
+    background: white;
+    border: 2px solid var(--light-green);
+    border-radius: 6px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+.form-group input[type="file"]:focus {
+    outline: none;
+    border-color: var(--logo-green);
+    box-shadow: 0 0 0 3px rgba(0, 128, 55, 0.1);
+}
+
+.form-group small {
+    display: block;
+    margin-top: 0.5rem;
+    color: var(--text-light);
+    font-size: 0.85rem;
+    font-style: italic;
+}
+
+.form-group .required {
+    color: var(--orange);
+    font-weight: 700;
+}
+
+.bikes-refugees-form {
+    margin-top: 1rem;
+}
+
+/* Ensure form buttons match other buttons exactly */
+.bikes-refugees-form button[type="submit"],
+.bikes-refugees-form button.btn,
+.bikes-refugees-form button.btn-primary,
+.bikes-refugees-form .btn.btn-primary {
+    display: inline-block !important;
+    padding: 0.875rem 2rem !important;
+    border-radius: 6px !important;
+    text-decoration: none !important;
+    font-weight: 700 !important;
+    transition: all 0.3s ease !important;
+    border: none !important;
+    cursor: pointer !important;
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+    background-color: var(--orange) !important;
+    color: white !important;
+    width: auto !important;
+    font-family: 'Quicksand', sans-serif !important;
+    box-sizing: border-box !important;
+    vertical-align: middle !important;
+    height: auto !important;
+    min-height: auto !important;
+}
+
+.bikes-refugees-form button[type="submit"]:hover,
+.bikes-refugees-form button.btn:hover,
+.bikes-refugees-form button.btn-primary:hover,
+.bikes-refugees-form .btn.btn-primary:hover {
+    background-color: var(--warm-brown) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: var(--shadow-hover) !important;
+}
+
 .form-message {
     margin-top: 1rem;
     padding: 1rem;
@@ -843,6 +963,50 @@ section {
     gap: 2rem;
 }
 
+/* Make service cards equal height on desktop */
+@media (min-width: 769px) {
+    .service-cards {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+    
+    /* Make all service cards equal height - JavaScript will set explicit heights */
+    .service-card {
+        display: flex;
+        flex-direction: column;
+        position: relative; /* Ensure proper stacking */
+    }
+    
+    .service-card:not(#bikes-refugees) .service-card-content {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        min-height: 0;
+    }
+    
+    .service-card:not(#bikes-refugees) .service-inquiry {
+        margin-top: auto;
+    }
+    
+    /* Ensure bikes-refugees card content fills the height properly */
+    #bikes-refugees {
+        flex-shrink: 0; /* Prevent shrinking */
+    }
+    
+    #bikes-refugees .service-card-content {
+        display: flex;
+        flex-direction: column;
+        min-height: 100%;
+        flex: 1;
+    }
+    
+    #bikes-refugees .service-inquiry {
+        margin-top: auto;
+        flex-shrink: 0; /* Prevent form from shrinking */
+    }
+}
+
 .service-card {
     background-color: var(--bg-light);
     padding: 2rem;
@@ -870,6 +1034,118 @@ section {
     line-height: 1.7;
     margin-bottom: 1.5rem;
 }
+
+/* Service Card with Background Image */
+.service-card-bg {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border: none !important; /* Remove border for background image cards */
+    padding: 0 !important; /* Remove padding so image can extend to edge */
+    box-shadow: var(--shadow) !important; /* Keep shadow but ensure it's applied */
+}
+
+.service-card-bg:hover {
+    box-shadow: var(--shadow-hover) !important;
+}
+
+.service-card-bg::after {
+    content: '';
+    position: absolute;
+    top: -1px; /* Extend slightly to cover any border */
+    left: -1px; /* Extend slightly to cover any border */
+    right: -1px; /* Extend slightly to cover any border */
+    bottom: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: var(--bg-image, none);
+    z-index: 0;
+    border-radius: 12px 12px 0 0; /* Match card top corners */
+}
+
+.service-card-bg::before {
+    content: '';
+    position: absolute;
+    top: -1px; /* Extend slightly to cover any border */
+    left: -1px; /* Extend slightly to cover any border */
+    right: -1px; /* Extend slightly to cover any border */
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    border-radius: 12px 12px 0 0; /* Match card top corners */
+}
+
+.service-card-content {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem; /* Restore padding for content */
+}
+
+.service-card-bg .service-card-content > *:not(.service-inquiry) {
+    flex-shrink: 0;
+}
+
+/* Top section with image background - title and paragraphs */
+.service-card-bg .service-card-content h4,
+.service-card-bg .service-card-content > p:not(.service-inquiry p) {
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 2;
+}
+
+/* Separator line before call-to-action */
+.service-card-bg .service-inquiry::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -2rem;
+    right: -2rem;
+    height: 1px;
+    background-color: var(--border-color);
+    z-index: 1;
+}
+
+.service-card-bg .service-inquiry {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    background-color: var(--bg-cream);
+    margin-left: -2rem;
+    margin-right: -2rem;
+    margin-bottom: -2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-bottom: 2rem;
+    border-radius: 0 0 12px 12px;
+    position: relative;
+    z-index: 3;
+    border-top: 1px solid var(--border-color);
+}
+
+
+.service-card-bg .service-card-content .service-inquiry p,
+.service-card-bg .service-card-content .service-inquiry label,
+.service-card-bg .service-card-content .service-inquiry small {
+    color: var(--text-dark);
+    text-shadow: none;
+}
+
+.service-card-bg .service-card-content .btn-email {
+    background-color: var(--orange);
+    color: white;
+    text-shadow: none;
+}
+
+.service-card-bg .service-card-content .btn-email:hover {
+    background-color: var(--warm-brown);
+    color: white;
+}
+
 
 .service-inquiry,
 .service-info {
@@ -931,7 +1207,26 @@ section {
     line-height: 1.7;
 }
 
-.pathway-form,
+.pathway-form {
+    padding: 0;
+    background-color: transparent;
+}
+
+.pathway-form iframe {
+    width: 100%;
+    min-height: 800px;
+    border: none;
+    border-radius: 8px;
+    display: block;
+    background: white;
+}
+
+@media (max-width: 768px) {
+    .pathway-form iframe {
+        min-height: 1000px;
+    }
+}
+
 .pathway-inquiry {
     background-color: var(--bg-light);
     padding: 2rem;
@@ -1332,13 +1627,24 @@ section {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
     margin-bottom: 2rem;
+    align-items: start;
+}
+
+.footer-logo-section {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 .footer-logo {
     max-width: 150px;
     height: auto;
-    margin-bottom: 1rem;
-    filter: brightness(0) invert(1); /* Makes logo white for dark backgrounds */
+    opacity: 0.9;
+    transition: opacity 0.3s ease;
+}
+
+.footer-logo:hover {
+    opacity: 1;
 }
 
 .footer-section h3,
@@ -1414,6 +1720,7 @@ section {
         display: flex !important;
         z-index: 1002 !important;
         pointer-events: auto !important;
+        -webkit-tap-highlight-color: transparent;
     }
 
     .nav-links {
@@ -1433,7 +1740,9 @@ section {
     }
 
     .nav-links.active {
-        right: 0;
+        right: 0 !important;
+        display: flex !important;
+        z-index: 1001 !important;
     }
 
     .nav-links li {
