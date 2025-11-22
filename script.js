@@ -602,33 +602,18 @@ window.addEventListener('scroll', () => {
         
         // Get container width with multiple fallbacks
         const containerWidth = container.offsetWidth || container.clientWidth || container.getBoundingClientRect().width || window.innerWidth;
-        console.log('Facebook container width:', containerWidth);
-        
-        // Also log to page for mobile debugging
-        const debugDiv = document.getElementById('fb-debug') || document.createElement('div');
-        debugDiv.id = 'fb-debug';
-        debugDiv.style.cssText = 'position:fixed;top:10px;right:10px;background:rgba(0,0,0,0.8);color:white;padding:10px;z-index:9999;font-size:12px;max-width:200px;';
-        const isChrome = /CriOS|Chrome/i.test(navigator.userAgent);
-        const sdkLoaded = window.FB ? 'Yes' : 'No';
-        const iframeExists = container.querySelector('.fb-page iframe') ? 'Yes' : 'No';
-        debugDiv.innerHTML = `FB Width: ${containerWidth}px<br>Screen: ${window.innerWidth}px<br>Mobile: ${window.innerWidth <= 768}<br>Chrome: ${isChrome}<br>SDK: ${sdkLoaded}<br>Iframe: ${iframeExists}`;
-        if (!document.getElementById('fb-debug')) {
-            document.body.appendChild(debugDiv);
-        }
         
         if (containerWidth > 0) {
             // Facebook max width is 500px, set to container width (capped at 500)
             // On mobile, use the full container width (minimum 280px)
             const isMobile = window.innerWidth <= 768;
             const width = isMobile ? Math.max(Math.floor(containerWidth), 280) : Math.min(Math.floor(containerWidth), 500);
-            console.log('Setting Facebook width to:', width, 'isMobile:', isMobile);
             fbPage.setAttribute('data-width', width.toString());
             
             // Force re-render Facebook plugin
             const isChrome = /CriOS|Chrome/i.test(navigator.userAgent);
             
             if (window.FB) {
-                console.log('Facebook SDK found, parsing XFBML');
                 try {
                     window.FB.XFBML.parse(container);
                 } catch (e) {
@@ -639,7 +624,6 @@ window.addEventListener('scroll', () => {
                 if (isChrome) {
                     setTimeout(function() {
                         if (window.FB) {
-                            console.log('Chrome: Re-parsing Facebook XFBML');
                             try {
                                 window.FB.XFBML.parse(container);
                             } catch (e) {
@@ -649,12 +633,10 @@ window.addEventListener('scroll', () => {
                     }, 1500);
                 }
             } else {
-                console.warn('Facebook SDK not loaded yet');
                 // If SDK not loaded and we're in Chrome, try to wait longer
                 if (isChrome) {
                     const checkSDK = setInterval(function() {
                         if (window.FB) {
-                            console.log('Chrome: SDK loaded, parsing XFBML');
                             clearInterval(checkSDK);
                             try {
                                 window.FB.XFBML.parse(container);
@@ -798,25 +780,18 @@ window.addEventListener('scroll', () => {
                     // Check if iframe actually loaded content (Chrome iOS detection)
                     // Wait a bit longer to see if content appears
                     setTimeout(function() {
-                        const iframeStillEmpty = iframe.offsetHeight > 0 && iframe.contentWindow && 
-                                                 (!iframe.contentDocument || !iframe.contentDocument.body || 
-                                                  iframe.contentDocument.body.children.length === 0);
-                        
                         // Check if iframe has a src but isn't showing content
                         const hasSrcButNoContent = iframe.src && iframe.src.length > 0 && 
                                                    (iframe.offsetWidth === 0 || iframe.offsetHeight === 0 || 
                                                     !iframe.contentWindow);
                         
                         if (hasSrcButNoContent || (isChrome && isMobile && !iframe.contentWindow)) {
-                            console.warn('Chrome iOS: Facebook iframe may be blocked, showing fallback');
                             showFacebookFallback(container);
                         }
                     }, 5000); // Wait 5 seconds to see if content loads
                 } else {
-                    console.warn('Facebook iframe not found after timeout');
                     // Chrome: Try one more time
                     if (isChrome && window.FB) {
-                        console.log('Chrome: Retrying Facebook parse');
                         setTimeout(function() {
                             try {
                                 window.FB.XFBML.parse(container);
@@ -829,15 +804,12 @@ window.addEventListener('scroll', () => {
                         setTimeout(function() {
                             const iframe = container.querySelector('.fb-page iframe');
                             if (!iframe) {
-                                console.warn('Chrome iOS: No iframe after retry, showing fallback');
                                 showFacebookFallback(container);
                             }
                         }, 3000);
                     }
                 }
             }, iframeTimeout);
-        } else {
-            console.warn('Container width is 0 or invalid');
         }
     }
 
@@ -966,40 +938,5 @@ window.addEventListener('scroll', () => {
     }
 })();
 
-// Stats Grid Debug - Show width info on mobile (visible overlay)
-(function() {
-    function showStatsDebug() {
-        const statsGrid = document.getElementById('impact-stats');
-        const debugDiv = document.getElementById('stats-debug');
-        if (statsGrid && debugDiv) {
-            const gridWidth = statsGrid.offsetWidth;
-            const screenWidth = window.innerWidth;
-            const container = statsGrid.closest('.container');
-            const containerWidth = container ? container.offsetWidth : 0;
-            
-            debugDiv.innerHTML = `Grid: ${gridWidth}px<br>Screen: ${screenWidth}px<br>Container: ${containerWidth}px`;
-            debugDiv.classList.add('active');
-            
-            // Hide after 5 seconds
-            setTimeout(function() {
-                debugDiv.classList.remove('active');
-            }, 5000);
-        }
-    }
-    
-    // Show debug on load
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(showStatsDebug, 1000);
-        });
-    } else {
-        setTimeout(showStatsDebug, 1000);
-    }
-    
-    // Show on resize
-    window.addEventListener('resize', function() {
-        setTimeout(showStatsDebug, 100);
-    });
-})();
 
 

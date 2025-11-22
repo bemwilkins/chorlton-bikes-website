@@ -401,22 +401,6 @@ section {
     overflow: hidden;
 }
 
-/* Debug overlay for mobile - shows grid width */
-.stats-debug {
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    background: rgba(255, 0, 0, 0.8);
-    color: white;
-    padding: 10px;
-    z-index: 9999;
-    font-size: 12px;
-    display: none;
-}
-
-.stats-debug.active {
-    display: block;
-}
 
 .stat {
     text-align: center;
