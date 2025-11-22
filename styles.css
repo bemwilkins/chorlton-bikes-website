@@ -1080,6 +1080,33 @@ section {
     max-width: 100% !important;
 }
 
+/* Chrome-specific fixes for Facebook iframe visibility */
+.social-feed-embed .fb-page,
+.social-feed-embed .fb-page span,
+.social-feed-embed .fb-page > span {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 600px !important;
+}
+
+.social-feed-embed .fb-page iframe,
+.social-feed-embed .fb-page > span > iframe,
+.social-feed-embed .fb-page span iframe {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    width: 100% !important;
+    min-width: 280px !important;
+    height: 600px !important;
+    min-height: 600px !important;
+    max-height: none !important;
+    position: relative !important;
+    z-index: 1 !important;
+}
+
 .instagram-embed-container {
     overflow: hidden !important;
     height: 100%;

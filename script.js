@@ -646,7 +646,42 @@ window.addEventListener('scroll', () => {
             setTimeout(function() {
                 const iframe = container.querySelector('.fb-page iframe');
                 if (iframe) {
-                    console.log('Facebook iframe found, width:', iframe.offsetWidth);
+                    const iframeWidth = iframe.offsetWidth;
+                    const iframeHeight = iframe.offsetHeight;
+                    const computedStyle = window.getComputedStyle(iframe);
+                    const display = computedStyle.display;
+                    const visibility = computedStyle.visibility;
+                    const opacity = computedStyle.opacity;
+                    const zIndex = computedStyle.zIndex;
+                    
+                    console.log('Facebook iframe found:', {
+                        width: iframeWidth,
+                        height: iframeHeight,
+                        display: display,
+                        visibility: visibility,
+                        opacity: opacity,
+                        zIndex: zIndex,
+                        src: iframe.src ? iframe.src.substring(0, 50) + '...' : 'no src'
+                    });
+                    
+                    // Update debug overlay with iframe details
+                    const debugDiv = document.getElementById('fb-debug');
+                    if (debugDiv) {
+                        debugDiv.innerHTML = `FB Width: ${containerWidth}px<br>Screen: ${window.innerWidth}px<br>Mobile: ${window.innerWidth <= 768}<br>Chrome: ${isChrome}<br>SDK: ${window.FB ? 'Yes' : 'No'}<br>Iframe: Yes<br>IF W: ${iframeWidth}px<br>IF H: ${iframeHeight}px<br>Display: ${display}<br>Vis: ${visibility}<br>Opacity: ${opacity}`;
+                    }
+                    
+                    // Force visibility if hidden
+                    if (display === 'none' || visibility === 'hidden' || opacity === '0' || iframeWidth === 0 || iframeHeight === 0) {
+                        console.warn('Iframe appears hidden or has zero dimensions, forcing visibility');
+                        iframe.style.display = 'block';
+                        iframe.style.visibility = 'visible';
+                        iframe.style.opacity = '1';
+                        iframe.style.width = width + 'px';
+                        iframe.style.height = '600px';
+                        iframe.style.minWidth = width + 'px';
+                        iframe.style.minHeight = '600px';
+                    }
+                    
                     if (!isMobile && containerWidth > 500) {
                         const scale = containerWidth / 500;
                         iframe.style.transform = `scale(${scale})`;
