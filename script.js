@@ -566,20 +566,25 @@ window.addEventListener('scroll', () => {
                 const containerWidth = container.offsetWidth;
                 if (containerWidth > 0) {
                     // Facebook max width is 500px, set to container width (capped at 500)
-                    const width = Math.min(containerWidth, 500);
+                    // On mobile, use the full container width (minimum 280px)
+                    const isMobile = window.innerWidth <= 768;
+                    const width = isMobile ? Math.max(containerWidth, 280) : Math.min(containerWidth, 500);
                     fbPage.setAttribute('data-width', width);
                     
-                    // Scale the iframe if container is wider than 500px
+                    // Scale the iframe if container is wider than 500px (desktop only)
                     setTimeout(function() {
                         const iframe = container.querySelector('.fb-page iframe');
-                        if (iframe && containerWidth > 500) {
-                            const scale = containerWidth / 500;
-                            iframe.style.transform = `scale(${scale})`;
-                            iframe.style.transformOrigin = 'top left';
-                            container.style.height = `${600 * scale}px`;
-                        } else if (iframe) {
-                            iframe.style.transform = 'scale(1)';
-                            container.style.height = '600px';
+                        if (iframe) {
+                            if (!isMobile && containerWidth > 500) {
+                                const scale = containerWidth / 500;
+                                iframe.style.transform = `scale(${scale})`;
+                                iframe.style.transformOrigin = 'top left';
+                                container.style.height = `${600 * scale}px`;
+                            } else {
+                                iframe.style.transform = 'scale(1)';
+                                iframe.style.transformOrigin = 'top left';
+                                container.style.height = '600px';
+                            }
                         }
                     }, 1500); // Wait for Facebook to render
                     
