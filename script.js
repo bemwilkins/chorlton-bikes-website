@@ -2,14 +2,13 @@
 (function() {
     const heroBackground = document.getElementById('hero-background');
     if (!heroBackground) {
-        console.warn('Hero background element not found');
         return;
     }
 
-    // Dynamically detect numbered carousel images (01.png, 02.png, etc. up to 99.png)
+    // Dynamically detect numbered carousel images (01.png through 10.png)
     // Images should be named with 2-digit numbers: 01.png, 02.png, 03.png, etc.
     const carouselImages = [];
-    const maxImages = 99; // Support up to 99 images
+    const maxImages = 10; // Only check first 10 images
     
     // Try to load images and only add ones that exist
     let loadedCount = 0;
@@ -50,7 +49,6 @@
     
         function startCarousel() {
         if (carouselImages.length === 0) {
-            console.warn('No carousel images found');
             return;
         }
         
@@ -138,14 +136,20 @@
                 if (overlay) overlay.classList.remove('active');
                 document.body.style.overflow = '';
                 document.documentElement.style.overflow = '';
+                document.body.style.paddingTop = ''; // Remove padding compensation
                 if (navbar) navbar.classList.remove('menu-open');
             } else {
                 // Open menu
+                // Get navbar height before making it fixed to compensate for the shift
+                const navbarHeight = navbar ? navbar.offsetHeight : 0;
+                
                 mobileMenuToggle.setAttribute('aria-expanded', 'true');
                 navLinks.classList.add('active');
                 if (overlay) overlay.classList.add('active');
                 document.body.style.overflow = 'hidden';
                 document.documentElement.style.overflow = 'hidden';
+                // Compensate for navbar becoming fixed by adding padding equal to its height
+                document.body.style.paddingTop = navbarHeight + 'px';
                 if (navbar) navbar.classList.add('menu-open');
             }
         }
@@ -166,6 +170,7 @@
                 if (overlay) overlay.classList.remove('active');
                 document.body.style.overflow = '';
                 document.documentElement.style.overflow = '';
+                document.body.style.paddingTop = ''; // Remove padding compensation
                 if (navbar) navbar.classList.remove('menu-open');
             });
         });
@@ -179,6 +184,7 @@
                 overlay.classList.remove('active');
                 document.body.style.overflow = '';
                 document.documentElement.style.overflow = '';
+                document.body.style.paddingTop = ''; // Remove padding compensation
                 if (navbar) navbar.classList.remove('menu-open');
             });
         }
@@ -192,6 +198,7 @@
                 if (overlay) overlay.classList.remove('active');
                 document.body.style.overflow = '';
                 document.documentElement.style.overflow = '';
+                document.body.style.paddingTop = ''; // Remove padding compensation
                 if (navbar) navbar.classList.remove('menu-open');
             }
         });
@@ -209,144 +216,119 @@
 // - Paperform (membership and donations) - embedded via iframe
 // - Google Apps Script (bike donation form) - see bikes-refugees-form handler below
 
-// Mobile Menu Toggle - Define globally FIRST so onclick can access it
-// This must be defined before any other code that might error
-window.toggleMobileMenu = function(e) {
-    if (e) {
-        e.preventDefault();
-        e.stopPropagation();
-    }
-    
-    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-    const navLinks = document.querySelector('.nav-links');
-    const overlay = document.querySelector('.mobile-menu-overlay');
 
-    if (!mobileMenuToggle || !navLinks) {
-        console.warn('Mobile menu elements not found');
-        return;
-    }
-
-    const isExpanded = mobileMenuToggle.getAttribute('aria-expanded') === 'true';
-    
-    if (isExpanded) {
-        // Close menu
-        mobileMenuToggle.setAttribute('aria-expanded', 'false');
-        navLinks.classList.remove('active');
-        if (overlay) overlay.classList.remove('active');
-        document.body.style.overflow = '';
-    } else {
-        // Open menu
-        mobileMenuToggle.setAttribute('aria-expanded', 'true');
-        navLinks.classList.add('active');
-        if (overlay) overlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-};
-
-// Initialize mobile menu immediately
+// Smooth scrolling for navigation links with precise offset for sticky navbar
 (function() {
-    try {
-        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
-        const overlay = document.querySelector('.mobile-menu-overlay');
+    function getNavbarHeight() {
+        const navbar = document.querySelector('.navbar');
+        if (navbar) {
+            // Get the actual computed height
+            const rect = navbar.getBoundingClientRect();
+            return rect.height;
+        }
+        // Fallback values
+        return window.innerWidth <= 768 ? 82 : 122;
+    }
 
-        if (!mobileMenuToggle || !navLinks) {
+    function scrollToSection(target, offset = 0) {
+        // Calculate position using getBoundingClientRect for accuracy
+        const navbarHeight = getNavbarHeight();
+        
+        // Get current scroll position
+        const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+        
+        // Get target's position relative to viewport
+        const targetRect = target.getBoundingClientRect();
+        
+        // Calculate target's absolute position in the document
+        const targetTopAbsolute = targetRect.top + currentScroll;
+        
+        // Calculate where we want to scroll to: target position minus navbar height minus extra offset
+        // This ensures the target appears navbarHeight + offset pixels from the top of the viewport
+        const desiredScrollPosition = targetTopAbsolute - navbarHeight - offset;
+        
+        // Always scroll, even if the difference is small (ensures proper positioning)
+        const finalScrollPosition = Math.max(0, desiredScrollPosition);
+        
+        // Scroll to the calculated position
+        window.scrollTo({
+            top: finalScrollPosition,
+            behavior: 'smooth'
+        });
+    }
+
+    function handleAnchorClick(e) {
+        const targetId = this.getAttribute('href');
+        
+        if (!targetId || targetId === '#' || !targetId.startsWith('#')) {
             return;
         }
-
-        const closeMenu = () => {
-            mobileMenuToggle.setAttribute('aria-expanded', 'false');
-            navLinks.classList.remove('active');
-            if (overlay) overlay.classList.remove('active');
-            document.body.style.overflow = '';
-        };
-
-        // Add click listener (in addition to onclick)
-        mobileMenuToggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            window.toggleMobileMenu(e);
-        }, false);
-
-        // Close menu when clicking on a link
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', closeMenu, false);
-        });
-
-        // Close menu when clicking on overlay
-        if (overlay) {
-            overlay.addEventListener('click', closeMenu, false);
-        }
-
-        // Close menu on escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && navLinks.classList.contains('active')) {
-                closeMenu();
+        
+        e.preventDefault();
+        
+        // Check if mobile menu is open - if so, wait for it to close before scrolling
+        const navLinks = document.querySelector('.nav-links');
+        const isMenuOpen = navLinks && navLinks.classList.contains('active');
+        
+        if (targetId === '#top') {
+            if (isMenuOpen) {
+                // Wait for menu to close, then scroll
+                setTimeout(() => {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                }, 300);
+            } else {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
             }
-        });
-    } catch (error) {
-        console.error('Error initializing mobile menu:', error);
-    }
-})();
-
-// Mobile Menu Toggle - Event listeners
-(function() {
-    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-    const navLinks = document.querySelector('.nav-links');
-    const overlay = document.querySelector('.mobile-menu-overlay');
-
-    if (!mobileMenuToggle || !navLinks) {
-        return;
-    }
-
-    const closeMenu = () => {
-        mobileMenuToggle.setAttribute('aria-expanded', 'false');
-        navLinks.classList.remove('active');
-        if (overlay) overlay.classList.remove('active');
-        document.body.style.overflow = '';
-    };
-
-    // Add click listener (in addition to onclick)
-    mobileMenuToggle.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        window.toggleMobileMenu(e);
-    }, false);
-
-    // Close menu when clicking on a link
-    navLinks.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', closeMenu, false);
-    });
-
-    // Close menu when clicking on overlay
-    if (overlay) {
-        overlay.addEventListener('click', closeMenu, false);
-    }
-
-    // Close menu on escape key
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && navLinks.classList.contains('active')) {
-            closeMenu();
+            return;
         }
-    });
-})();
-
-
-// Smooth scrolling for navigation links with offset for sticky navbar
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
+        
         const target = document.querySelector(targetId);
         if (target) {
-            // Use scrollIntoView which respects CSS scroll-padding-top
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
+            // Scroll to the section element itself so the separator line (border-top) is visible
+            // We want the separator to appear just below the navbar
+            // Use minimal offset (0px) to get the separator line right at the navbar bottom
+            if (isMenuOpen) {
+                // Wait for menu to close, then scroll
+                setTimeout(() => {
+                    scrollToSection(target, 0);
+                }, 300);
+            } else {
+                scrollToSection(target, 0);
+            }
         }
-    });
-});
+    }
+
+    function initSmoothScroll() {
+        // Get all anchor links that point to sections
+        const anchors = document.querySelectorAll('a[href^="#"]');
+        
+        anchors.forEach((anchor) => {
+            // Add the click listener - use capture to run early
+            anchor.addEventListener('click', handleAnchorClick, true);
+        });
+    }
+
+    // Initialize when DOM is ready
+    function setupSmoothScroll() {
+        initSmoothScroll();
+    }
+    
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', setupSmoothScroll);
+    } else {
+        // DOM already loaded
+        setupSmoothScroll();
+    }
+    
+    // Also run after a short delay to catch any dynamically added links
+    setTimeout(setupSmoothScroll, 100);
+})();
 
 // Add scroll effect to navbar
 let lastScroll = 0;
@@ -439,7 +421,6 @@ window.addEventListener('scroll', () => {
         
         // Handle image load errors
         img.onerror = function() {
-            console.warn(`Failed to load partner logo: ${filename}`);
             logoDiv.style.display = 'none';
         };
 
@@ -522,13 +503,11 @@ window.addEventListener('scroll', () => {
     function resizeFacebookPlugin() {
         const fbPage = document.querySelector('.fb-page');
         if (!fbPage) {
-            console.warn('Facebook page element not found');
             return;
         }
         
         const container = fbPage.closest('.social-feed-embed');
         if (!container) {
-            console.warn('Facebook container not found');
             return;
         }
         
@@ -536,10 +515,8 @@ window.addEventListener('scroll', () => {
         const containerWidth = container.offsetWidth || container.clientWidth || container.getBoundingClientRect().width || window.innerWidth;
         
         if (containerWidth > 0) {
-            // Facebook max width is 500px, set to container width (capped at 500)
-            // On mobile, use the full container width (minimum 280px)
-            const isMobile = window.innerWidth <= 768;
-            const width = isMobile ? Math.max(Math.floor(containerWidth), 280) : Math.min(Math.floor(containerWidth), 500);
+            // Use full container width (minimum 280px for Facebook's requirements)
+            const width = Math.max(Math.floor(containerWidth), 280);
             fbPage.setAttribute('data-width', width.toString());
             
             // Force re-render Facebook plugin
@@ -549,7 +526,6 @@ window.addEventListener('scroll', () => {
                 try {
                     window.FB.XFBML.parse(container);
                 } catch (e) {
-                    console.error('Error parsing XFBML:', e);
                 }
                 
                 // Chrome-specific: Force re-parse after a delay
@@ -559,7 +535,6 @@ window.addEventListener('scroll', () => {
                             try {
                                 window.FB.XFBML.parse(container);
                             } catch (e) {
-                                console.error('Chrome re-parse error:', e);
                             }
                         }
                     }, 1500);
@@ -573,7 +548,6 @@ window.addEventListener('scroll', () => {
                             try {
                                 window.FB.XFBML.parse(container);
                             } catch (e) {
-                                console.error('Chrome parse error:', e);
                             }
                         }
                     }, 500);
@@ -583,9 +557,14 @@ window.addEventListener('scroll', () => {
                 }
             }
             
-            // Scale the iframe if container is wider than 500px (desktop only)
+            // Force iframe to use full container width
             // Chrome needs longer timeout
             const iframeTimeout = isChrome ? 3000 : 2000;
+            // Facebook's max width is 500px
+            const fbMaxWidth = 500;
+            const actualWidth = Math.min(width, fbMaxWidth);
+            const baseHeight = 600; // Facebook's default height
+            
             setTimeout(function() {
                 const iframe = container.querySelector('.fb-page iframe');
                 if (iframe) {
@@ -599,9 +578,9 @@ window.addEventListener('scroll', () => {
                         parentSpan.style.visibility = 'visible';
                         parentSpan.style.opacity = '1';
                         parentSpan.style.width = '100%';
-                        parentSpan.style.height = '600px';
-                        parentSpan.style.minWidth = width + 'px';
-                        parentSpan.style.minHeight = '600px';
+                        parentSpan.style.height = '100%';
+                        parentSpan.style.minWidth = '0';
+                        parentSpan.style.minHeight = '0';
                         parentSpan.style.position = 'relative';
                         parentSpan.style.zIndex = '1';
                     }
@@ -611,25 +590,26 @@ window.addEventListener('scroll', () => {
                         parentFbPage.style.visibility = 'visible';
                         parentFbPage.style.opacity = '1';
                         parentFbPage.style.width = '100%';
-                        parentFbPage.style.height = '600px';
-                        parentFbPage.style.minWidth = width + 'px';
-                        parentFbPage.style.minHeight = '600px';
+                        parentFbPage.style.height = '100%';
+                        parentFbPage.style.minWidth = '0';
+                        parentFbPage.style.minHeight = '0';
                         parentFbPage.style.position = 'relative';
                         parentFbPage.style.zIndex = '1';
                     }
                     
-                    // Force iframe visibility
+                    // Force iframe visibility and sizing
                     iframe.style.display = 'block';
                     iframe.style.visibility = 'visible';
                     iframe.style.opacity = '1';
-                    iframe.style.width = width + 'px';
-                    iframe.style.height = '600px';
-                    iframe.style.minWidth = width + 'px';
-                    iframe.style.minHeight = '600px';
                     iframe.style.position = 'relative';
                     iframe.style.zIndex = '2';
                     iframe.style.top = '0';
                     iframe.style.left = '0';
+                    
+                    iframe.style.width = actualWidth + 'px';
+                    iframe.style.height = baseHeight + 'px';
+                    iframe.style.minWidth = actualWidth + 'px';
+                    iframe.style.minHeight = baseHeight + 'px';
                     
                     // Ensure container allows content
                     if (parentContainer) {
@@ -637,15 +617,18 @@ window.addEventListener('scroll', () => {
                         parentContainer.style.position = 'relative';
                     }
                     
-                    if (!isMobile && containerWidth > 500) {
-                        const scale = containerWidth / 500;
+                    // Scale if container is wider than Facebook's 500px limit
+                    if (containerWidth > fbMaxWidth) {
+                        const scale = containerWidth / fbMaxWidth;
                         iframe.style.transform = `scale(${scale})`;
                         iframe.style.transformOrigin = 'top left';
-                        container.style.height = `${600 * scale}px`;
+                        // Adjust container height to match scaled iframe (maintain square aspect)
+                        const scaledHeight = baseHeight * scale;
+                        container.style.height = scaledHeight + 'px';
                     } else {
                         iframe.style.transform = 'scale(1)';
                         iframe.style.transformOrigin = 'top left';
-                        container.style.height = '600px';
+                        container.style.height = baseHeight + 'px';
                     }
                     
                     // Check if iframe actually loaded content (Chrome iOS detection)
@@ -667,7 +650,6 @@ window.addEventListener('scroll', () => {
                             try {
                                 window.FB.XFBML.parse(container);
                             } catch (e) {
-                                console.error('Chrome retry error:', e);
                             }
                         }, 1000);
                     } else if (isChrome && isMobile) {
@@ -730,13 +712,11 @@ window.addEventListener('scroll', () => {
                                     }, 1000);
                                 }
                             } catch (e) {
-                                console.error('Error parsing XFBML:', e);
                             }
                         }
                     }, parseDelay);
                 }, initDelay);
             } catch (e) {
-                console.error('Error initializing Facebook SDK:', e);
             }
         }
         // Call original if it existed
@@ -754,7 +734,6 @@ window.addEventListener('scroll', () => {
             });
             setTimeout(resizeFacebookPlugin, isChrome ? 2000 : 1000);
         } catch (e) {
-            console.error('Error initializing pre-loaded SDK:', e);
         }
     }
 })();
@@ -934,7 +913,6 @@ window.addEventListener('scroll', () => {
                     tempForm.submit();
                     
                 } catch (error) {
-                    console.error('Bikes4Refugees form error:', error);
                     messageDiv.className = 'form-message error';
                     messageDiv.textContent = error.message || 'Sorry, there was an error sending your submission. Please try again or contact us directly.';
                     messageDiv.style.display = 'block';

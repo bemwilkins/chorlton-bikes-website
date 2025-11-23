@@ -23,7 +23,13 @@
                 <span></span>
             </button>
             <ul class="nav-links">
-                <li><a href="#services">Services</a></li>
+                <li>
+                    <a href="#services">Services</a>
+                    <ul class="nav-sublinks">
+                        <li><a href="#community-services">Community Services</a></li>
+                        <li><a href="#commercial-services">Commercial Services</a></li>
+                    </ul>
+                </li>
                 <li><a href="#membership">Join Us</a></li>
                 <li><a href="#donate">Donate</a></li>
                 <li><a href="#about">About</a></li>
@@ -62,9 +68,23 @@
             
             <div class="services-split">
                 <!-- Community Services -->
-                <div class="services-column">
+                <div class="services-column" id="community-services">
                     <h3 class="services-column-title">Community Services</h3>
                     <div class="service-cards">
+                        <!-- Surplus Food Collections -->
+                        <div class="service-card service-card-bg" id="surplus-food" style="--bg-image: url('assets/images/services/surplus-food.png');">
+                            <div class="service-card-content">
+                                <h4>Surplus Food Collections</h4>
+                            <p>Every day, our dedicated volunteers collect surplus food from local businesses and residents, delivering it directly to foodbanks across South Manchester.</p>
+                            <p>This vital service helps reduce food waste while supporting those in need in our community.</p>
+                            <p>If you're a local business or resident with surplus food to donate, we'd love to hear from you.</p>
+                            <div class="service-inquiry">
+                                <p><strong>Get in touch:</strong></p>
+                                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hello@chorltonbikes.coop&su=Surplus%20Food%20Collection%20Inquiry" target="_blank" rel="noopener noreferrer" class="btn btn-email">Email Us</a>
+                            </div>
+                            </div>
+                        </div>
+
                         <!-- Shop & Drop -->
                         <div class="service-card service-card-bg" id="shop-drop" style="--bg-image: url('assets/images/services/shop-drop.jpg');">
                             <div class="service-card-content">
@@ -137,7 +157,7 @@
                             <div class="service-card-content">
                                 <h4>Community Projects</h4>
                             <p>Have an idea for a community project?</p>
-                            <p>Made possible by our dedicated team, fleet, and riders.</p>
+                            <p>Our dedicated team of riders and fleet of electric cargo bikes can help you make it happen.</p>
                             <div class="service-inquiry">
                                 <p><strong>Get in touch:</strong></p>
                                 <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hello@chorltonbikes.coop&su=Community%20Project%20Inquiry" target="_blank" rel="noopener noreferrer" class="btn btn-email">Email Us</a>
@@ -148,7 +168,7 @@
                 </div>
 
                 <!-- Commercial Services -->
-                <div class="services-column">
+                <div class="services-column" id="commercial-services">
                     <h3 class="services-column-title">Commercial Services</h3>
                     <div class="service-cards">
                         <!-- Health & Public Service Logistics -->
@@ -199,6 +219,20 @@
                             <div class="service-inquiry">
                                 <p><strong>Get in touch:</strong></p>
                                 <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hello@chorltonbikes.coop&su=Trishaw%20Hire%20Inquiry" target="_blank" rel="noopener noreferrer" class="btn btn-email">Email Us</a>
+                            </div>
+                            </div>
+                        </div>
+
+                        <!-- Other Delivery Services -->
+                        <div class="service-card service-card-bg" id="other-deliveries" style="--bg-image: url('assets/images/services/other-deliveries.png');">
+                            <div class="service-card-content">
+                                <h4>Other Delivery Services</h4>
+                            <p>Do you or your business need any other sort of regular or one-off delivery?</p>
+                            <p>We have extensive experience transporting Christmas trees, books, beer and more.</p>
+                            <p>Contact us to discuss your needs and we'll work with you to find a sustainable delivery solution.</p>
+                            <div class="service-inquiry">
+                                <p><strong>Get in touch:</strong></p>
+                                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hello@chorltonbikes.coop&su=Other%20Delivery%20Service%20Inquiry" target="_blank" rel="noopener noreferrer" class="btn btn-email">Email Us</a>
                             </div>
                             </div>
                         </div>
@@ -332,8 +366,8 @@
                             <div class="fb-page" 
                                  data-href="https://www.facebook.com/chorltonbikedeliveries" 
                                  data-tabs="timeline" 
-                                 data-width="280" 
-                                 data-height="600" 
+                                 data-width="" 
+                                 data-height="" 
                                  data-small-header="false" 
                                  data-adapt-container-width="true" 
                                  data-hide-cover="false" 
