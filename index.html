@@ -264,10 +264,7 @@
                         <p>Membership means you have a voice in our future direction and can help shape how we serve our community.</p>
                     </div>
                     <div class="pathway-form">
-                        <p style="padding: 2rem; background: var(--bg-light); border: 2px dashed var(--orange); border-radius: 8px; text-align: center; color: var(--text-light);">
-                            <strong>Paperform Embed</strong><br>
-                            Embed your Paperform here
-                        </p>
+                        <div data-paperform-id="chorlton-bike-deliveries"></div>
                     </div>
                 </div>
 
@@ -335,10 +332,7 @@
                     </ul>
                 </div>
                 <div class="pathway-form">
-                    <p style="padding: 2rem; background: var(--bg-light); border: 2px dashed var(--orange); border-radius: 8px; text-align: center; color: var(--text-light);">
-                        <strong>Paperform Embed</strong><br>
-                        Embed your Paperform here
-                    </p>
+                    <div data-paperform-id="cbd-donation"></div>
                 </div>
             </div>
         </div>
@@ -488,5 +482,13 @@
     <script async src="//www.instagram.com/embed.js"></script>
     <!-- Facebook SDK for Page Plugin -->
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v18.0"></script>
+    <!-- Paperform Embed Script -->
+    <script>
+        (function() {
+            var script = document.createElement('script');
+            script.src = "https://paperform.co/__embed.min.js";
+            document.body.appendChild(script);
+        })();
+    </script>
 </body>
 </html>

@@ -1248,6 +1248,14 @@ section {
     background: white;
 }
 
+/* Paperform embed styling */
+.pathway-form [data-paperform-id] {
+    width: 100%;
+    min-height: 600px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
 @media (max-width: 768px) {
     .pathway-form iframe {
         min-height: 1000px;
