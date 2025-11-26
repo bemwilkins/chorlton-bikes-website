@@ -1173,6 +1173,22 @@ section {
     color: white;
 }
 
+.service-card-bg .service-card-content .whatsapp-button,
+.service-card-bg .service-card-content a.whatsapp-button {
+    background-color: #25D366 !important;
+    color: white !important;
+    text-shadow: none !important;
+    text-decoration: none !important;
+    display: inline-flex !important;
+}
+
+.service-card-bg .service-card-content .whatsapp-button:hover,
+.service-card-bg .service-card-content a.whatsapp-button:hover {
+    background-color: #20BA5A !important;
+    color: white !important;
+    text-decoration: none !important;
+}
+
 
 .service-inquiry,
 .service-info {
@@ -1735,16 +1751,32 @@ section {
     color: var(--light-green);
 }
 
+.footer-section .whatsapp-button,
+.footer-section a.whatsapp-button {
+    background-color: #25D366 !important;
+    color: white !important;
+    text-decoration: none !important;
+    display: inline-flex !important;
+}
+
+.footer-section .whatsapp-button:hover,
+.footer-section a.whatsapp-button:hover {
+    background-color: #20BA5A !important;
+    color: white !important;
+    text-decoration: none !important;
+}
+
+a.whatsapp-button,
 .whatsapp-button {
-    display: inline-flex;
+    display: inline-flex !important;
     align-items: center;
     justify-content: center;
     gap: 0.75rem;
-    background-color: #25D366;
-    color: white;
+    background-color: #25D366 !important;
+    color: white !important;
     padding: 0.75rem 1.5rem;
     border-radius: 50px;
-    text-decoration: none;
+    text-decoration: none !important;
     font-weight: 500;
     font-size: 0.95rem;
     transition: all 0.3s ease;
@@ -1752,16 +1784,19 @@ section {
     border: none;
 }
 
-.footer-section .whatsapp-button {
+.footer-section .whatsapp-button,
+.footer-section a.whatsapp-button {
     margin-top: 0;
     margin-bottom: 0.5rem;
 }
 
+a.whatsapp-button:hover,
 .whatsapp-button:hover {
-    background-color: #20BA5A;
-    color: white;
+    background-color: #20BA5A !important;
+    color: white !important;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+    text-decoration: none !important;
 }
 
 .whatsapp-button::before {
