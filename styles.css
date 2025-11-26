@@ -1991,6 +1991,7 @@ a.whatsapp-button:hover,
     .membership-pathway {
         grid-template-columns: 1fr;
         gap: 2rem;
+        padding: 2rem; /* match donate section padding on mobile */
     }
 
     .donate-pathway {
