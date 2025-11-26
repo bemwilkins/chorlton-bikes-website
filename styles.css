@@ -1330,17 +1330,10 @@ section {
 .social-feed-item {
     background-color: var(--bg-light);
     border-radius: 12px;
-    /* Allow embedded widgets (e.g. Facebook) to render their full header
-       without being clipped at the top; the inner wrapper handles cropping */
-    overflow: visible;
+    overflow: hidden;
     box-shadow: var(--shadow);
     width: 100%;
     aspect-ratio: 1 / 1;
-}
-
-/* Facebook item - keep same size as Instagram */
-.facebook-feed-item {
-    /* Same as regular social-feed-item - square */
 }
 
 .social-feed-placeholder {
@@ -1366,34 +1359,6 @@ section {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     background-color: var(--bg-white);
     position: relative;
-}
-
-/* Facebook embed - ensure full content is visible in square container */
-.facebook-embed-container {
-    /* Keep square aspect ratio like Instagram */
-    position: relative;
-}
-
-.facebook-embed-container .fb-page {
-    width: 100% !important;
-    height: 100% !important;
-    position: relative;
-}
-
-.facebook-embed-container .fb-page > span {
-    width: 100% !important;
-    height: 100% !important;
-    display: block !important;
-    position: relative;
-}
-
-.facebook-embed-container .fb-page iframe {
-    width: 100% !important;
-    height: 100% !important;
-    border: none !important;
-    position: relative;
-    /* Allow iframe content to be scrollable if needed */
-    overflow: auto;
 }
 
 .social-feed-embed iframe {
