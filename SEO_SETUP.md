@@ -147,18 +147,17 @@ This guide outlines the SEO optimizations that have been implemented and additio
 - ✅ Fast loading
 - ✅ Social sharing optimized
 
-**Next Steps:**
-1. Submit to Google Search Console
-2. Create Google Business Profile
-3. Set up Google Analytics
-4. Build local directory listings
+**Next Steps (from where you are now):**
+1. Set up Google Analytics 4 (if you want traffic insights)
+2. Build and maintain local directory listings
+3. Keep content fresh (blog/news/updates a few times a year)
+4. Periodically review PageSpeed / Core Web Vitals and adjust only if scores drop
 
 ## 🚀 Quick Wins
 
-1. **Google Business Profile** (30 minutes) - High impact for local search
-2. **Google Search Console** (15 minutes) - Essential for monitoring
-3. **Submit sitemap** (5 minutes) - Helps indexing
-4. **Local directory listings** (1-2 hours) - Improves local visibility
+1. **Local directory listings** (1–2 hours) - Improves local visibility
+2. **Google Analytics 4** (30 minutes) - Understand how people use the site
+3. **Occasional content updates** (1–2 hours per quarter) - Signals freshness to search engines
 
 ## 📚 Resources
 
