@@ -1336,6 +1336,19 @@ section {
     aspect-ratio: 1 / 1;
 }
 
+/* Facebook item - allow taller container to show follower count */
+.facebook-feed-item {
+    aspect-ratio: auto;
+    min-height: 500px;
+    max-height: 600px;
+    overflow: hidden;
+}
+
+.facebook-feed-item .social-feed-embed {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
 .social-feed-placeholder {
     padding: 3rem 2rem;
     text-align: center;
@@ -1359,6 +1372,31 @@ section {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     background-color: var(--bg-white);
     position: relative;
+}
+
+/* Facebook embed - allow more height to show follower count */
+.facebook-embed-container {
+    aspect-ratio: auto;
+    min-height: 500px;
+    max-height: 600px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.facebook-embed-container .fb-page {
+    min-height: 500px !important;
+    height: auto !important;
+}
+
+.facebook-embed-container .fb-page > span {
+    min-height: 500px !important;
+    height: auto !important;
+    display: block !important;
+}
+
+.facebook-embed-container .fb-page iframe {
+    min-height: 500px !important;
+    height: auto !important;
 }
 
 .social-feed-embed iframe {
