@@ -32,11 +32,20 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/images/logo.png">
     
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="styles.css">
+    <!-- Preload critical resources -->
+    <link rel="preload" href="assets/images/carousel/01.png" as="image" fetchpriority="high">
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="script.js" as="script">
+    
+    <!-- Preconnect to external domains -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Quicksand:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Fonts - non-blocking load -->
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Quicksand:wght@300;400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Quicksand:wght@300;400;700&display=swap" rel="stylesheet"></noscript>
     
     <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
@@ -150,6 +159,8 @@
 
     <!-- Hero Section - Action First -->
     <section class="hero" aria-label="Chorlton Bikes hero section - sustainable cargo bike delivery services in South Manchester">
+        <!-- Preload LCP image for better performance -->
+        <img src="assets/images/carousel/01.png" alt="Chorlton Bikes cargo bike delivery" fetchpriority="high" style="position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none;" aria-hidden="true">
         <div class="hero-background" id="hero-background" aria-hidden="true"></div>
         <div class="hero-background hero-background-next" id="hero-background-next" aria-hidden="true"></div>
         <div class="hero-overlay" aria-hidden="true"></div>
@@ -619,17 +630,51 @@
     </footer>
 
     <script src="script.js"></script>
-    <!-- Instagram Embed Script -->
-    <script async src="//www.instagram.com/embed.js"></script>
-    <!-- Facebook SDK for Page Plugin -->
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v18.0"></script>
-    <!-- Paperform Embed Script -->
+    <!-- Defer third-party scripts to improve performance -->
     <script>
-        (function() {
-            var script = document.createElement('script');
-            script.src = "https://paperform.co/__embed.min.js";
-            document.body.appendChild(script);
-        })();
+        // Load third-party scripts after page is interactive
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(function() {
+                loadThirdPartyScripts();
+            });
+        } else {
+            // Fallback for browsers without requestIdleCallback
+            setTimeout(loadThirdPartyScripts, 2000);
+        }
+        
+        function loadThirdPartyScripts() {
+            // Instagram Embed Script
+            var instagramScript = document.createElement('script');
+            instagramScript.src = '//www.instagram.com/embed.js';
+            instagramScript.async = true;
+            document.body.appendChild(instagramScript);
+            
+            // Facebook SDK
+            var fbScript = document.createElement('script');
+            fbScript.src = 'https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v18.0';
+            fbScript.async = true;
+            fbScript.defer = true;
+            fbScript.crossOrigin = 'anonymous';
+            document.body.appendChild(fbScript);
+            
+            // Paperform Embed Script - only load when forms are visible
+            var paperformObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        var paperformScript = document.createElement('script');
+                        paperformScript.src = 'https://paperform.co/__embed.min.js';
+                        document.body.appendChild(paperformScript);
+                        paperformObserver.disconnect();
+                    }
+                });
+            });
+            
+            // Observe Paperform containers
+            var paperformContainers = document.querySelectorAll('[data-paperform-id]');
+            paperformContainers.forEach(function(container) {
+                paperformObserver.observe(container);
+            });
+        }
     </script>
 </body>
 </html>
