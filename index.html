@@ -513,9 +513,9 @@
                                  data-tabs="timeline" 
                                  data-width="" 
                                  data-height="" 
-                                 data-small-header="false" 
+                                 data-small-header="true" 
                                  data-adapt-container-width="true" 
-                                 data-hide-cover="false" 
+                                 data-hide-cover="true" 
                                  data-show-facepile="true">
                                 <blockquote cite="https://www.facebook.com/chorltonbikedeliveries" class="fb-xfbml-parse-ignore">
                                     <a href="https://www.facebook.com/chorltonbikedeliveries">Chorlton Bike Deliveries</a>
@@ -655,6 +655,12 @@
             fbScript.async = true;
             fbScript.defer = true;
             fbScript.crossOrigin = 'anonymous';
+            fbScript.onload = function() {
+                // Ensure Facebook embeds are parsed after SDK loads
+                if (window.FB) {
+                    window.FB.XFBML.parse();
+                }
+            };
             document.body.appendChild(fbScript);
             
             // Paperform Embed Script - only load when forms are visible
