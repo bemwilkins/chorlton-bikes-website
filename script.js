@@ -382,6 +382,35 @@ window.addEventListener('scroll', () => {
         'university-of-manchester.png',
         'veg-box-people.png'
     ];
+    
+    // Partner name mapping for SEO-friendly alt text
+    const partnerNames = {
+        'barbakan.jpg': 'Barbakan Bakery partner',
+        'british-cycling.png': 'British Cycling partner',
+        'care-uk.webp': 'Care UK partner',
+        'chorlton-cheesmongers.png': 'Chorlton Cheesemongers partner',
+        'chorlton-traders.webp': 'Chorlton Traders partner',
+        'crack-magazine.png': 'Crack Magazine partner',
+        'cracking-good-food.png': 'Cracking Good Food partner',
+        'emmelines-pantry.png': 'Emmeline\'s Pantry partner',
+        'feedr.svg': 'Feedr partner',
+        'forest-foods.png': 'Forest Foods partner',
+        'holy-grain.png': 'Holy Grain partner',
+        'live-from-wythenshaw-park.png': 'Live from Wythenshawe Park partner',
+        'makers-market.jpeg': 'Makers Market partner',
+        'manchester-south-central-foodbank.webp': 'Manchester South Central Foodbank partner',
+        'mcqueen-independent.avif': 'McQueen Independent partner',
+        'mcr-active.png': 'MCR Active partner',
+        'nhs.png': 'NHS partner',
+        'quids-in.jpeg': 'Quids In partner',
+        'refugee-aid.png': 'Refugee Aid partner',
+        'tea-hive.png': 'Tea Hive partner',
+        'tfgm.png': 'Transport for Greater Manchester partner',
+        'the-8th-day.png': 'The 8th Day partner',
+        'unicorn-grocery.jpeg': 'Unicorn Grocery partner',
+        'university-of-manchester.png': 'University of Manchester partner',
+        'veg-box-people.png': 'Veg Box People partner'
+    };
     // ============================================
 
     // Function to load logos
@@ -416,7 +445,7 @@ window.addEventListener('scroll', () => {
 
         const img = document.createElement('img');
         img.src = `assets/images/partners/${filename}`;
-        img.alt = `Partner logo ${index + 1}`;
+        img.alt = partnerNames[filename] || `Chorlton Bikes partner ${index + 1}`;
         img.loading = 'lazy';
         
         // Handle image load errors
