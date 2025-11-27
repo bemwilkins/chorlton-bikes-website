@@ -498,319 +498,108 @@ window.addEventListener('scroll', () => {
     }
 })();
 
-// Facebook Page Plugin - Ensure responsive scaling
+// Facebook Page Plugin - Ensure responsive scaling and fix header height
 (function() {
-    // Fallback for when Facebook embed is blocked (e.g., Chrome iOS)
-    function showFacebookFallback(container) {
-        // Check if fallback already exists
-        if (container.querySelector('.fb-fallback')) {
-            return;
-        }
+    function fixFacebookHeaderHeight() {
+        const container = document.querySelector('.social-feed-embed:not(.instagram-embed-container)');
+        if (!container) return;
         
-        const fallback = document.createElement('div');
-        fallback.className = 'fb-fallback';
-        fallback.style.cssText = 'width:100%;height:600px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#f5f5f5;border-radius:8px;padding:2rem;text-align:center;';
-        fallback.innerHTML = `
-            <h3 style="margin-bottom:1rem;color:#333;">Follow Us on Facebook</h3>
-            <p style="margin-bottom:1.5rem;color:#666;">Visit our Facebook page to see the latest updates and community news.</p>
-            <a href="https://www.facebook.com/chorltonbikedeliveries" 
-               target="_blank" 
-               rel="noopener noreferrer" 
-               style="display:inline-block;padding:0.75rem 2rem;background:#1877f2;color:white;text-decoration:none;border-radius:6px;font-weight:bold;font-size:1.1rem;">
-                Visit Facebook Page
-            </a>
-        `;
+        const iframe = container.querySelector('.fb-page iframe');
+        if (!iframe) return;
         
-        // Hide the Facebook embed and show fallback
-        const fbPage = container.querySelector('.fb-page');
-        if (fbPage) {
-            fbPage.style.display = 'none';
-        }
-        container.appendChild(fallback);
-    }
-
-    function resizeFacebookPlugin() {
-        const fbPage = document.querySelector('.fb-page');
-        if (!fbPage) {
-            return;
-        }
-        
-        const container = fbPage.closest('.social-feed-embed');
-        if (!container) {
-            return;
-        }
-        
-        // Get container width with multiple fallbacks
-        const containerWidth = container.offsetWidth || container.clientWidth || container.getBoundingClientRect().width || window.innerWidth;
-        
-        if (containerWidth > 0) {
-            // Use full container width (minimum 280px for Facebook's requirements)
-            const width = Math.max(Math.floor(containerWidth), 280);
-            fbPage.setAttribute('data-width', width.toString());
-            
-            // Force re-render Facebook plugin
-            const isChrome = /CriOS|Chrome/i.test(navigator.userAgent);
-            
-            if (window.FB) {
-                try {
-                    window.FB.XFBML.parse(container);
-                } catch (e) {
+        // Try to access iframe content (may be blocked by CORS)
+        try {
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            if (iframeDoc) {
+                // Target the shallow div._1drq element
+                const shallowDiv = iframeDoc.querySelector('div._1drq');
+                if (shallowDiv) {
+                    shallowDiv.style.minHeight = '24px';
+                    shallowDiv.style.height = 'auto';
+                    shallowDiv.style.paddingTop = '8px';
+                    shallowDiv.style.paddingBottom = '8px';
                 }
                 
-                // Chrome-specific: Force re-parse after a delay
-                if (isChrome) {
+                // Also fix parent containers
+                const parentContainers = iframeDoc.querySelectorAll('div._1dro, div[class*="_1dr"]');
+                parentContainers.forEach(function(div) {
+                    if (div.offsetHeight < 20) {
+                        div.style.minHeight = '24px';
+                        div.style.height = 'auto';
+                    }
+                });
+            }
+        } catch (e) {
+            // CORS blocked - can't access iframe content directly
+            // Fall back to CSS approach
+        }
+    }
+    
+    function resizeFacebookPlugin() {
+        const fbPage = document.querySelector('.fb-page');
+        if (fbPage) {
+            const container = fbPage.closest('.social-feed-embed');
+            if (container) {
+                const containerWidth = container.offsetWidth;
+                if (containerWidth > 0) {
+                    // Facebook max width is 500px, set to container width (capped at 500)
+                    const width = Math.min(containerWidth, 500);
+                    fbPage.setAttribute('data-width', width);
+                    
+                    // Scale the iframe if container is wider than 500px
                     setTimeout(function() {
-                        if (window.FB) {
-                            try {
-                                window.FB.XFBML.parse(container);
-                            } catch (e) {
-                            }
+                        const iframe = container.querySelector('.fb-page iframe');
+                        if (iframe && containerWidth > 500) {
+                            const scale = containerWidth / 500;
+                            iframe.style.transform = `scale(${scale})`;
+                            iframe.style.transformOrigin = 'top left';
+                            container.style.height = `${700 * scale}px`;
+                        } else if (iframe) {
+                            iframe.style.transform = 'scale(1)';
+                            container.style.height = '700px';
                         }
-                    }, 1500);
-                }
-            } else {
-                // If SDK not loaded and we're in Chrome, try to wait longer
-                if (isChrome) {
-                    const checkSDK = setInterval(function() {
-                        if (window.FB) {
-                            clearInterval(checkSDK);
-                            try {
-                                window.FB.XFBML.parse(container);
-                            } catch (e) {
-                            }
-                        }
-                    }, 500);
-                    setTimeout(function() {
-                        clearInterval(checkSDK);
-                    }, 10000);
+                        
+                        // Try to fix header height after iframe loads
+                        fixFacebookHeaderHeight();
+                    }, 2000); // Wait longer for Facebook to render
+                    
+                    // Also try after a longer delay
+                    setTimeout(fixFacebookHeaderHeight, 4000);
+                    
+                    // Re-render Facebook plugin if SDK is loaded
+                    if (window.FB) {
+                        window.FB.XFBML.parse();
+                    }
                 }
             }
-            
-            // Force iframe to use full container width
-            // Chrome needs longer timeout
-            const iframeTimeout = isChrome ? 3000 : 2000;
-            // Facebook's max width is 500px
-            const fbMaxWidth = 500;
-            const actualWidth = Math.min(width, fbMaxWidth);
-            const baseHeight = 600; // Facebook's default height
-            
-            setTimeout(function() {
-                const iframe = container.querySelector('.fb-page iframe');
-                if (iframe) {
-                    // Force visibility on iframe and parents
-                    const parentSpan = iframe.closest('span');
-                    const parentFbPage = iframe.closest('.fb-page');
-                    const parentContainer = iframe.closest('.social-feed-embed');
-                    
-                    if (parentSpan) {
-                        parentSpan.style.display = 'block';
-                        parentSpan.style.visibility = 'visible';
-                        parentSpan.style.opacity = '1';
-                        parentSpan.style.width = '100%';
-                        parentSpan.style.height = '100%';
-                        parentSpan.style.minWidth = '0';
-                        parentSpan.style.minHeight = '0';
-                        parentSpan.style.position = 'relative';
-                        parentSpan.style.zIndex = '1';
-                    }
-                    
-                    if (parentFbPage) {
-                        parentFbPage.style.display = 'block';
-                        parentFbPage.style.visibility = 'visible';
-                        parentFbPage.style.opacity = '1';
-                        parentFbPage.style.width = '100%';
-                        parentFbPage.style.height = '100%';
-                        parentFbPage.style.minWidth = '0';
-                        parentFbPage.style.minHeight = '0';
-                        parentFbPage.style.position = 'relative';
-                        parentFbPage.style.zIndex = '1';
-                    }
-                    
-                    // Force iframe visibility and sizing
-                    iframe.style.display = 'block';
-                    iframe.style.visibility = 'visible';
-                    iframe.style.opacity = '1';
-                    iframe.style.position = 'relative';
-                    iframe.style.zIndex = '2';
-                    iframe.style.top = '0';
-                    iframe.style.left = '0';
-                    
-                    iframe.style.width = actualWidth + 'px';
-                    iframe.style.height = baseHeight + 'px';
-                    iframe.style.minWidth = actualWidth + 'px';
-                    iframe.style.minHeight = baseHeight + 'px';
-                    
-                    // Ensure container allows content
-                    if (parentContainer) {
-                        parentContainer.style.overflow = 'visible';
-                        parentContainer.style.position = 'relative';
-                    }
-                    
-                    // Scale if container is wider than Facebook's 500px limit
-                    if (containerWidth > fbMaxWidth) {
-                        const scale = containerWidth / fbMaxWidth;
-                        iframe.style.transform = `scale(${scale})`;
-                        iframe.style.transformOrigin = 'top left';
-                        // Adjust container height to match scaled iframe (maintain square aspect)
-                        const scaledHeight = baseHeight * scale;
-                        container.style.height = scaledHeight + 'px';
-                    } else {
-                        iframe.style.transform = 'scale(1)';
-                        iframe.style.transformOrigin = 'top left';
-                        container.style.height = baseHeight + 'px';
-                    }
-                    
-                    // Check if iframe actually loaded content (Chrome iOS detection)
-                    // Wait a bit longer to see if content appears
-                    setTimeout(function() {
-                        // Check if iframe has a src but isn't showing content
-                        const hasSrcButNoContent = iframe.src && iframe.src.length > 0 && 
-                                                   (iframe.offsetWidth === 0 || iframe.offsetHeight === 0 || 
-                                                    !iframe.contentWindow);
-                        
-                        if (hasSrcButNoContent || (isChrome && isMobile && !iframe.contentWindow)) {
-                            showFacebookFallback(container);
-                        }
-                    }, 5000); // Wait 5 seconds to see if content loads
-                } else {
-                    // Chrome: Try one more time
-                    if (isChrome && window.FB) {
-                        setTimeout(function() {
-                            try {
-                                window.FB.XFBML.parse(container);
-                            } catch (e) {
-                            }
-                        }, 1000);
-                    } else if (isChrome && isMobile) {
-                        // Chrome iOS: Show fallback if iframe never appears
-                        setTimeout(function() {
-                            const iframe = container.querySelector('.fb-page iframe');
-                            if (!iframe) {
-                                showFacebookFallback(container);
-                            }
-                        }, 3000);
-                    }
-                }
-            }, iframeTimeout);
         }
     }
 
     // Resize on load and window resize
-    const isChromeBrowser = /CriOS|Chrome/i.test(navigator.userAgent);
-    const initialDelay = isChromeBrowser ? 2000 : 1000; // Chrome needs more time
-    
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(resizeFacebookPlugin, initialDelay);
+            setTimeout(resizeFacebookPlugin, 1000); // Wait for Facebook SDK to load
         });
     } else {
-        setTimeout(resizeFacebookPlugin, initialDelay);
+        setTimeout(resizeFacebookPlugin, 1000);
     }
 
     window.addEventListener('resize', function() {
         clearTimeout(window.fbResizeTimeout);
         window.fbResizeTimeout = setTimeout(resizeFacebookPlugin, 250);
     });
-
-    // Also resize after Facebook SDK loads
-    const isChrome = /CriOS|Chrome/i.test(navigator.userAgent);
-    const originalFbAsyncInit = window.fbAsyncInit;
-    window.fbAsyncInit = function() {
-        if (window.FB) {
-            try {
-                window.FB.init({
-                    xfbml: true,
-                    version: 'v18.0'
-                });
-                // Chrome needs more time
-                const initDelay = isChrome ? 1500 : 500;
-                const parseDelay = isChrome ? 2000 : 1000;
-                setTimeout(function() {
-                    resizeFacebookPlugin();
-                    // Try parsing again after a delay (longer for Chrome)
-                    setTimeout(function() {
-                        if (window.FB) {
-                            try {
-                                window.FB.XFBML.parse();
-                                // Chrome: One more retry
-                                if (isChrome) {
-                                    setTimeout(function() {
-                                        if (window.FB) {
-                                            window.FB.XFBML.parse();
-                                        }
-                                    }, 1000);
-                                }
-                            } catch (e) {
-                            }
-                        }
-                    }, parseDelay);
-                }, initDelay);
-            } catch (e) {
-            }
-        }
-        // Call original if it existed
-        if (originalFbAsyncInit && typeof originalFbAsyncInit === 'function') {
-            originalFbAsyncInit();
-        }
-    };
     
-    // Also try to initialize if SDK is already loaded
-    if (window.FB) {
-        try {
-            window.FB.init({
-                xfbml: true,
-                version: 'v18.0'
-            });
-            setTimeout(resizeFacebookPlugin, isChrome ? 2000 : 1000);
-        } catch (e) {
+    // Monitor iframe load and try to fix height
+    const observer = new MutationObserver(function(mutations) {
+        const iframe = document.querySelector('.social-feed-embed:not(.instagram-embed-container) .fb-page iframe');
+        if (iframe && iframe.src) {
+            setTimeout(fixFacebookHeaderHeight, 1000);
         }
-    }
-})();
-
-// Instagram Feed - Force 2-column layout
-(function() {
-    function forceInstagram2Columns() {
-        const instagramBlockquote = document.querySelector('.instagram-embed-container blockquote');
-        if (!instagramBlockquote) return;
-
-        // Wait for Instagram's embed.js to render content
-        const checkInterval = setInterval(function() {
-            const instagramContent = instagramBlockquote.querySelector('div');
-            if (instagramContent) {
-                // Try to find and modify grid layouts
-                const allDivs = instagramBlockquote.querySelectorAll('div');
-                allDivs.forEach(function(div) {
-                    const computedStyle = window.getComputedStyle(div);
-                    if (computedStyle.display === 'grid' || computedStyle.gridTemplateColumns) {
-                        div.style.setProperty('grid-template-columns', 'repeat(2, 1fr)', 'important');
-                    }
-                });
-                
-                clearInterval(checkInterval);
-            }
-        }, 500);
-
-        // Stop checking after 10 seconds
-        setTimeout(function() {
-            clearInterval(checkInterval);
-        }, 10000);
-    }
-
-    // Run after Instagram embed script loads
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(forceInstagram2Columns, 2000);
-        });
-    } else {
-        setTimeout(forceInstagram2Columns, 2000);
-    }
-
-    // Also run when Instagram embed script loads
-    const instagramScript = document.querySelector('script[src*="instagram.com/embed.js"]');
-    if (instagramScript) {
-        instagramScript.addEventListener('load', function() {
-            setTimeout(forceInstagram2Columns, 1000);
-        });
+    });
+    
+    const container = document.querySelector('.social-feed-embed:not(.instagram-embed-container)');
+    if (container) {
+        observer.observe(container, { childList: true, subtree: true });
     }
 })();
 

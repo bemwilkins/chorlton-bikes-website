@@ -55,7 +55,12 @@
         "name": "Chorlton Bikes",
         "legalName": "Chorlton Bikes Community Benefit Society",
         "url": "https://chorltonbikes.coop",
-        "logo": "https://chorltonbikes.coop/assets/images/logo-green.png",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://chorltonbikes.coop/assets/images/logo-green.png",
+            "width": 1206,
+            "height": 1022
+        },
         "description": "A Community Benefit Society providing sustainable cargo bike delivery services across South Manchester, committed to removing CO₂ from our streets and creating meaningful employment.",
         "address": {
             "@type": "PostalAddress",
@@ -74,7 +79,7 @@
         },
         "sameAs": [
             "https://www.facebook.com/chorltonbikedeliveries",
-            "https://www.instagram.com/chorltonbikedeliveries"
+            "https://www.instagram.com/chorltonbikes"
         ],
         "areaServed": {
             "@type": "City",
@@ -94,6 +99,12 @@
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
         "name": "Chorlton Bikes",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://chorltonbikes.coop/assets/images/logo-green.png",
+            "width": 1206,
+            "height": 1022
+        },
         "image": "https://chorltonbikes.coop/assets/images/logo-green.png",
         "description": "Sustainable cargo bike delivery services in South Manchester",
         "address": {
@@ -341,7 +352,7 @@
                         </div>
 
                         <!-- Leaflet & Magazine Distribution -->
-                        <div class="service-card service-card-bg" id="leaflet-distribution" style="--bg-image: url('assets/images/services/food-catering.jpg');" aria-label="Leaflet and Magazine Distribution service - Chorlton Bikes delivering leaflets, flyers and magazines to South Manchester residents and businesses">
+                        <div class="service-card service-card-bg" id="leaflet-distribution" style="--bg-image: url('assets/images/services/leaflet_magazine_distribution.jpg');" aria-label="Leaflet and Magazine Distribution service - Chorlton Bikes delivering leaflets, flyers and magazines to South Manchester residents and businesses">
                             <div class="service-card-content">
                                 <h4>Leaflet & Magazine Distribution</h4>
                             <p>We deliver leaflets and flyers to South Manchester residents, and distribute magazines to businesses and social venues like bars and theatres.</p>
@@ -501,7 +512,7 @@
                     <!-- Instagram Feed -->
                     <div class="social-feed-item">
                         <div class="social-feed-embed instagram-embed-container">
-                            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/chorltonbikedeliveries/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:8px; margin:0; max-width:100%; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);">
+                            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/chorltonbikes" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:8px; margin:0; max-width:100%; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);">
                             </blockquote>
                         </div>
                     </div>
@@ -513,7 +524,7 @@
                                  data-href="https://www.facebook.com/chorltonbikedeliveries" 
                                  data-tabs="timeline" 
                                  data-width="" 
-                                 data-height="" 
+                                 data-height="700" 
                                  data-small-header="false" 
                                  data-adapt-container-width="true" 
                                  data-hide-cover="false" 
@@ -528,7 +539,7 @@
                 <div class="social-links-main">
                     <h3>Follow Us</h3>
                     <div class="social-links">
-                        <a href="https://www.instagram.com/chorltonbikedeliveries" target="_blank" rel="noopener noreferrer" aria-label="Instagram">Instagram</a>
+                        <a href="https://www.instagram.com/chorltonbikes" target="_blank" rel="noopener noreferrer" aria-label="Instagram">Instagram</a>
                         <a href="https://www.facebook.com/chorltonbikedeliveries/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">Facebook</a>
                     </div>
                 </div>
@@ -593,7 +604,7 @@
                         <div class="stat-label">Local Business Partnerships</div>
                     </div>
                     <div class="stat">
-                        <div class="stat-number">5000+</div>
+                        <div class="stat-number">1000+</div>
                         <div class="stat-label">FOODBANK DONATION COLLECTIONS</div>
                     </div>
                     <div class="stat">
@@ -625,7 +636,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Chorlton Bikes. All Rights Reserved. | <a href="https://chorltonbikedeliveries.coop/privacy-policy/" target="_blank" rel="noopener noreferrer" class="footer-link">Privacy Policy</a></p>
+                <p>&copy; 2025 Chorlton Bikes. All Rights Reserved. | <a href="privacy-policy.html" class="footer-link">Privacy Policy</a></p>
             </div>
         </div>
     </footer>
@@ -646,23 +657,9 @@
         function loadThirdPartyScripts() {
             // Instagram Embed Script
             var instagramScript = document.createElement('script');
-            instagramScript.src = '//www.instagram.com/embed.js';
+            instagramScript.src = 'https://www.instagram.com/embed.js';
             instagramScript.async = true;
             document.body.appendChild(instagramScript);
-            
-            // Facebook SDK
-            var fbScript = document.createElement('script');
-            fbScript.src = 'https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v18.0';
-            fbScript.async = true;
-            fbScript.defer = true;
-            fbScript.crossOrigin = 'anonymous';
-            fbScript.onload = function() {
-                // Ensure Facebook embeds are parsed after SDK loads
-                if (window.FB) {
-                    window.FB.XFBML.parse();
-                }
-            };
-            document.body.appendChild(fbScript);
             
             // Paperform Embed Script - only load when forms are visible
             var paperformObserver = new IntersectionObserver(function(entries) {
@@ -683,5 +680,7 @@
             });
         }
     </script>
+    <!-- Facebook SDK for Page Plugin -->
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v18.0"></script>
 </body>
 </html>
