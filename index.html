@@ -47,6 +47,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Quicksand:wght@300;400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Quicksand:wght@300;400;700&display=swap" rel="stylesheet"></noscript>
     
+    <!-- Instagram Embed Script - load early -->
+    <script async src="//www.instagram.com/embed.js"></script>
+    
     <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
     {
@@ -512,7 +515,7 @@
                     <!-- Instagram Feed -->
                     <div class="social-feed-item">
                         <div class="social-feed-embed instagram-embed-container">
-                            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/chorltonbikes" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:8px; margin:0; max-width:100%; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);">
+                            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/chorltonbikes/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:8px; margin:0; max-width:100%; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);">
                             </blockquote>
                         </div>
                     </div>
@@ -655,11 +658,21 @@
         }
         
         function loadThirdPartyScripts() {
-            // Instagram Embed Script
-            var instagramScript = document.createElement('script');
-            instagramScript.src = '//www.instagram.com/embed.js';
-            instagramScript.async = true;
-            document.body.appendChild(instagramScript);
+            // Instagram Embed Script is now loaded in <head> - it should process automatically
+            // Just verify it's working
+            setTimeout(function() {
+                if (window.instgrm && window.instgrm.Embeds) {
+                    console.log('Instagram embed object found');
+                    try {
+                        window.instgrm.Embeds.process();
+                        console.log('Instagram embeds processed');
+                    } catch (e) {
+                        console.error('Error processing Instagram embeds:', e);
+                    }
+                } else {
+                    console.warn('Instagram embed object (instgrm) not found - script may still be loading');
+                }
+            }, 3000);
             
             // Paperform Embed Script - only load when forms are visible
             var paperformObserver = new IntersectionObserver(function(entries) {
