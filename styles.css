@@ -1005,32 +1005,17 @@ section {
         position: relative; /* Ensure proper stacking */
     }
     
-    .service-card:not(#bikes-refugees) .service-card-content {
+    .service-card .service-card-content {
         display: flex;
         flex-direction: column;
         flex: 1;
         min-height: 0;
+        height: 100%; /* Ensure content fills the card height */
     }
     
-    .service-card:not(#bikes-refugees) .service-inquiry {
-        margin-top: auto;
-    }
-    
-    /* Ensure bikes-refugees card content fills the height properly */
-    #bikes-refugees {
+    .service-card .service-inquiry {
+        margin-top: auto !important; /* Force to bottom */
         flex-shrink: 0; /* Prevent shrinking */
-    }
-    
-    #bikes-refugees .service-card-content {
-        display: flex;
-        flex-direction: column;
-        min-height: 100%;
-        flex: 1;
-    }
-    
-    #bikes-refugees .service-inquiry {
-        margin-top: auto;
-        flex-shrink: 0; /* Prevent form from shrinking */
     }
 }
 

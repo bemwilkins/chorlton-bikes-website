@@ -319,11 +319,56 @@
         initSmoothScroll();
     }
     
+    // Handle initial page load with hash in URL (e.g., /#donate)
+    function handleInitialHash() {
+        const hash = window.location.hash;
+        if (hash && hash !== '#' && hash.startsWith('#')) {
+            // Prevent browser's default hash scrolling
+            if (history.replaceState) {
+                history.replaceState(null, null, ' ');
+            }
+            
+            // Wait for page to be fully loaded and rendered
+            const scrollToHash = () => {
+                const target = document.querySelector(hash);
+                if (target) {
+                    // Restore hash in URL
+                    if (history.replaceState) {
+                        history.replaceState(null, null, hash);
+                    }
+                    
+                    // Wait a bit longer to ensure all layout is complete
+                    setTimeout(() => {
+                        scrollToSection(target, 0);
+                    }, 300);
+                }
+            };
+            
+            // If page is already loaded, scroll after a delay
+            if (document.readyState === 'complete') {
+                scrollToHash();
+            } else {
+                // Wait for page to fully load
+                window.addEventListener('load', scrollToHash);
+                // Also try after DOMContentLoaded as a fallback
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', function() {
+                        setTimeout(scrollToHash, 300);
+                    });
+                }
+            }
+        }
+    }
+    
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', setupSmoothScroll);
+        document.addEventListener('DOMContentLoaded', function() {
+            setupSmoothScroll();
+            handleInitialHash();
+        });
     } else {
         // DOM already loaded
         setupSmoothScroll();
+        handleInitialHash();
     }
     
     // Also run after a short delay to catch any dynamically added links
@@ -778,8 +823,7 @@ window.addEventListener('scroll', () => {
             return;
         }
         
-        const serviceCards = document.querySelectorAll('.service-card:not(#bikes-refugees)');
-        const bikesRefugeesCard = document.getElementById('bikes-refugees');
+        const serviceCards = document.querySelectorAll('.service-card');
         
         if (serviceCards.length === 0) {
             return;
@@ -790,7 +834,7 @@ window.addEventListener('scroll', () => {
             card.style.height = 'auto';
         });
         
-        // Find the tallest regular card
+        // Find the tallest card
         let maxHeight = 0;
         serviceCards.forEach(card => {
             const height = card.offsetHeight;
@@ -799,26 +843,10 @@ window.addEventListener('scroll', () => {
             }
         });
         
-        // Set all regular cards to the same height
+        // Set all cards to the same height
         serviceCards.forEach(card => {
             card.style.height = maxHeight + 'px';
         });
-        
-        // Set bikes-refugees to exactly 2x height + gap (to align with card opposite)
-        // This makes it span exactly 2 card slots plus the gap between them
-        if (bikesRefugeesCard) {
-            // Get the computed gap from CSS (2rem = 32px)
-            const gap = 32; // 2rem = 32px
-            // Calculate: 2 regular cards + 1 gap between them
-            const bikesRefugeesHeight = (maxHeight * 2) + gap;
-            bikesRefugeesCard.style.height = bikesRefugeesHeight + 'px';
-            
-            // Ensure the card content uses the full height properly
-            const content = bikesRefugeesCard.querySelector('.service-card-content');
-            if (content) {
-                content.style.minHeight = '100%';
-            }
-        }
     }
     
     // Run on load and resize
