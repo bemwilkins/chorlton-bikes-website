@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    
+    <!-- Primary Meta Tags -->
+    <title>Chorlton Bikes - Preview (Team Feedback)</title>
+    <meta name="title" content="Chorlton Bikes - Sustainable Cargo Bike Deliveries in South Manchester">
+    <meta name="description" content="Chorlton Bikes is a Community Benefit Society providing sustainable cargo bike delivery services across South Manchester. We offer community services, commercial deliveries, and create meaningful jobs paying the Real Living Wage. Join us or request a service today!">
+    <meta name="keywords" content="cargo bikes, bike delivery, sustainable transport, Manchester, Chorlton, community benefit society, electric bikes, food delivery, commercial delivery, Real Living Wage">
+    <meta name="author" content="Chorlton Bikes">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="canonical" href="https://chorltonbikes.coop/dev.html">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://chorltonbikes.coop">
+    <meta property="og:title" content="Chorlton Bikes - Sustainable Cargo Bike Deliveries in South Manchester">
+    <meta property="og:description" content="A Community Benefit Society committed to removing CO₂ from our streets, supporting local communities, and creating meaningful jobs that pay the Real Living Wage.">
+    <meta property="og:image" content="https://chorltonbikes.coop/assets/images/logo-green.png">
+    <meta property="og:site_name" content="Chorlton Bikes">
+    <meta property="og:locale" content="en_GB">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://chorltonbikes.coop">
+    <meta property="twitter:title" content="Chorlton Bikes - Sustainable Cargo Bike Deliveries in South Manchester">
+    <meta property="twitter:description" content="A Community Benefit Society committed to removing CO₂ from our streets, supporting local communities, and creating meaningful jobs that pay the Real Living Wage.">
+    <meta property="twitter:image" content="https://chorltonbikes.coop/assets/images/logo-green.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="assets/images/carousel/01.png" as="image" fetchpriority="high">
+    <link rel="preload" href="dev-styles.css" as="style">
+    <link rel="preload" href="dev-script.js" as="script">
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="dev-styles.css">
+    <!-- Google Fonts - non-blocking load -->
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Quicksand:wght@300;400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Quicksand:wght@300;400;700&display=swap" rel="stylesheet"></noscript>
+    
+    <!-- Instagram Embed Script - load early -->
+    <script async src="//www.instagram.com/embed.js"></script>
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Chorlton Bikes",
+        "legalName": "Chorlton Bikes Community Benefit Society",
+        "url": "https://chorltonbikes.coop",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://chorltonbikes.coop/assets/images/logo-green.png",
+            "width": 1206,
+            "height": 1022
+        },
+        "description": "A Community Benefit Society providing sustainable cargo bike delivery services across South Manchester, committed to removing CO₂ from our streets and creating meaningful employment.",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Boiler House, 9 Wilcock St",
+            "addressLocality": "Moss Side",
+            "addressRegion": "Manchester",
+            "postalCode": "M16 7DA",
+            "addressCountry": "GB"
+        },
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+44-7561-737986",
+            "contactType": "Customer Service",
+            "email": "hello@chorltonbikes.coop",
+            "availableLanguage": "English"
+        },
+        "sameAs": [
+            "https://www.facebook.com/chorltonbikedeliveries",
+            "https://www.instagram.com/chorltonbikes"
+        ],
+        "areaServed": {
+            "@type": "City",
+            "name": "South Manchester"
+        },
+        "knowsAbout": [
+            "Sustainable Transport",
+            "Cargo Bike Delivery",
+            "Community Services",
+            "Commercial Delivery"
+        ]
+    }
+    </script>
+    
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Chorlton Bikes",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://chorltonbikes.coop/assets/images/logo-green.png",
+            "width": 1206,
+            "height": 1022
+        },
+        "image": "https://chorltonbikes.coop/assets/images/logo-green.png",
+        "description": "Sustainable cargo bike delivery services in South Manchester",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Boiler House, 9 Wilcock St",
+            "addressLocality": "Moss Side",
+            "addressRegion": "Manchester",
+            "postalCode": "M16 7DA",
+            "addressCountry": "GB"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 53.4583840479328,
+            "longitude": -2.2505536564834516
+        },
+        "url": "https://chorltonbikes.coop",
+        "telephone": "+44-7561-737986",
+        "priceRange": "£",
+        "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday"
+            ],
+            "opens": "09:00",
+            "closes": "17:00"
+        }
+    }
+    </script>
+</head>
+<body id="top">
+    <!-- Preview banner for team feedback -->
+    <div style="background: #ff8210; color: white; text-align: center; padding: 0.5rem 1rem; font-size: 0.9rem; font-weight: 600;">
+        Preview: This is a draft for team feedback. Share your thoughts!
+    </div>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="dev.html#top" class="nav-brand" aria-label="Go to top of page">
+                <img src="assets/images/logo-white.png" alt="Chorlton Bikes Logo" class="logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <!-- Fallback text logo (not a heading to avoid multiple H1s) -->
+                <span class="logo-text">Chorlton Bikes</span>
+            </a>
+            <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links">
+                <li>
+                    <a href="#services">Services</a>
+                    <ul class="nav-sublinks">
+                        <li><a href="#community-services">Community Services</a></li>
+                        <li><a href="#commercial-services">Commercial Services</a></li>
+                    </ul>
+                </li>
+                <li><a href="#membership">Join Us</a></li>
+                <li><a href="#donate">Donate</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+            <div class="mobile-menu-overlay"></div>
+        </div>
+    </nav>
+
+    <!-- Hero Section - Action First -->
+    <section class="hero" aria-label="Chorlton Bikes hero section - sustainable cargo bike delivery services in South Manchester">
+        <!-- Preload LCP image for better performance -->
+        <img src="assets/images/carousel/01.png" alt="Chorlton Bikes cargo bike delivery" fetchpriority="high" style="position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none;" aria-hidden="true">
+        <div class="hero-background" id="hero-background" aria-hidden="true"></div>
+        <div class="hero-background hero-background-next" id="hero-background-next" aria-hidden="true"></div>
+        <div class="hero-overlay" aria-hidden="true"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Chorlton Bikes</h1>
+                <p class="hero-subtitle">Building a Greener, More Connected Community</p>
+                <p class="hero-tagline">
+                    We are a Community Benefit Society committed to removing CO₂ from our streets, supporting local communities, 
+                    and creating meaningful jobs that pay the Real Living Wage.
+                </p>
+                <div class="hero-cta-grid">
+                    <a href="#services" class="hero-cta-card">Request a Service</a>
+                    <a href="#membership" class="hero-cta-card">Become a Member</a>
+                    <a href="#donate" class="hero-cta-card">Donate</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Break -->
+    <div class="quote-break" data-quote-rotator>
+        <div class="container">
+            <blockquote class="quote-break-content">
+                <p class="quote-break-text"></p>
+                <cite class="quote-break-cite"></cite>
+            </blockquote>
+        </div>
+    </div>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">Request a Service</h2>
+            <p class="section-intro">We offer a range of community and commercial services.<br>Choose what you need below.</p>
+            
+            <div class="services-split">
+                <!-- Community Services -->
+                <div class="services-column" id="community-services">
+                    <h3 class="services-column-title">Community Services</h3>
+                    <div class="service-cards">
+                        <!-- Surplus Food Collections -->
+                        <div class="service-card service-card-bg" id="surplus-food" style="--bg-image: url('assets/images/services/surplus-food.png');" aria-label="Surplus Food Collections service - Chorlton Bikes volunteers collecting and delivering surplus food to foodbanks">
+                            <div class="service-card-content">
+                                <h4>Surplus Food Collections</h4>
+                            <p>Every day, our dedicated volunteers collect surplus food from local businesses and residents, delivering it directly to foodbanks across South Manchester.</p>
+                            <p>This vital service helps reduce food waste while supporting those in need in our community.</p>
+                            <p>If you're a local business or resident with surplus food to donate, we'd love to hear from you.</p>
+                            <div class="service-inquiry">
+                                <p><strong>Get in touch:</strong></p>
+                                <div class="service-contact-buttons">
+                                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hello@chorltonbikes.coop&su=Surplus%20Food%20Collection%20Inquiry" target="_blank" rel="noopener noreferrer" class="btn btn-email">Email Us</a>
+                                    <a href="https://wa.me/447561737986?text=Hi%2C%20I%27d%20like%20to%20inquire%20about%20Surplus%20Food%20Collections" target="_blank" rel="noopener noreferrer" class="whatsapp-button">Chat on WhatsApp</a>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+
+                        <!-- Shop & Drop -->
+                        <div class="service-card service-card-bg" id="shop-drop" style="--bg-image: url('assets/images/services/shop-drop.jpg');" aria-label="Unicorn Shop and Drop service - Chorlton Bikes cargo bike delivery for Unicorn Grocery customers">
+                            <div class="service-card-content">
+                                <h4>Unicorn Shop & Drop</h4>
+                            <p>For people with mobility issues or other significant barriers getting to the Unicorn Grocery.</p>
+                            <p>We offer Shop & Drop or You Shop, We Drop services.</p>
+                            <div class="service-inquiry">
+                                <p><strong>Get in touch:</strong></p>
+                                <div class="service-contact-buttons">
+                                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hello@chorltonbikes.coop&su=Shop%20N%20Drop%20Inquiry" target="_blank" rel="noopener noreferrer" class="btn btn-email">Email Us</a>
+                                    <a href="https://wa.me/447561737986?text=Hi%2C%20I%27d%20like%20to%20inquire%20about%20Unicorn%20Shop%20%26%20Drop" target="_blank" rel="noopener noreferrer" class="whatsapp-button">Chat on WhatsApp</a>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+
+                        <!-- Community Trishaw Rides -->
+                        <div class="service-card service-card-bg" id="trishaw-community" style="--bg-image: url('assets/images/services/community-trishaw.jpg');" aria-label="Community Trishaw Rides service - Chorlton Bikes providing free trishaw rides for older people and those with limited mobility in South Manchester">
+                            <div class="service-card-content">
+                                <h4>Community Trishaw Rides</h4>
+                            <p>We operate a Trishaw scheme across South Manchester, giving older people and those with limited mobility the opportunity to experience being back out and about.</p>
+                            <p>Free rides when offered through community organisations.</p>
+                            <div class="service-inquiry">
+                                <p><strong>Get in touch:</strong></p>
+                                <div class="service-contact-buttons">
+                                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hello@chorltonbikes.coop&su=Community%20Trishaw%20Ride%20Inquiry" target="_blank" rel="noopener noreferrer" class="btn btn-email">Email Us</a>
+                                    <a href="https://wa.me/447561737986?text=Hi%2C%20I%27d%20like%20to%20inquire%20about%20Community%20Trishaw%20Rides" target="_blank" rel="noopener noreferrer" class="whatsapp-button">Chat on WhatsApp</a>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+
+                        <!-- Bikes4Refugees Donations -->
+                        <div class="service-card service-card-bg" id="bikes-refugees" style="--bg-image: url('assets/images/services/bikes4refugees.jpg');" aria-label="Bikes4Refugees Donations - Chorlton Bikes working with Refugee Aid to revive unused bikes for asylum-seekers and refugees">
+                            <div class="service-card-content">
+                                <h4>Bikes4Refugees Donations</h4>
+                            <p>We work with Refugee Aid (Care UK) reviving unused bikes to be used by asylum-seekers and refugees.</p>
+                            <p>Donate your bike to help someone access opportunities and build connections in the community.</p>
+                            <div class="service-inquiry">
+                                <p><strong>Donate a bike:</strong></p>
+                                <div class="service-contact-buttons">
+                                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hello@chorltonbikes.coop&su=Bike%20Donation%20Inquiry" target="_blank" rel="noopener noreferrer" class="btn btn-email">Email Us</a>
+                                    <a href="https://wa.me/447561737986?text=Hi%2C%20I%27d%20like%20to%20donate%20a%20bike%20for%20Bikes4Refugees" target="_blank" rel="noopener noreferrer" class="whatsapp-button">Chat on WhatsApp</a>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+
+                        <!-- Bike Library -->
+                        <div class="service-card service-card-bg" id="bike-library" style="--bg-image: url('assets/images/services/bike-library.jpg');" aria-label="Bike Library service - Chorlton Bikes bike library supported by TfGM to boost bike access and usage in the community">
+                            <div class="service-card-content">
+                                <h4>Bike Library</h4>
+                            <p>Thanks to support from TfGM we operate a bike library with the aim of boosting access to and usage of bikes in our community.</p>
+                            <div class="service-inquiry">
+                                <p><strong>Get in touch:</strong></p>
+                                <div class="service-contact-buttons">
+                                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hello@chorltonbikes.coop&su=Bike%20Library%20Inquiry" target="_blank" rel="noopener noreferrer" class="btn btn-email">Email Us</a>
+                                    <a href="https://wa.me/447561737986?text=Hi%2C%20I%27d%20like%20to%20inquire%20about%20the%20Bike%20Library" target="_blank" rel="noopener noreferrer" class="whatsapp-button">Chat on WhatsApp</a>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+
+                        <!-- Community Projects -->
+                        <div class="service-card service-card-bg" id="community-deliveries" style="--bg-image: url('assets/images/services/community-projects.png');" aria-label="Community Projects - Chorlton Bikes dedicated team of riders and electric cargo bikes helping make community projects happen">
+                            <div class="service-card-content">
+                                <h4>Community Projects</h4>
+                            <p>Have an idea for a community project?</p>
+                            <p>Our dedicated team of riders and fleet of electric cargo bikes can help you make it happen.</p>
+                            <div class="service-inquiry">
+                                <p><strong>Get in touch:</strong></p>
+                                <div class="service-contact-buttons">
+                                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hello@chorltonbikes.coop&su=Community%20Project%20Inquiry" target="_blank" rel="noopener noreferrer" class="btn btn-email">Email Us</a>
+                                    <a href="https://wa.me/447561737986?text=Hi%2C%20I%27d%20like%20to%20discuss%20a%20Community%20Project" target="_blank" rel="noopener noreferrer" class="whatsapp-button">Chat on WhatsApp</a>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Commercial Services -->
+                <div class="services-column" id="commercial-services">
+                    <h3 class="services-column-title">Commercial Services</h3>
+                    <div class="service-cards">
+                        <!-- Health & Public Service Logistics -->
+                        <div class="service-card service-card-bg" id="health-public-services" style="--bg-image: url('assets/images/services/health-logistics.jpg');" aria-label="Healthcare Logistics service - Chorlton Bikes NHS contract transporting medical specimens from GP surgeries to hospitals across Manchester">
+                            <div class="service-card-content">
+                                <h4>Healthcare Logistics</h4>
+                            <p>Our NHS contract involves daily collections from doctors surgeries across South and Central Manchester, transporting specimens in specialised containers safely and securely to local hospitals.</p>
+                            <p>We're ready to support other NHS trusts, health institutions, and pharmacies with reliable, sustainable delivery solutions.</p>
+                            <div class="service-inquiry">
+                                <p><strong>Get in touch:</strong></p>
+                                <div class="service-contact-buttons">
+                                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hello@chorltonbikes.coop&su=Health%20%26%20Public%20Service%20Logistics%20Inquiry" target="_blank" rel="noopener noreferrer" class="btn btn-email">Email Us</a>
+                                    <a href="https://wa.me/447561737986?text=Hi%2C%20I%27d%20like%20to%20inquire%20about%20Healthcare%20Logistics" target="_blank" rel="noopener noreferrer" class="whatsapp-button">Chat on WhatsApp</a>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+
+                        <!-- Food & Catering Deliveries -->
+                        <div class="service-card service-card-bg" id="food-catering" style="--bg-image: url('assets/images/services/food-catering.jpg');" aria-label="Food and Catering Deliveries service - Chorlton Bikes cargo bike delivery for food businesses, bakeries, and catering companies in Manchester">
+                            <div class="service-card-content">
+                                <h4>Food & Catering Deliveries</h4>
+                            <p>From transporting bread from city centre bakeries to local retailers, platters to businesses and cheese and veg boxes to local residents - we handle both B2C and B2B food deliveries.</p>
+                            <p>Our bikes are specially fitted out to ensure food arrives in tip-top condition - dry, secure, and contamination-free.</p>
+                            <div class="service-inquiry">
+                                <p><strong>Get in touch:</strong></p>
+                                <div class="service-contact-buttons">
+                                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hello@chorltonbikes.coop&su=Food%20%26%20Catering%20Delivery%20Inquiry" target="_blank" rel="noopener noreferrer" class="btn btn-email">Email Us</a>
+                                    <a href="https://wa.me/447561737986?text=Hi%2C%20I%27d%20like%20to%20inquire%20about%20Food%20%26%20Catering%20Deliveries" target="_blank" rel="noopener noreferrer" class="whatsapp-button">Chat on WhatsApp</a>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+
+                        <!-- Leaflet & Magazine Distribution -->
+                        <div class="service-card service-card-bg" id="leaflet-distribution" style="--bg-image: url('assets/images/services/leaflet_magazine_distribution.jpg');" aria-label="Leaflet and Magazine Distribution service - Chorlton Bikes delivering leaflets, flyers and magazines to South Manchester residents and businesses">
+                            <div class="service-card-content">
+                                <h4>Leaflet & Magazine Distribution</h4>
+                            <p>We deliver leaflets and flyers to South Manchester residents, and distribute magazines to businesses and social venues like bars and theatres.</p>
+                            <p>Our local knowledge ensures your materials reach the right places at the right time.</p>
+                            <div class="service-inquiry">
+                                <p><strong>Get in touch:</strong></p>
+                                <div class="service-contact-buttons">
+                                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hello@chorltonbikes.coop&su=Leaflet%20%26%20Magazine%20Distribution%20Inquiry" target="_blank" rel="noopener noreferrer" class="btn btn-email">Email Us</a>
+                                    <a href="https://wa.me/447561737986?text=Hi%2C%20I%27d%20like%20to%20inquire%20about%20Leaflet%20%26%20Magazine%20Distribution" target="_blank" rel="noopener noreferrer" class="whatsapp-button">Chat on WhatsApp</a>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+
+                        <!-- Trishaw Hire -->
+                        <div class="service-card service-card-bg" id="trishaw-commercial" style="--bg-image: url('assets/images/services/trishaw-hire.jpg');" aria-label="Trishaw Hire service - Chorlton Bikes trishaw and pilot hire for weddings, birthdays, celebrations and corporate events">
+                            <div class="service-card-content">
+                                <h4>Trishaw Hire</h4>
+                            <p>Perfect for special events like weddings, birthdays, celebrations, or corporate events.</p>
+                            <p>Make your occasion memorable with our unique trishaw service - hire the trishaw and pilot for your special day.</p>
+                            <div class="service-inquiry">
+                                <p><strong>Get in touch:</strong></p>
+                                <div class="service-contact-buttons">
+                                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hello@chorltonbikes.coop&su=Trishaw%20Hire%20Inquiry" target="_blank" rel="noopener noreferrer" class="btn btn-email">Email Us</a>
+                                    <a href="https://wa.me/447561737986?text=Hi%2C%20I%27d%20like%20to%20inquire%20about%20Trishaw%20Hire" target="_blank" rel="noopener noreferrer" class="whatsapp-button">Chat on WhatsApp</a>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+
+                        <!-- Other Delivery Services -->
+                        <div class="service-card service-card-bg" id="other-deliveries" style="--bg-image: url('assets/images/services/other-deliveries.png');" aria-label="Other Delivery Services - Chorlton Bikes cargo bike delivery for various items including Christmas trees, books, beer and more across Manchester">
+                            <div class="service-card-content">
+                                <h4>Other Delivery Services</h4>
+                            <p>Do you or your business need any other sort of regular or one-off delivery?</p>
+                            <p>We have extensive experience transporting Christmas trees, books, beer and more.</p>
+                            <p>Contact us to discuss your needs and we'll work with you to find a sustainable delivery solution.</p>
+                            <div class="service-inquiry">
+                                <p><strong>Get in touch:</strong></p>
+                                <div class="service-contact-buttons">
+                                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hello@chorltonbikes.coop&su=Other%20Delivery%20Service%20Inquiry" target="_blank" rel="noopener noreferrer" class="btn btn-email">Email Us</a>
+                                    <a href="https://wa.me/447561737986?text=Hi%2C%20I%27d%20like%20to%20discuss%20Other%20Delivery%20Services" target="_blank" rel="noopener noreferrer" class="whatsapp-button">Chat on WhatsApp</a>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Break -->
+    <div class="quote-break" data-quote-rotator>
+        <div class="container">
+            <blockquote class="quote-break-content">
+                <p class="quote-break-text"></p>
+                <cite class="quote-break-cite"></cite>
+            </blockquote>
+        </div>
+    </div>
+
+    <!-- Become a Member Section -->
+    <section id="membership" class="membership">
+        <div class="container">
+            <h2 class="section-title">Join Us</h2>
+            <p class="section-intro">There are many ways to get involved with Chorlton Bikes.<br>Choose the path that's right for you.</p>
+            
+            <div class="membership-pathways">
+                <!-- Pathway 1: Become a Member -->
+                <div class="membership-pathway">
+                    <div class="pathway-content">
+                        <h3>Become a Member</h3>
+                        <p>As a Community Benefit Society, membership is open and accessible to everyone.</p>
+                        <p>To become a member, you simply need to hold one £1 share, which gives you a real stake in Chorlton Bikes and an equal say in how we're run.</p>
+                        <p><strong>Why join us?</strong></p>
+                        <ul>
+                            <li>You might want to get involved in running the organisation</li>
+                            <li>Ride as a volunteer or to get paid</li>
+                            <li>Simply because you believe in our values and what we're doing</li>
+                        </ul>
+                        <p>Membership means you have a voice in our future direction and can help shape how we serve our community.</p>
+                    </div>
+                    <div class="pathway-form">
+                        <div data-paperform-id="cbd-membership"></div>
+                    </div>
+                </div>
+
+                <!-- Pathway 2: Join as a Rider -->
+                <div class="membership-pathway">
+                    <div class="pathway-content">
+                        <h3>Ride with Us</h3>
+                        <p>Our pool of friendly dedicated riders is growing and we offer both volunteer and paid opportunities.</p>
+                        <p>We're looking for enthusiastic bike riders from all members of our local community (no cargo bike experience needed).</p>
+                        <p>If you'd like to:</p>
+                        <ul>
+                            <li>Be involved with a lovely community based cooperative</li>
+                            <li>Work for an ethical organisation who pays the Real Living Wage (for our paid riders)</li>
+                            <li>Contribute to your community by helping take cars and vans off the road</li>
+                            <li>Have FUN in the process, riding our fleet of wonderful cargo bikes</li>
+                        </ul>
+                        <p>Then we'd love to hear from you!</p>
+                    </div>
+                    <div class="pathway-inquiry">
+                        <h4>Interested in Riding?</h4>
+                        <p>Just drop us an email - we'd love to hear from you!</p>
+                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hello@chorltonbikes.coop&su=Rider%20Application" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-large">Email Us to Get Started</a>
+                    </div>
+                </div>
+
+                <!-- Pathway 3: Volunteer -->
+                <div class="membership-pathway">
+                    <div class="pathway-content">
+                        <h3>Volunteer with Us</h3>
+                        <p>There are many ways to get involved beyond riding.</p>
+                        <p>Whether you want to help with operations, support our community projects, or contribute in other ways, we'd love to have you on board.</p>
+                        <p>As a Real Living Wage employer, we value all contributions to our mission.</p>
+                        <p>Your support helps us build a greener, more connected community.</p>
+                    </div>
+                    <div class="pathway-inquiry">
+                        <h4>Want to Volunteer?</h4>
+                        <p>Just drop us an email - we'd love to hear from you!</p>
+                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hello@chorltonbikes.coop&su=Volunteer%20Inquiry" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-large">Email Us to Get Started</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Break -->
+    <div class="quote-break" data-quote-rotator>
+        <div class="container">
+            <blockquote class="quote-break-content">
+                <p class="quote-break-text"></p>
+                <cite class="quote-break-cite"></cite>
+            </blockquote>
+        </div>
+    </div>
+
+    <!-- Donate Section -->
+    <section id="donate" class="donate">
+        <div class="container">
+            <h2 class="section-title">Make a Donation</h2>
+            <p class="section-intro">As a CBS, we're here to benefit you, our community.<br>Help us protect the things we value, support the people who make it happen, and build a sustainable future for Chorlton Bikes.</p>
+            
+            <div class="donate-pathway">
+                <div class="pathway-content">
+                    <h3>Friends of Chorlton Bikes</h3>
+                    <p>If you believe in what we do and you can afford it, please consider donating the price of a pint or cup of coffee once a month to our friends of chorlton bikes programme.</p>
+                    <p>Our goal is to raise £1,000 per month in regular donations.</p>
+                    <p>If you can't afford it, that's fine - your support as a rider, resident or advocate still means just as much.</p>
+                    <p style="margin-top: 2rem;"><strong>What your donation supports:</strong></p>
+                    <ul>
+                        <li>A stable and skilled core team</li>
+                        <li>Current and future premises</li>
+                        <li>Expanding bike fleet</li>
+                        <li>Impactful community work</li>
+                        <li>Cleaner air for us all</li>
+                        <li>RLW employment opportunities</li>
+                    </ul>
+                </div>
+                <div class="pathway-form">
+                    <div data-paperform-id="cbd-donate"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Break -->
+    <div class="quote-break" data-quote-rotator>
+        <div class="container">
+            <blockquote class="quote-break-content">
+                <p class="quote-break-text"></p>
+                <cite class="quote-break-cite"></cite>
+            </blockquote>
+        </div>
+    </div>
+
+    <!-- Social Media Feed Section -->
+    <section id="updates" class="social-updates">
+        <div class="container">
+            <h2 class="section-title">Stay in the Loop</h2>
+            <p class="section-intro">Follow us on social media for the latest updates, news, and community stories.</p>
+            
+            <div class="social-feed">
+                <div class="social-feed-grid">
+                    <!-- Instagram Feed -->
+                    <div class="social-feed-item">
+                        <div class="social-feed-embed instagram-embed-container">
+                            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/chorltonbikes/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:8px; margin:0; max-width:100%; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);">
+                            </blockquote>
+                        </div>
+                    </div>
+                    <!-- Facebook Feed -->
+                    <div class="social-feed-item">
+                        <div class="social-feed-embed">
+                            <div id="fb-root"></div>
+                            <div class="fb-page" 
+                                 data-href="https://www.facebook.com/chorltonbikedeliveries" 
+                                 data-tabs="timeline" 
+                                 data-width="" 
+                                 data-height="700" 
+                                 data-small-header="false" 
+                                 data-adapt-container-width="true" 
+                                 data-hide-cover="false" 
+                                 data-show-facepile="true">
+                                <blockquote cite="https://www.facebook.com/chorltonbikedeliveries" class="fb-xfbml-parse-ignore">
+                                    <a href="https://www.facebook.com/chorltonbikedeliveries">Chorlton Bike Deliveries</a>
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="social-links-main">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/chorltonbikes" target="_blank" rel="noopener noreferrer" aria-label="Instagram">Instagram</a>
+                        <a href="https://www.facebook.com/chorltonbikedeliveries/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">Facebook</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Break -->
+    <div class="quote-break" data-quote-rotator>
+        <div class="container">
+            <blockquote class="quote-break-content">
+                <p class="quote-break-text"></p>
+                <cite class="quote-break-cite"></cite>
+            </blockquote>
+        </div>
+    </div>
+
+    <!-- Partners Section -->
+    <section id="partners" class="partners">
+        <div class="container">
+            <h2 class="section-title">Our Partners</h2>
+            <p class="section-intro">We work with amazing organisations across South Manchester and beyond.</p>
+            <div class="partners-carousel-container">
+                <div class="partners-carousel" id="partnersCarousel">
+                    <!-- Logos will be dynamically loaded from assets/images/partners/ folder -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Break -->
+    <div class="quote-break" data-quote-rotator>
+        <div class="container">
+            <blockquote class="quote-break-content">
+                <p class="quote-break-text"></p>
+                <cite class="quote-break-cite"></cite>
+            </blockquote>
+        </div>
+    </div>
+
+    <!-- About Section (Minimal, Contextual) -->
+    <section id="about" class="about-impact">
+        <div class="container">
+            <h2 class="section-title">Who We Are</h2>
+            <div class="about-impact-content">
+                <div class="about-text">
+                    <p>
+                        Chorlton Bikes started as a grassroots response to COVID-19 and has grown 
+                        into a thriving cooperative with a mission to reduce carbon emissions, support 
+                        local communities, and create meaningful employment opportunities across South Manchester.
+                    </p>
+                    <p>
+                        As a Community Benefit Society, we're member-owned and community-focused.
+                    </p>
+                    <p>
+                        We're proud to be a Real Living Wage employer, with around 80% of our costs going to 
+                        people - our dedicated team of riders and staff who make everything possible.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Impact Carousel - full width -->
+            <div class="impact-carousel-wrapper">
+                <div class="impact-carousel" id="impactCarousel">
+                    <div class="stat">
+                        <div class="stat-number">40,890</div>
+                        <div class="stat-label">Van Miles Avoided</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">10+</div>
+                        <div class="stat-label">Tonnes of Carbon Saved</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">2,752</div>
+                        <div class="stat-label">Paid Rider Hours</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">21</div>
+                        <div class="stat-label">Local Community Partnerships</div>
+                    </div>
+                    <div class="stat stat-logo">
+                        <img src="assets/images/logo-green.png" alt="Chorlton Bikes Logo" class="stats-logo" onerror="this.src='assets/images/logo.png';">
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">17</div>
+                        <div class="stat-label">Local Business Partnerships</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">1000+</div>
+                        <div class="stat-label">FOODBANK DONATION COLLECTIONS</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">300+</div>
+                        <div class="stat-label">Bikes for Refugees</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">100+</div>
+                        <div class="stat-label">Community Ride Participants</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Bios -->
+            <div class="team-bios">
+                <h3 class="team-bios-title">Our Operations Team</h3>
+                <div class="team-bios-grid team-bios-grid-operations">
+                    <div class="team-bio-card">
+                        <div class="team-bio-photo-wrap">
+                            <img src="assets/images/team/anna.jpg" alt="Anna" class="team-bio-photo" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.classList.add('visible');">
+                            <span class="team-bio-photo-fallback" aria-hidden="true">A</span>
+                        </div>
+                        <div class="team-bio-content">
+                            <h4 class="team-bio-name">Anna</h4>
+                            <p class="team-bio-role">Operations Lead</p>
+                            <p class="team-bio-text">I joined Chorlton Bikes as a rider in April 2022. As I've become more involved, my passion for all things cycling has deepened, and I've developed valuable skills in bike mechanics, ride leading, and First Aid. I'm truly grateful to have a job that not only brings me joy but also contributes positively to our community.</p>
+                        </div>
+                    </div>
+                    <div class="team-bio-card">
+                        <div class="team-bio-photo-wrap">
+                            <img src="assets/images/team/tom.jpg" alt="Tom" class="team-bio-photo" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.classList.add('visible');">
+                            <span class="team-bio-photo-fallback" aria-hidden="true">T</span>
+                        </div>
+                        <div class="team-bio-content">
+                            <h4 class="team-bio-name">Tom</h4>
+                            <p class="team-bio-role">Operations Lead</p>
+                            <p class="team-bio-text">I started working with Chorlton Bikes in 2024. I'm a Chorlton resident and strongly believe in the work we do for the community.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="team-bios-title">Our Board</h3>
+                <div class="team-bios-grid team-bios-grid-board">
+                    <div class="team-bio-card">
+                        <div class="team-bio-photo-wrap">
+                            <img src="assets/images/team/nick.jpg" alt="Nick" class="team-bio-photo" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.classList.add('visible');">
+                            <span class="team-bio-photo-fallback" aria-hidden="true">N</span>
+                        </div>
+                        <div class="team-bio-content">
+                            <h4 class="team-bio-name">Nick</h4>
+                            <p class="team-bio-role">Board Member and Co-Founder</p>
+                            <p class="team-bio-text">I was a founding Director of Chorlton Bikes in 2021, as a resident of Chorlton for over 40 years I was motivated by a wish to see fewer vehicles on our roads and cleaner air. I am proud of our achievements to date and am happy to continue to give my time voluntarily, after a rewarding career working in health and social care in Greater Manchester.</p>
+                        </div>
+                    </div>
+                    <div class="team-bio-card">
+                        <div class="team-bio-photo-wrap">
+                            <img src="assets/images/team/debbie.jpg" alt="Debbie" class="team-bio-photo" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.classList.add('visible');">
+                            <span class="team-bio-photo-fallback" aria-hidden="true">D</span>
+                        </div>
+                        <div class="team-bio-content">
+                            <h4 class="team-bio-name">Debbie</h4>
+                            <p class="team-bio-role">Board Member and Co-Founder</p>
+                            <p class="team-bio-text">A founding member of Chorlton Bikes and a Chorlton resident of over 30 years, Debbie is a lifelong everyday cyclist who brings warmth, community commitment and long public sector experience to growing the organisation's local impact.</p>
+                        </div>
+                    </div>
+                    <div class="team-bio-card">
+                        <div class="team-bio-photo-wrap">
+                            <img src="assets/images/team/abbie.jpg" alt="Abbie" class="team-bio-photo" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.classList.add('visible');">
+                            <span class="team-bio-photo-fallback" aria-hidden="true">A</span>
+                        </div>
+                        <div class="team-bio-content">
+                            <h4 class="team-bio-name">Abbie</h4>
+                            <p class="team-bio-role">Board Member and Co-Founder</p>
+                            <p class="team-bio-text">A local resident for more than 25 years, I hadn't got on a bike since teenage years before getting involved in setting up Chorlton Bikes. I was one of the Founding directors, and now sit on the Board.</p>
+                        </div>
+                    </div>
+                    <div class="team-bio-card">
+                        <div class="team-bio-photo-wrap">
+                            <img src="assets/images/team/claire.jpg" alt="Claire" class="team-bio-photo" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.classList.add('visible');">
+                            <span class="team-bio-photo-fallback" aria-hidden="true">C</span>
+                        </div>
+                        <div class="team-bio-content">
+                            <h4 class="team-bio-name">Claire</h4>
+                            <p class="team-bio-role">Board Member and Co-Founder</p>
+                            <p class="team-bio-text">When Covid hit in March 2020 I was lucky to connect with an incredible group of new friends who had the same idea - to use cargo bikes to help people keep shopping locally. The group we created went on to become Chorlton Bikes Community Benefit Society. Ours is a true story of community. Showing positive change and creating something good with and for people in Chorlton and Manchester is why we exist. In my day job, I am a transport strategy officer working on walking and cycling here and the Bee Network, in Greater Manchester.</p>
+                        </div>
+                    </div>
+                    <div class="team-bio-card">
+                        <div class="team-bio-photo-wrap">
+                            <img src="assets/images/team/ben.jpg" alt="Ben" class="team-bio-photo" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.classList.add('visible');">
+                            <span class="team-bio-photo-fallback" aria-hidden="true">B</span>
+                        </div>
+                        <div class="team-bio-content">
+                            <h4 class="team-bio-name">Ben</h4>
+                            <p class="team-bio-role">Board Member</p>
+                            <p class="team-bio-text">I joined Chorlton Bikes in 2022 as a way to give back to our community, while indulging my love of cycling. Since then, I've become more involved as a board member, looking after our finances and technology, and helping deliver two website redesigns. I'm incredibly proud of the work we do and the positive impact we have on people's lives in Chorlton and beyond.</p>
+                        </div>
+                    </div>
+                    <div class="team-bio-card">
+                        <div class="team-bio-photo-wrap">
+                            <img src="assets/images/team/reg.jpg" alt="Reg" class="team-bio-photo" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.classList.add('visible');">
+                            <span class="team-bio-photo-fallback" aria-hidden="true">R</span>
+                        </div>
+                        <div class="team-bio-content">
+                            <h4 class="team-bio-name">Reg</h4>
+                            <p class="team-bio-role">Board Member</p>
+                            <p class="team-bio-text">Bio coming soon.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Contact Us</h4>
+                    <p><a href="https://wa.me/447561737986" target="_blank" rel="noopener noreferrer" class="whatsapp-button">Chat on WhatsApp</a></p>
+                    <p><a href="https://mail.google.com/mail/?view=cm&fs=1&to=hello@chorltonbikes.coop" target="_blank" rel="noopener noreferrer" class="footer-link">hello@chorltonbikes.coop</a></p>
+                    <p><a href="tel:+447561737986" class="footer-link">+44 7561 737986</a></p>
+                    <p><a href="https://maps.app.goo.gl/LZXcpTXvTtkWwr8o9" target="_blank" rel="noopener noreferrer" class="footer-link">Find Us on Google Maps</a></p>
+                </div>
+                <div class="footer-section footer-logo-section">
+                    <img src="assets/images/real-living-wage-logo.webp" alt="Real Living Wage Employer" class="footer-logo">
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Chorlton Bikes. All Rights Reserved. | <a href="privacy-policy.html" class="footer-link">Privacy Policy</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="dev-script.js"></script>
+    <!-- Defer third-party scripts to improve performance -->
+    <script>
+        // Load third-party scripts after page is interactive
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(function() {
+                loadThirdPartyScripts();
+            });
+        } else {
+            // Fallback for browsers without requestIdleCallback
+            setTimeout(loadThirdPartyScripts, 2000);
+        }
+        
+        function loadThirdPartyScripts() {
+            // Instagram Embed Script is now loaded in <head> - it should process automatically
+            // Just verify it's working
+            setTimeout(function() {
+                if (window.instgrm && window.instgrm.Embeds) {
+                    console.log('Instagram embed object found');
+                    try {
+                        window.instgrm.Embeds.process();
+                        console.log('Instagram embeds processed');
+                    } catch (e) {
+                        console.error('Error processing Instagram embeds:', e);
+                    }
+                } else {
+                    console.warn('Instagram embed object (instgrm) not found - script may still be loading');
+                }
+            }, 3000);
+            
+            // Paperform Embed Script - only load when forms are visible
+            var paperformObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        var paperformScript = document.createElement('script');
+                        paperformScript.src = 'https://paperform.co/__embed.min.js';
+                        document.body.appendChild(paperformScript);
+                        paperformObserver.disconnect();
+                    }
+                });
+            });
+            
+            // Observe Paperform containers
+            var paperformContainers = document.querySelectorAll('[data-paperform-id]');
+            paperformContainers.forEach(function(container) {
+                paperformObserver.observe(container);
+            });
+        }
+    </script>
+    <!-- Facebook SDK for Page Plugin -->
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v18.0"></script>
+</body>
+</html>

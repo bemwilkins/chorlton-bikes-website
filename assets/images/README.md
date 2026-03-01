@@ -13,6 +13,7 @@ This directory contains all images used on the Chorlton Bikes website.
 - **carousel/** - Hero section carousel images (see CAROUSEL_IMAGES.md)
 - **partners/** - Partner organization logos (see partners/README.md)
 - **services/** - Service card background images (see services/README.md)
+- **team/** - Board and operations team headshots (see team/README.md)
 
 ## Other Images
 
