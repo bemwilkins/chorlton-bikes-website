@@ -1,6 +1,6 @@
 // Quote Rotator - Quotes appear and change every 7 seconds with fade transition
 (function() {
-    const QUOTE_INTERVAL_MS = 7000;
+    const QUOTE_INTERVAL_MS = 10000;
     const FADE_DURATION_MS = 400;
     const OPEN_QUOTE = '\u201C';
     const CLOSE_QUOTE = '\u201D';
