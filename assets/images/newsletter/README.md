@@ -11,20 +11,20 @@ Section → filename:
 - **Membership, Donations & Support** – 50-members.jpeg
 - **People & Appreciation** – ali-s.jpeg
 
-Used by: `newsletter/2026-01.html`, `newsletter/2026-01-email.html`, `newsletter/2026-01-email-preview.html`.
+Used by: `newsletter/2026-01.html`.
 
 ## February 2026 (`02-2026/`)
 Section → filename:
 
-- **Trishaw Rides** – chatty-cafe.png
-- **Makers Market in March** – makers-market.png
-- **Community Ride 2026** – community-ride.png
-- **Emmeline's Pantry** – emmelines-pantry.png
-- **Welcome New Riders** – new-riders.png (add this file if you have one)
-- **Bikes4Refugees** – bikes4refugees.png
+- **Trishaw Rides** – chatty-cafe.jpg
+- **Makers Market in March** – makers-market.jpg
+- **Community Ride 2026** – community-ride.jpg
+- **Emmeline's Pantry** – emmelines-pantry.jpg
+- **Welcome New Riders** – new-riders.jpg
+- **Bikes4Refugees** – bikes4refugees.jpg
 - **Donation from GMCC** – gmcc.jpg
-- **King's Award Assessment Visit** – kings-award.png
-- **Storey's 10,000th mile!** – storey-10000.png
+- **King's Award Assessment** – kings-award.jpg
+- **Storey's 10,000th Mile!** – storey-10000.jpg
 - **We need your help** – (no image)
 
-Used by: `newsletter/2026-02.html`, `newsletter/2026-02-email.html`.
+Used by: `newsletter/2026-02.html`.
