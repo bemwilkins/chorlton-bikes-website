@@ -1291,6 +1291,10 @@ section {
     z-index: 2;
 }
 
+.service-card-bg .service-card-content > p:not(.service-inquiry p) {
+    font-weight: 500;
+}
+
 /* Separator line before call-to-action */
 .service-card-bg .service-inquiry::before {
     content: '';
