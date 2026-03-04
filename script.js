@@ -1,3 +1,129 @@
+// Quote Rotator - Quotes appear and change every 7 seconds with fade transition
+(function() {
+    const QUOTE_INTERVAL_MS = 10000;
+    const FADE_DURATION_MS = 400;
+    const OPEN_QUOTE = '\u201C';
+    const CLOSE_QUOTE = '\u201D';
+
+    const QUOTES = [
+        { text: "I love cycling because it's a better alternative to cars. At Chorlton Bikes we share that philosophy. Also maintaining our fleet of bikes is a very rewarding activity.", cite: "Liam, Rider" },
+        { text: "I am part of Unicorn Grocery, a worker owned and run supermarket, trading in wholesome foods. We have had the pleasure of working with Chorlton Bikes since they got going during the first COVID lockdown. They emerged to meet the needs of local people who either couldn't make it into shops, or those who could but weren't able to carry shopping home. They were one of those beacons of hope and care and solidarity in a dark time, and remain a beautiful part of our community and the Unicorn family. Personally, I see their riders out and about all the time and it never fails to make me smile. We love what they do and our community would be poorer without them.", cite: "Alan Williams, Unicorn Grocery" },
+        { text: "I've found the Shop & Drop service to make a massive difference to my health, physically and mentally. I have a special soft-food diet that is meat, wheat and dairy free- so very hard to shop for. I also have problems lifting and carrying and just being well enough to be able to shop, as things are very tough. It is a big weight off my mind to know I can get healthy, natural food every week that effects my health condition so positively. Everyone involved in the service is wonderful- so caring and understanding. They go out of their way to help me and I am so grateful. It is a marvellous service that brings happiness to so many.", cite: "Helen, Shop & Drop User" },
+        { text: "I ride for Chorlton Bikes because I want to be at the forefront of an active travel revolution because, with every job we pick up with cargo bikes, we're spearheading a change in culture!", cite: "Lucy, Rider" },
+        { text: "Ever since we switched to using Chorlton Bikes to fulfil our sample deliveries, the service we've received has been excellent. I've been thoroughly impressed with the consistency and quality of what Chorlton Bikes does and compared to other courier options we've used in the past, it's a no brainer. We initially came to Chorlton Bikes to reduce the impact of our deliveries on the planet, but we've received a first-rate, reliable service that's also making an impact to health more widely by its active nature and reducing air quality on our roads. We're looking to explore further opportunities with them and would definitely recommend to any other public sectors or businesses that are wanting to make a positive change.", cite: "Kevin Salter, NHS" },
+        { text: "Volunteering with Chorlton Bikes means I can get outside whilst also doing something good for the local community. Getting involved is a great way to support a push towards a greener future.", cite: "Travis, Rider" },
+        { text: "Chorlton Bikes are a key part of our volunteer delivery team. Each week we deliver bespoke packs for clients identified by our partner agencies and charities. Chorlton Bikes are particularly central to our bikes and scooters. So far this year our volunteers have delivered 293 bikes. Chorlton Bikes have been key to this. They've provided a timely, supportive and environmentally friendly service to our charity's work.", cite: "Lucy Mitchell, Bikes for Refugees (Care UK)" },
+        { text: "To say that this service changes lives is no exaggeration. The people who use our food bank are often struggling to make ends meet and having good quality food delivered by Chorlton Bikes from local outlets and supermarkets really does make all the difference. It is also an example of sustainability at its best – avoiding food waste, putting it into the hands of those who need it, whilst also reducing air pollution, carbon emissions and congestion – making our community a healthier and more pleasant place to live.", cite: "Rodger Cairns, Quids In (Southway Housing)" }
+    ];
+
+    let currentQuoteIndex = 0;
+    const MAX_FONT_REM = 1.15;
+    const MIN_FONT_REM = 0.5;
+    const FONT_STEP = 0.03;
+
+    function fitQuoteToContainer(block, textEl, content) {
+        var fontSize = MAX_FONT_REM;
+        var containerHeight = block.clientHeight;
+
+        textEl.style.fontSize = fontSize + 'rem';
+        content.offsetHeight;
+
+        while (fontSize >= MIN_FONT_REM && content.scrollHeight > containerHeight) {
+            fontSize -= FONT_STEP;
+            textEl.style.fontSize = fontSize + 'rem';
+            content.offsetHeight;
+        }
+
+        return Math.max(MIN_FONT_REM, fontSize) + 'rem';
+    }
+
+    function updateAllQuotes() {
+        const quote = QUOTES[currentQuoteIndex];
+        const fullText = OPEN_QUOTE + quote.text + CLOSE_QUOTE;
+        const blocks = document.querySelectorAll('[data-quote-rotator]');
+
+        blocks.forEach(function(block) {
+            const content = block.querySelector('.quote-break-content');
+            const textEl = block.querySelector('.quote-break-text');
+            const citeEl = block.querySelector('.quote-break-cite');
+            if (!content || !textEl || !citeEl) return;
+
+            content.classList.add('quote-fade-out');
+        });
+
+        setTimeout(function() {
+            var firstBlock = blocks[0];
+            var firstContent = firstBlock && firstBlock.querySelector('.quote-break-content');
+            var firstText = firstBlock && firstBlock.querySelector('.quote-break-text');
+            var fontSize;
+
+            blocks.forEach(function(block) {
+                const content = block.querySelector('.quote-break-content');
+                const textEl = block.querySelector('.quote-break-text');
+                const citeEl = block.querySelector('.quote-break-cite');
+                if (!content || !textEl || !citeEl) return;
+
+                textEl.textContent = fullText;
+                citeEl.textContent = quote.cite;
+
+                if (block === firstBlock) {
+                    fontSize = fitQuoteToContainer(block, textEl, content);
+                } else {
+                    textEl.style.fontSize = fontSize;
+                }
+            });
+
+            blocks.forEach(function(block) {
+                const content = block.querySelector('.quote-break-content');
+                if (content) content.classList.remove('quote-fade-out');
+            });
+        }, FADE_DURATION_MS);
+
+        currentQuoteIndex = (currentQuoteIndex + 1) % QUOTES.length;
+    }
+
+    function refitCurrentQuote() {
+        var textEl = document.querySelector('[data-quote-rotator] .quote-break-text');
+        if (!textEl || !textEl.textContent) return;
+
+        var citeEl = document.querySelector('[data-quote-rotator] .quote-break-cite');
+        var cite = citeEl ? citeEl.textContent : '';
+        var blocks = document.querySelectorAll('[data-quote-rotator]');
+        var firstBlock = blocks[0];
+        var fontSize;
+
+        blocks.forEach(function(block) {
+            const content = block.querySelector('.quote-break-content');
+            const textEl = block.querySelector('.quote-break-text');
+            const citeEl = block.querySelector('.quote-break-cite');
+            if (!content || !textEl || !citeEl) return;
+
+            citeEl.textContent = cite;
+            if (block === firstBlock) {
+                fontSize = fitQuoteToContainer(block, textEl, content);
+            } else {
+                textEl.style.fontSize = fontSize;
+            }
+        });
+    }
+
+    function initQuoteRotator() {
+        const blocks = document.querySelectorAll('[data-quote-rotator]');
+        if (blocks.length === 0) return;
+
+        updateAllQuotes();
+        setInterval(updateAllQuotes, QUOTE_INTERVAL_MS);
+
+        window.addEventListener('resize', refitCurrentQuote);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initQuoteRotator);
+    } else {
+        initQuoteRotator();
+    }
+})();
+
 // Hero Carousel
 (function() {
     const heroBackground = document.getElementById('hero-background');
@@ -47,6 +173,17 @@
         checkImage(i);
     }
     
+        const MOBILE_EXCLUDED = ['05', '09', '10'];
+        
+        function getActiveImages() {
+            var isMobile = window.innerWidth <= 768;
+            if (!isMobile) return carouselImages;
+            return carouselImages.filter(function(src) {
+                var num = src.match(/(\d+)\.(png|jpg)$/)?.[1] || '';
+                return MOBILE_EXCLUDED.indexOf(num) === -1;
+            });
+        }
+        
         function startCarousel() {
         if (carouselImages.length === 0) {
             return;
@@ -62,19 +199,27 @@
         let currentIndex = 0;
         const heroBackgroundNext = document.getElementById('hero-background-next');
         
+        function updateDisplay() {
+            var active = getActiveImages();
+            if (active.length === 0) return;
+            currentIndex = Math.min(currentIndex, active.length - 1);
+            heroBackground.style.backgroundImage = `url('${active[currentIndex]}')`;
+            heroBackground.style.opacity = '1';
+        }
+        
         // Set initial image
-        heroBackground.style.backgroundImage = `url('${carouselImages[0]}')`;
-        heroBackground.style.opacity = '1';
+        updateDisplay();
         
         // Function to change image with smooth crossfade
         function changeImage() {
-            if (carouselImages.length === 0) return;
+            var active = getActiveImages();
+            if (active.length === 0) return;
             
-            currentIndex = (currentIndex + 1) % carouselImages.length;
+            currentIndex = (currentIndex + 1) % active.length;
             
             // Load next image in the background layer
             if (heroBackgroundNext) {
-                heroBackgroundNext.style.backgroundImage = `url('${carouselImages[currentIndex]}')`;
+                heroBackgroundNext.style.backgroundImage = `url('${active[currentIndex]}')`;
                 heroBackgroundNext.style.opacity = '0';
                 heroBackgroundNext.style.zIndex = '1';
                 
@@ -99,7 +244,8 @@
                 // Fallback to simple fade if next layer doesn't exist
                 heroBackground.style.opacity = '0';
                 setTimeout(() => {
-                    heroBackground.style.backgroundImage = `url('${carouselImages[currentIndex]}')`;
+                    var active = getActiveImages();
+                    heroBackground.style.backgroundImage = `url('${active[currentIndex]}')`;
                     heroBackground.style.opacity = '1';
                 }, 750);
             }
@@ -107,6 +253,10 @@
         
         // Change image every 5 seconds
         setInterval(changeImage, 5000);
+        
+        window.addEventListener('resize', function() {
+            updateDisplay();
+        });
     }
 })();
 
@@ -540,6 +690,37 @@ window.addEventListener('scroll', () => {
         document.addEventListener('DOMContentLoaded', loadPartnerLogos);
     } else {
         loadPartnerLogos();
+    }
+})();
+
+// Impact Carousel - duplicate items for seamless loop
+(function() {
+    const impactCarousel = document.getElementById('impactCarousel');
+    if (!impactCarousel) return;
+
+    function initImpactCarousel() {
+        var stats = impactCarousel.querySelectorAll('.stat');
+        if (stats.length === 0) return;
+
+        stats.forEach(function(stat) {
+            var clone = stat.cloneNode(true);
+            impactCarousel.appendChild(clone);
+        });
+
+        var totalItems = impactCarousel.querySelectorAll('.stat').length;
+        var itemWidth = window.innerWidth <= 768 ? 110 : 140;
+        var gap = window.innerWidth <= 768 ? 16 : 24;
+        var moveDistance = (totalItems / 2) * (itemWidth + gap);
+        impactCarousel.style.setProperty('--impact-move-distance', '-' + moveDistance + 'px');
+
+        var duration = (totalItems / 2) * 3;
+        impactCarousel.style.setProperty('--animation-duration', duration + 's');
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initImpactCarousel);
+    } else {
+        initImpactCarousel();
     }
 })();
 

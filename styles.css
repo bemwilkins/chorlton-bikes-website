@@ -237,7 +237,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.65);
+    background: rgba(0, 0, 0, 0.4);
     z-index: 1;
 }
 
@@ -263,7 +263,7 @@ body {
     font-weight: 400;
     margin-bottom: 1rem;
     line-height: 1.2;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     animation: fallInFromTop 0.8s ease-out forwards;
     opacity: 0;
     transform: translateY(-30px);
@@ -274,7 +274,7 @@ body {
     font-size: 1.5rem;
     font-weight: 700;
     margin-bottom: 1.5rem;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
     animation: fallInFromTopSubtitle 0.8s ease-out 0.2s forwards;
     opacity: 0;
     transform: translateY(-30px);
@@ -296,7 +296,7 @@ body {
     margin-bottom: 2rem;
     opacity: 0.95;
     line-height: 1.8;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .hero-buttons {
@@ -312,6 +312,7 @@ body {
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
     animation: fallInFromTop 0.8s ease-out 0.4s forwards;
     opacity: 0;
     transform: translateY(-30px);
@@ -433,18 +434,176 @@ section {
     margin-right: auto;
 }
 
+/* Quote Breaks - Rotating testimonials between sections */
+.quote-break {
+    background: linear-gradient(135deg, var(--logo-green) 0%, #006b2e 50%, var(--light-green) 100%);
+    padding: 6rem 0;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.quote-break .container {
+    width: 100%;
+}
+
+.quote-break-content {
+    margin: 0;
+    padding: 0;
+    border: none;
+    text-align: center;
+    transition: opacity 0.4s ease;
+    width: 100%;
+}
+
+.quote-break-content.quote-fade-out {
+    opacity: 0;
+}
+
+.quote-break-text {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: white;
+    font-style: italic;
+    margin-bottom: 1rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.quote-break-cite {
+    font-style: normal;
+    font-size: 0.95rem;
+    color: var(--light-green);
+    font-weight: 600;
+}
+
+
+/* Team Bios */
+.team-bios {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+}
+
+.team-bios-title {
+    font-family: 'Lilita One', cursive;
+    font-size: 1.75rem;
+    color: var(--logo-green);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.team-bios-title:not(:first-child) {
+    margin-top: 3rem;
+}
+
+.team-bios-grid {
+    display: grid;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* Operations: 2 items - max 2 columns */
+.team-bios-grid-operations {
+    grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Board: 6 items - max 3 columns, no empty columns */
+.team-bios-grid-board {
+    grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+}
+
+.team-bio-card {
+    background-color: var(--bg-white);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.team-bio-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+}
+
+.team-bio-photo-wrap {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: var(--light-green);
+    flex-shrink: 0;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.team-bio-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.team-bio-photo-fallback {
+    display: none;
+    font-family: 'Lilita One', cursive;
+    font-size: 2.5rem;
+    color: white;
+    font-weight: 400;
+}
+
+.team-bio-photo-fallback.visible {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.team-bio-name {
+    font-family: 'Lilita One', cursive;
+    font-size: 1.5rem;
+    color: var(--logo-green);
+    margin-bottom: 0.25rem;
+}
+
+.team-bio-role {
+    font-size: 0.9rem;
+    color: var(--orange);
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.team-bio-text {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text-light);
+    text-align: left;
+}
+
 /* About & Impact Section */
 .about-impact {
-    background-color: var(--bg-white);
-    border-top: 3px solid var(--light-green);
+    background-color: var(--bg-cream);
 }
 
 .about-impact-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
     margin-top: 3rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .about-text p {
@@ -454,16 +613,46 @@ section {
     color: var(--text-light);
 }
 
-.impact-stats {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1.5rem;
-    max-width: 900px;
-    margin: 0 auto;
-    width: 100%;
-    box-sizing: border-box;
-    padding: 0;
+/* Impact Carousel - full width beneath copy, above team bios */
+.impact-carousel-wrapper {
+    margin-top: 2.5rem;
     overflow: hidden;
+    width: 100%;
+    padding: 1rem 0;
+}
+
+.impact-carousel {
+    display: flex;
+    gap: 1.5rem;
+    --animation-duration: 40s;
+    animation: impact-scroll var(--animation-duration) linear infinite;
+    will-change: transform;
+    width: max-content;
+}
+
+.impact-carousel-wrapper:hover .impact-carousel {
+    animation-play-state: paused;
+}
+
+.impact-carousel .stat {
+    flex-shrink: 0;
+    width: 140px;
+    min-width: 140px;
+    aspect-ratio: 1 / 1;
+    padding: 1rem;
+}
+
+.impact-carousel .stat-number {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+}
+
+.impact-carousel .stat-label {
+    font-size: clamp(0.6rem, 1.2vw, 0.8rem);
+}
+
+@keyframes impact-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(var(--impact-move-distance, -50%)); }
 }
 
 
@@ -539,7 +728,6 @@ section {
 /* Impact Section */
 .impact {
     background-color: var(--bg-cream);
-    border-top: 3px solid var(--logo-green);
 }
 
 .impact-grid {
@@ -577,7 +765,6 @@ section {
 /* Gallery Section */
 .gallery {
     background-color: var(--bg-white);
-    border-top: 3px solid var(--light-green);
 }
 
 .gallery-grid {
@@ -628,12 +815,10 @@ section {
 /* Membership & Donation Sections */
 .membership {
     background-color: var(--bg-white);
-    border-top: 3px solid var(--orange);
 }
 
 .donate {
     background-color: var(--bg-cream);
-    border-top: 3px solid var(--logo-green);
 }
 
 .donate-pathway {
@@ -868,7 +1053,6 @@ section {
 /* Newsletter Section */
 .newsletter {
     background-color: var(--bg-cream);
-    border-top: 3px solid var(--logo-green);
 }
 
 .newsletter-content {
@@ -916,7 +1100,6 @@ section {
 /* News Section */
 .news {
     background-color: var(--bg-white);
-    border-top: 3px solid var(--orange);
 }
 
 .news-grid {
@@ -963,8 +1146,7 @@ section {
 
 /* Services Section */
 .services {
-    background-color: var(--bg-white);
-    border-top: 3px solid var(--light-green);
+    background-color: var(--bg-cream);
 }
 
 .services-split {
@@ -980,8 +1162,6 @@ section {
     color: var(--logo-green);
     margin-bottom: 2rem;
     text-align: center;
-    padding-bottom: 1rem;
-    border-bottom: 3px solid var(--light-green);
 }
 
 .service-cards {
@@ -1020,7 +1200,7 @@ section {
 }
 
 .service-card {
-    background-color: var(--bg-light);
+    background-color: var(--bg-white);
     padding: 2rem;
     border-radius: 12px;
     box-shadow: var(--shadow);
@@ -1084,7 +1264,7 @@ section {
     left: -1px; /* Extend slightly to cover any border */
     right: -1px; /* Extend slightly to cover any border */
     bottom: 0;
-    background: rgba(0, 0, 0, 0.65);
+    background: rgba(0, 0, 0, 0.5);
     z-index: 1;
     border-radius: 12px 12px 0 0; /* Match card top corners */
 }
@@ -1106,9 +1286,13 @@ section {
 .service-card-bg .service-card-content h4,
 .service-card-bg .service-card-content > p:not(.service-inquiry p) {
     color: white;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     position: relative;
     z-index: 2;
+}
+
+.service-card-bg .service-card-content > p:not(.service-inquiry p) {
+    font-weight: 500;
 }
 
 /* Separator line before call-to-action */
@@ -1126,7 +1310,7 @@ section {
 .service-card-bg .service-inquiry {
     margin-top: 1.5rem;
     padding-top: 1.5rem;
-    background-color: var(--bg-cream);
+    background-color: var(--bg-white);
     margin-left: -2rem;
     margin-right: -2rem;
     margin-bottom: -2rem;
@@ -1297,8 +1481,7 @@ section {
 
 /* Social Updates Section */
 .social-updates {
-    background-color: var(--bg-white);
-    border-top: 3px solid var(--orange);
+    background-color: var(--bg-cream);
 }
 
 .social-feed {
@@ -1489,7 +1672,6 @@ section {
 /* Partners Section */
 .partners {
     background-color: var(--bg-light);
-    border-top: 3px solid var(--light-green);
 }
 
 .partners-carousel-container {
@@ -1971,6 +2153,34 @@ a.whatsapp-button:hover,
 
     .impact-grid {
         grid-template-columns: 1fr;
+    }
+
+    .team-bios-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .team-bios-grid-operations {
+        max-width: 100%;
+    }
+
+    .team-bio-card {
+        padding: 1.5rem;
+    }
+
+    .quote-break {
+        height: 320px;
+    }
+
+    .impact-carousel-wrapper {
+        margin-top: 1.5rem;
+        padding: 0.75rem 0;
+    }
+
+    .impact-carousel .stat {
+        width: 110px;
+        min-width: 110px;
+        padding: 0.75rem;
     }
 
     .news-grid {
