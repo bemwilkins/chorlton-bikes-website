@@ -28,3 +28,15 @@ Section → filename:
 - **We need your help** – (no image)
 
 Used by: `newsletter/2026-02.html`.
+
+## March 2026 (`03-2026/`)
+Section -> filename:
+
+- **R4GM Lunch @ Trafford Park Renew Hub** - renew_hub.jpg
+- **Community Ride 2026 Progress** - community_ride_mystery_location.jpg
+- **Chorlton Makers Market** - march_makers_market.jpg
+- **International Women's Day** - iwd_glynis.jpg, iwd_team_gb.jpg
+- **Mechanics Course** - mechanics_course_1.jpg, mechanics_course_2.jpg, mechanics_course_3.jpg
+- **Bikes4Refugees** - bikes4refugees.jpg
+
+Used by: `newsletter/2026-03.html`.
