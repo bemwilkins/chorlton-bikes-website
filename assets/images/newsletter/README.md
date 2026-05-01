@@ -40,3 +40,18 @@ Section -> filename:
 - **Bikes4Refugees** - bikes4refugees.jpg
 
 Used by: `newsletter/2026-03.html`.
+
+## April 2026 (`04-2026/`)
+Section -> filename:
+
+- **Brewcycle Collaboration @ St Margaret's** - brewcycle.jpg
+- **Care UK Collections** - care-uk-collections.jpg
+- **Cycle Fest 2026 @ Station South** - cyclefest.jpg
+- **Chorlton Open Gardens Trishaw Rides** - trishaw-open-gardens.jpg
+- **Bikes 4 Refugees** - b4r.jpg
+- **Long Bois Social Ride x Deliveries** - long-bois-social.jpg
+- **Community Ride Update** - community-ride.jpg
+- **Earth Day and Chorlton Bikes' 6th Birthday** - 6th-birthday.jpg
+- **Welcome New Riders** - new-riders.jpg
+
+Used by: `newsletter/2026-04.html`.
