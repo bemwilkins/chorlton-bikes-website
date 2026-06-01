@@ -55,3 +55,17 @@ Section -> filename:
 - **Welcome New Riders** - new-riders.jpg
 
 Used by: `newsletter/2026-04.html`.
+
+## May 2026 (`05-2026/`)
+Section -> filename:
+
+- **Chorlton Open Gardens** - chorlton-open-gardens.jpg
+- **Coffee Grounds x Compost Colab Film** - brewcycle.jpg
+- **Community Ride 2026 Update** - (no image)
+- **Old Police Station Site Update** - police-station-now.jpg, police-station-vision-1.jpg, police-station-vision-2.jpg
+- **Betty & Butch Deliveries** - betty-butch.jpg
+- **Cycle Fest @ Station South** - cycle-fest-1.jpg, cycle-fest-2.jpg, cycle-fest-3.jpg
+- **Trishaw Training @ Alexandra Park** - trishaw-training-1.jpg, trishaw-training-2.jpg
+- **Living Wage Commitment** - living-wage.jpg
+
+Used by: `newsletter/2026-05.html`.
