@@ -1,0 +1,51 @@
+---
+description: Monthly Chorlton Bikes newsletter build — parse Google Doc, refine copy, generate web page
+globs: newsletter/**,scripts/newsletter/**
+alwaysApply: false
+---
+
+# Monthly newsletter workflow
+
+When the user asks to build, refine, or publish the monthly newsletter, follow this pipeline. **No Vercel account or OpenAI API key is required** — refinement is done by you (the Cursor agent) in this chat.
+
+## Pipeline
+
+1. **Parse** — run from repo root:
+   ```bash
+   npm run newsletter:parse-doc -- --month <Month> --year <YYYY>
+   ```
+   Writes `newsletter/content/YYYY-MM.raw.json` from the ops Google Doc.
+
+2. **Refine** — agent step (replaces ChatGPT / `newsletter:refine` CLI):
+   - Read `newsletter/content/YYYY-MM.raw.json`
+   - Read `scripts/newsletter/prompts/refine-system.txt` for editing rules
+   - Use the most recent finished newsletter in `newsletter/content/` (e.g. `2026-05.json`) as the style reference
+   - Write polished `newsletter/content/YYYY-MM.json` matching the schema used by `2026-05.json`:
+     - Emoji bullet prefixes per section
+     - Specific `monthIntro` and `thankYou` (not generic defaults)
+     - Short CTA labels with correct URLs
+     - **Preserve all facts** from the raw file — do not invent events or names
+   - Optionally read `newsletter/mappings/YYYY-MM.json` for image filenames and merge into sections
+   - Optionally read `newsletter/mappings/YYYY-MM.notes.txt` for editor image hints
+
+3. **Generate** — run:
+   ```bash
+   npm run newsletter:generate -- --content newsletter/content/YYYY-MM.json
+   ```
+
+4. **Review** — tell the user to preview at `http://localhost:8080/newsletter/YYYY-MM.html` (serve repo root with `python3 -m http.server 8080`).
+
+5. **Images** — `npm run newsletter:sync-images -- --month <Month> --year <YYYY>` (requires `google-oauth-client.json` + `npm run newsletter:google-login` once, or `--skip-download` if images were placed manually in `assets/images/newsletter/MM-YYYY/`)
+
+## Google Doc
+
+- ID: `1QwkEhglwrNE1n2tvw0ZuMdy20wBqeGupsjN117uSs7M`
+- Newest month is at the top; sections use `* Section title` lines
+- Do not ask ops to reformat the doc
+
+## Do not
+
+- Require public Drive sharing — use OAuth (`newsletter:google-login`) or manual download + `--skip-download`
+- Require Vercel, AI Gateway, or `OPENAI_API_KEY` for the standard workflow
+- Commit `*.raw.json` files (gitignored)
+- Skip the refine step — raw parsed JSON is not publish-ready

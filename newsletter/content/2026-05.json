@@ -1,0 +1,188 @@
+{
+  "month": "May",
+  "year": 2026,
+  "intro": {
+    "greeting": "Hello Friends and Members of Chorlton Bikes,",
+    "paragraphs": [
+      "We're really glad you're here. This newsletter is a chance to share what we've been up to - our riders, our partners, and the difference we're making together in Chorlton and beyond.",
+      "May has been a month of new partnerships, community events and exciting plans taking shape for the summer. Here's what we've been up to."
+    ]
+  },
+  "monthIntro": "With June's Celebration of Cycling just around the corner, we've been busy preparing for local events, supporting community partners and continuing our work across Chorlton and Greater Manchester.",
+  "sections": [
+    {
+      "title": "Chorlton Open Gardens",
+      "bullets": [
+        "🌿 We will be offering trishaw rides for people with limited mobility (and others if free!) to access Chorlton Open Gardens on 27th and 28th June.",
+        "🌿 This has been supported by funding we have received from MCR Active as part of their Celebration of Cycling in the month of June.",
+        "🌿 We have liaised with the programme sellers at Curious Fox, Unicorn, Chorlton Plant Nursery and Chorlton Bookshop to flag this service with people when they buy their entry programmes.",
+        "🌿 We've also highlighted it with Chorlton Good Neighbours, but as with any local event, word-of-mouth is often the most powerful conduit of information! So, please spread the word and tell your hortiphile friends about our service!"
+      ],
+      "images": [
+        {
+          "file": "chorlton-open-gardens.jpg",
+          "alt": "Chorlton Open Gardens trishaw rides"
+        }
+      ],
+      "layout": "single",
+      "cta": {
+        "label": "Book a ride in advance by emailing hello@chorltonbikes.coop or call / WhatsApp 07561 737986",
+        "url": "mailto:hello@chorltonbikes.coop?subject=Trishaw%20ride%20request%20for%20Chorlton%20Open%20Gardens&body="
+      }
+    },
+    {
+      "title": "Coffee Grounds x Compost Colab Film",
+      "bullets": [
+        "☕ Our partnership with Egino/Brewcycle at Forever Fields, St Margaret's, continues to grow.",
+        "☕ We collect coffee grounds and husks from cafés and bars across Manchester, which are then used in a worm-powered composting process to create high-quality compost for growing produce.",
+        "☕ This month, our good friend Luke Shepherd started filming a social media promo about the project. Coming soon!",
+        "☕ Thanks to all our volunteer riders who collect coffee grounds on Mondays and Thursdays."
+      ],
+      "images": [
+        {
+          "file": "brewcycle.jpg",
+          "alt": "Coffee grounds and Brewcycle compost collaboration"
+        }
+      ],
+      "layout": "single",
+      "cta": {
+        "label": "Find out more about Brewcycle",
+        "url": "https://www.brewcycle.org/"
+      }
+    },
+    {
+      "title": "Community Ride 2026 Update",
+      "bullets": [
+        "🚴 We're continuing to make progress with the Parks Authorities as plans for this year's Community Ride take shape.",
+        "🚴 We're also seeking funding to support ride leaders for the event and are hoping for good news from the Neighbourhood Sports Fund during the week beginning 8th June.",
+        "🚴 Please keep 6th September free and come along to join us."
+      ],
+      "cta": {
+        "label": "Add the Community Ride 2026 to your Calendar!",
+        "url": "https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=NzEwZzF2bGJ1NnRpMm0xaW1rN2d0N2ExNG0gYmVuQGNob3JsdG9uYmlrZXMuY29vcA&tmsrc=ben%40chorltonbikes.coop"
+      }
+    },
+    {
+      "title": "Old Police Station Site Update",
+      "bullets": [
+        "🏢 We have been working with Manchester City Council for a considerable time on plans for the Old Police Station site, located at Chorlton Bus terminal. After lengthy negotiations with TfGM, the council is in the process of purchasing this building.",
+        "🏢 We are working closely with Simon Borkin and our friends at CLT to advise on how we can build a business case for this building as an active transport hub and co-working space.",
+        "🏢 We obviously want to be at the forefront of this hub as an anchor tenant and below are some of the drawings Architects Unknown have put together for us over the years on what this hub could look like.",
+        "🏢 Due to the positioning of the building on the bus stop and its proximity to the neighbouring residents, the possible uses of this site are very limited in scope.",
+        "🏢 We're encouraged that the council recognises the opportunity and potential of an active transport hub here and that our community benefit work would fit perfectly, enabling us to extend our work with local residents and groups.",
+        "🏢 In June, we are meeting with our newly elected councillors Grace Tudor-Worrall and Chantal Kerr-Sheppard to show the potential benefits of an active transport hub here and talk broadly about the work we do as a Community Benefit Society."
+      ],
+      "images": [
+        {
+          "file": "police-station-now.jpg",
+          "alt": "Old Police Station site - current building"
+        },
+        {
+          "file": "police-station-vision-1.jpg",
+          "alt": "Old Police Station site - vision drawing 1"
+        },
+        {
+          "file": "police-station-vision-2.jpg",
+          "alt": "Old Police Station site - vision drawing 2"
+        }
+      ],
+      "layout": "three-col",
+      "cta": {
+        "label": "Show your support by sharing our social post",
+        "url": "https://www.instagram.com/p/DYuaTTDiED1/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
+      }
+    },
+    {
+      "title": "Betty & Butch Deliveries",
+      "bullets": [
+        "🐶 We're delighted to be partnering with local pet store Betty & Butch on Barlow Moor Road.",
+        "🐶 We'll be delivering dog food, treats, clothing and everything else our furry friends might need using our zero-emissions delivery service.",
+        "🐶 If you're a dog owner, please consider supporting a local business that is helping to reduce delivery emissions in our community."
+      ],
+      "images": [
+        {
+          "file": "betty-butch.jpg",
+          "alt": "Betty and Butch deliveries"
+        }
+      ],
+      "layout": "single",
+      "cta": {
+        "label": "Shop local with Betty & Butch",
+        "url": "https://bettyandbutch.com/"
+      }
+    },
+    {
+      "title": "Cycle Fest @ Station South",
+      "bullets": [
+        "🎉 Reg, Ben and Rob H braved the elements to represent Chorlton Bikes at Cycle Fest, Station South's celebration of cycling, on 9th May.",
+        "🎉 Reg went into full rave mode with the face paints, while Rob provided festival-goers with a windswept trishaw experience aboard the Floop.",
+        "🎉 Thanks to everyone who stopped by for a chat and helped make it a great day despite the weather."
+      ],
+      "images": [
+        {
+          "file": "cycle-fest-1.jpg",
+          "alt": "Cycle Fest at Station South"
+        },
+        {
+          "file": "cycle-fest-2.jpg",
+          "alt": "Cycle Fest trishaw ride"
+        },
+        {
+          "file": "cycle-fest-3.jpg",
+          "alt": "Cycle Fest Chorlton Bikes stall"
+        }
+      ],
+      "layout": "three-col"
+    },
+    {
+      "title": "Trishaw Training @ Alexandra Park",
+      "bullets": [
+        "🚲 On 20th May, we welcomed volunteers from Stretford Public Hall, Together Dementia and Chorlton Bikes for a trishaw training session.",
+        "🚲 Stretford Public Hall has one of our trishaws on long term loan and will use it for their community sessions.",
+        "🚲 We continue to work with Together Dementia to offer weekly rides around Alexandra Park for those who have limited mobility, some who may not have been on a bike for many years and those who simply want to feel the wind in their hair!",
+        "🚲 We're also preparing our own pilots for the free rides we are offering at Chorlton Open Gardens in association with Manchester Active as part of June's Celebration of Cycling month. Huge thanks to Glynis for sharing her joy and expertise!"
+      ],
+      "images": [
+        {
+          "file": "trishaw-training-1.jpg",
+          "alt": "Trishaw training at Alexandra Park"
+        },
+        {
+          "file": "trishaw-training-2.jpg",
+          "alt": "Trishaw training session volunteers"
+        }
+      ],
+      "layout": "two-col",
+      "cta": {
+        "label": "Interested in becoming a trishaw pilot? Get in touch",
+        "url": "mailto:hello@chorltonbikes.coop?subject=I'm%20interested%20in%20becoming%20a%20Trishaw%20Pilot&body="
+      }
+    },
+    {
+      "title": "Living Wage Commitment",
+      "bullets": [
+        "💚 We are proud to be a Living Wage employer.",
+        "💚 From May, all of our riders will receive the new Living Wage rate of £13.45 per hour for all paid rides.",
+        "💚 We believe that supporting our riders properly is an important part of building a fair, sustainable and community-focused organisation."
+      ],
+      "images": [
+        {
+          "file": "living-wage.jpg",
+          "alt": "Living Wage commitment"
+        }
+      ],
+      "layout": "single",
+      "cta": {
+        "label": "Find out more about the Living Wage movement",
+        "url": "https://www.livingwage.org.uk/"
+      }
+    }
+  ],
+  "thankYou": {
+    "paragraphs": [
+      "Thank you to everyone for the continued energy, care and commitment that keeps Chorlton Bikes moving forward.",
+      "Whether you're riding, volunteering, donating, collecting coffee grounds, piloting a trishaw or simply spreading the word, you're helping us build a stronger and more connected community. Here's to a busy June and a fantastic Celebration of Cycling month 🚲💚"
+    ]
+  },
+  "footerYear": 2025
+}

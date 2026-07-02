@@ -1,0 +1,31 @@
+name: Newsletter build
+
+on:
+  workflow_dispatch:
+    inputs:
+      content_file:
+        description: Path to newsletter JSON (e.g. newsletter/content/2026-06.json)
+        required: true
+        type: string
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - run: npm ci
+
+      - name: Generate newsletter HTML
+        run: npm run newsletter:generate -- --content "${{ inputs.content_file }}"
+
+      - name: Upload generated page
+        uses: actions/upload-artifact@v4
+        with:
+          name: newsletter-html
+          path: newsletter/*.html

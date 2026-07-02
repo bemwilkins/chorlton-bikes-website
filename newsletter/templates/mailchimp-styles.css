@@ -1,0 +1,47 @@
+img{-ms-interpolation-mode:bicubic;}
+table, td{mso-table-lspace:0pt;mso-table-rspace:0pt;}
+.mceStandardButton, .mceStandardButton td, .mceStandardButton td a{mso-hide:all!important;}
+p, a, li, td, blockquote{mso-line-height-rule:exactly;}
+p, a, li, td, body, table, blockquote{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}
+.mcnPreviewText{display:none!important;}
+.bodyCell{margin:0 auto;padding:0;width:100%;}
+.ExternalClass, .ExternalClass p, .ExternalClass td, .ExternalClass div, .ExternalClass span, .ExternalClass font{line-height:100%;}
+.ReadMsgBody, .ExternalClass{width:100%;}
+a[x-apple-data-detectors]{color:inherit!important;text-decoration:none!important;font-size:inherit!important;font-family:inherit!important;font-weight:inherit!important;line-height:inherit!important;}
+body{height:100%;margin:0;padding:0;width:100%;background:#ffffff;}
+p{margin:0;padding:0;}
+table{border-collapse:collapse;}
+td, p, a{word-break:break-word;}
+h1, h2, h3, h4, h5, h6{display:block;margin:0;padding:0;}
+img, a img{border:0;height:auto;outline:none;text-decoration:none;}
+a[href^="tel"], a[href^="sms"]{color:inherit;cursor:default;text-decoration:none;}
+.mceColumn .mceButtonLink,
+.mceColumn-1 .mceButtonLink,
+.mceColumn-2 .mceButtonLink,
+.mceColumn-3 .mceButtonLink,
+.mceColumn-4 .mceButtonLink{min-width:30px;}
+.mceImageBorder{display:inline-block;}
+.mceImageBorder img{border:0!important;}
+body, #bodyTable{background-color:rgb(255, 255, 255);}
+.mceText, .mcnTextContent, .mceLabel{font-family:"Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;}
+.mceText, .mcnTextContent, .mceLabel{color:rgb(0, 0, 0);}
+.mceText h1, .mceText p, .mceText ul, .mceText label, .mceText input{margin-bottom:0;}
+.mceText p, .mcnTextContent p{color:rgb(0, 0, 0);font-family:"Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;font-size:16px;font-weight:normal;line-height:1.5;mso-line-height-alt:150%;text-align:center;letter-spacing:0;direction:ltr;margin:0;}
+.mceText h1, .mcnTextContent h1{color:rgb(0, 0, 0);font-family:"Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;font-size:31px;font-weight:bold;line-height:1.5;mso-line-height-alt:150%;text-align:center;letter-spacing:0;direction:ltr;}
+.mceText a, .mcnTextContent a{color:rgb(0, 0, 0);font-style:normal;font-weight:normal;text-decoration:underline;direction:ltr;}
+.mceArticleText p, .mceArticleText h1, .mceArticleText ul{text-align:left;}
+.mceCenterText p, .mceCenterText h1{text-align:center;}
+@media only screen and (max-width: 480px) {
+body, table, td, p, a, li, blockquote{-webkit-text-size-adjust:none!important;}
+body{width:100%!important;min-width:100%!important;}
+.mceWidthContainer{max-width:660px!important;}
+.mceColumn, .mceColumn-2{display:block!important;width:100%!important;}
+.mceImage, .mceLogo{width:100%!important;height:auto!important;}
+.mceText img{max-width:100%!important;}
+.mceText p{margin:0;font-size:16px!important;line-height:1.5!important;mso-line-height-alt:150%;}
+.mceText h1{font-size:31px!important;line-height:1.5!important;mso-line-height-alt:150%;}
+.bodyCell{padding-left:16px!important;padding-right:16px!important;}
+.mceButtonLink{padding:18px 28px!important;font-size:16px!important;}
+.mceTextBlockContainer{padding:12px 16px!important;}
+.mceButtonContainer{width:100%!important;max-width:100%!important;}
+}

@@ -1,0 +1,95 @@
+{
+  "month": "June",
+  "year": 2026,
+  "intro": {
+    "greeting": "Hello Friends and Members of Chorlton Bikes,",
+    "paragraphs": [
+      "We're really glad you're here. This newsletter is a chance to share what we've been up to - our riders, our partners, and the difference we're making together in Chorlton and beyond.",
+      "June has been a month of community celebrations, new milestones and strengthening partnerships across Greater Manchester. Here's what we've been up to."
+    ]
+  },
+  "monthIntro": "From trishaw rides at Chorlton Open Gardens to our first wedding booking and a warm welcome for Chorlton's new councillor, June has been full of memorable moments - with plenty more to look forward to this summer.",
+  "sections": [
+    {
+      "title": "Chorlton Open Gardens",
+      "bullets": [
+        "🌿 Supported by MCR Active's Celebration of Cycling in June, we offered free trishaw rides for visitors to Chorlton Open Gardens on 27th and 28th June.",
+        "🌿 It was a great weekend - we transported around 50 visitors around the gardens on a really well attended event that hopefully raised lots of money for Chorlton Refugee Aid and Freedom from Torture.",
+        "🌿 Huge thanks to our rider team of Anna, Ursula, Glynis, Abbie, Nick and Chris for piloting the trishaws across the weekend."
+      ],
+      "cta": {
+        "label": "Hire a trishaw for your community event - email hello@chorltonbikes.coop",
+        "url": "mailto:hello@chorltonbikes.coop?subject=Trishaw%20hire%20for%20community%20event&body="
+      }
+    },
+    {
+      "title": "British Cycling Volunteer Day",
+      "bullets": [
+        "🚴 We welcomed representatives from British Cycling to support our community work on their Volunteer Day on 3rd June.",
+        "🚴 Nicholas Wootton helped out on the Emmeline's ride from Aldi Didsbury.",
+        "🚴 Anthony Anderson learnt how to pilot a trishaw and helped out volunteer Shelia at Alexandra Park with Together Dementia."
+      ]
+    },
+    {
+      "title": "Our First Trishaw Wedding!",
+      "bullets": [
+        "💒 We were delighted to offer the trishaw for our first wedding transport on 11th July, from Manchester Registry Office to Dmitri's restaurant on Deansgate.",
+        "💒 We kept the happy couple as dry as we could with our floral canopy on a very wet day in the city centre!",
+        "💒 We have offered our service to most places in Manchester registered to hold wedding ceremonies, and we're hoping to share some great publicity shots from the wedding photographer on social media soon.",
+        "💒 Huge thanks to our ace trishaw pilot Anne who expertly navigated the rain and Deansgate."
+      ],
+      "cta": {
+        "label": "Hire the trishaw for a wedding or special occasion",
+        "url": "mailto:hello@chorltonbikes.coop?subject=Trishaw%20hire%20for%20wedding%20or%20special%20occasion&body="
+      }
+    },
+    {
+      "title": "Community Ride 2026 - Save the Date!",
+      "bullets": [
+        "🚴 Please save the date - Sunday 6th September!",
+        "🚴 We have bid for funding from YNF (Your Neighbourhood Fund) after limited support from other funders, and we're preparing to get promotional materials out as soon as funding is approved.",
+        "🚴 Look out for updates on social media, a physical banner in Chorlton and posters at key locations across the area.",
+        "🚴 We're also hoping Luke Shepherd will produce another amazing film to capture the day, and we're asking TfGM about ride leader training for anyone who would like to help out."
+      ],
+      "cta": {
+        "label": "Interested in ride leader training? Get in touch",
+        "url": "mailto:hello@chorltonbikes.coop?subject=Community%20Ride%202026%20ride%20leader%20training&body="
+      }
+    },
+    {
+      "title": "Meeting with Councillor Grace Worrall",
+      "bullets": [
+        "🏛️ On 17th June we met with newly elected councillor for Chorlton Park, Grace Worrall, to explain the breadth of our work in the community and outline our plans for the future.",
+        "🏛️ Grace is a keen cyclist and was supportive of the work we do.",
+        "🏛️ She has pledged to become a member and to champion our community work wherever she can."
+      ]
+    },
+    {
+      "title": "Tesco Roadshow for Emmeline's",
+      "bullets": [
+        "💛 This month saw us at Tesco Stretford once again carrying out our food donation collection.",
+        "💛 These collections play a vital role in helping to keep the shelves stocked at Emmeline's Pantry with items that are in short supply.",
+        "💛 We are continually amazed by the generosity and kindness of shoppers who donate essential food and household items to support local people facing hardship - every donation makes a difference."
+      ]
+    },
+    {
+      "title": "Tandem Hire - Bike Library",
+      "bullets": [
+        "🚲 We have 3 Brompton foldable bikes and a tandem available to hire for free as part of our bike library.",
+        "🚲 Get in touch if you or someone you know would like to borrow any of these bikes!"
+      ],
+      "cta": {
+        "label": "Borrow a bike from our library - get in touch",
+        "url": "mailto:hello@chorltonbikes.coop?subject=Bike%20library%20hire&body="
+      }
+    }
+  ],
+  "thankYou": {
+    "paragraphs": [
+      "Thank you to everyone for the continued energy, care and commitment that keeps Chorlton Bikes moving forward - especially our riders who made Open Gardens and the wedding ride such special occasions.",
+      "Whether you're riding, volunteering, donating, or simply spreading the word, you're helping us build a stronger and more connected community. Here's to a busy summer ahead - and don't forget to save 6th September for the Community Ride! 🚲💚"
+    ]
+  },
+  "footerYear": 2025,
+  "status": "DRAFT"
+}

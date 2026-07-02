@@ -1,0 +1,83 @@
+{
+  "sections": {
+    "chorlton-open-gardens": {
+      "images": [
+        {
+          "file": "open_gardens.jpg",
+          "alt": "Trishaw rides at Chorlton Open Gardens"
+        }
+      ],
+      "layout": "single"
+    },
+    "british-cycling-volunteer-day": {
+      "images": [
+        {
+          "file": "british_cycling_1.png",
+          "alt": "British Cycling Volunteer Day with Chorlton Bikes 1"
+        },
+        {
+          "file": "british_cycling_2.jpg",
+          "alt": "British Cycling Volunteer Day with Chorlton Bikes 2"
+        }
+      ],
+      "layout": "two-col"
+    },
+    "our-first-trishaw-wedding": {
+      "images": [
+        {
+          "file": "trishaw_wedding_1.jpg",
+          "alt": "First trishaw wedding transport in Manchester 1"
+        },
+        {
+          "file": "trishaw_wedding_2.jpg",
+          "alt": "First trishaw wedding transport in Manchester 2"
+        }
+      ],
+      "layout": "two-col"
+    },
+    "community-ride-2026-save-the-date": {
+      "images": [
+        {
+          "file": "community-ride.jpg",
+          "alt": "Community Ride 2026"
+        }
+      ],
+      "layout": "single"
+    },
+    "meeting-with-councillor-grace-worrall": {
+      "images": [
+        {
+          "file": "grace_worrall.jpeg",
+          "alt": "Meeting with Councillor Grace Worrall"
+        }
+      ],
+      "layout": "single"
+    },
+    "tesco-roadshow-for-emmeline-s": {
+      "images": [
+        {
+          "file": "tesco_roadshow_1.jpg",
+          "alt": "Tesco roadshow food donation collection for Emmeline's Pantry 1"
+        },
+        {
+          "file": "tesco_roadshow_2.jpg",
+          "alt": "Tesco roadshow food donation collection for Emmeline's Pantry 2"
+        }
+      ],
+      "layout": "two-col"
+    },
+    "tandem-hire-bike-library": {
+      "images": [
+        {
+          "file": "tandem_hire_1.jpg",
+          "alt": "Bike library tandem and Brompton hire 1"
+        },
+        {
+          "file": "tandem_hire_2.jpg",
+          "alt": "Bike library tandem and Brompton hire 2"
+        }
+      ],
+      "layout": "two-col"
+    }
+  }
+}
