@@ -21,17 +21,113 @@ function requireEnv(name) {
   return value;
 }
 
-function splitName(fullName) {
-  const parts = String(fullName ?? '')
+const HONORIFICS = new Set([
+  'mr',
+  'mrs',
+  'ms',
+  'miss',
+  'dr',
+  'prof',
+  'professor',
+  'sir',
+  'lady',
+  'lord',
+  'rev',
+  'reverend',
+  'mx',
+]);
+
+export function isHonorific(token) {
+  const normalized = String(token ?? '')
+    .trim()
+    .toLowerCase()
+    .replace(/\./g, '');
+  return HONORIFICS.has(normalized);
+}
+
+export function isInitial(token) {
+  const value = String(token ?? '').trim();
+  if (!value) {
+    return true;
+  }
+  if (/^[A-Za-z]\.?$/.test(value)) {
+    return true;
+  }
+  if (/^([A-Za-z]\.){1,3}[A-Za-z]?\.?$/.test(value)) {
+    return true;
+  }
+  return false;
+}
+
+function wordLetters(word) {
+  return word.replace(/[^A-Za-z]/g, '');
+}
+
+function needsProperCase(word) {
+  const letters = wordLetters(word);
+  if (!letters) {
+    return false;
+  }
+  return letters === letters.toLowerCase() || letters === letters.toUpperCase();
+}
+
+function formatWordProperCase(word) {
+  if (!word || !needsProperCase(word)) {
+    return word;
+  }
+
+  if (word.includes('-')) {
+    return word
+      .split('-')
+      .map((part) => formatWordProperCase(part))
+      .join('-');
+  }
+
+  const mcMatch = word.match(/^(mc|mac)(.+)$/i);
+  if (mcMatch) {
+    const prefix = mcMatch[1].charAt(0).toUpperCase() + mcMatch[1].slice(1).toLowerCase();
+    const rest = mcMatch[2];
+    return prefix + rest.charAt(0).toUpperCase() + rest.slice(1).toLowerCase();
+  }
+
+  return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+}
+
+export function formatProperCase(value) {
+  return String(value ?? '')
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((word) => formatWordProperCase(word))
+    .join(' ');
+}
+
+export function parseContactName(fullName, salutation = '') {
+  const sal = String(salutation ?? '').trim();
+  let parts = String(fullName ?? '')
     .trim()
     .split(/\s+/)
     .filter(Boolean);
-  if (!parts.length) {
-    return { firstName: '', lastName: '' };
+
+  while (parts.length && isHonorific(parts[0])) {
+    parts.shift();
   }
+
+  if (sal && !isHonorific(sal)) {
+    return {
+      firstName: sal,
+      lastName: parts.join(' '),
+    };
+  }
+
+  while (parts.length && isInitial(parts[0])) {
+    parts.shift();
+  }
+
+  const firstName = parts.shift() ?? '';
   return {
-    firstName: parts[0],
-    lastName: parts.slice(1).join(' '),
+    firstName,
+    lastName: parts.join(' '),
   };
 }
 
@@ -48,12 +144,12 @@ function formatBirthday(value) {
 }
 
 export function airtableRecordToMailchimp(fields) {
-  const { firstName, lastName } = splitName(fields[FIELD.fullName]);
   const salutation = String(fields[FIELD.salutation] ?? '').trim();
+  const { firstName, lastName } = parseContactName(fields[FIELD.fullName], salutation);
 
   return {
-    FNAME: salutation || firstName,
-    LNAME: lastName,
+    FNAME: formatProperCase(firstName),
+    LNAME: formatProperCase(lastName),
     MMERGE7: String(fields[FIELD.membershipStatus] ?? '').trim(),
     PHONE: String(fields[FIELD.phone] ?? '').trim(),
     COMPANY: String(fields[FIELD.company] ?? '').trim(),
