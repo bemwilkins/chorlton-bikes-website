@@ -69,3 +69,16 @@ Section -> filename:
 - **Living Wage Commitment** - living-wage.jpg
 
 Used by: `newsletter/2026-05.html`.
+
+## June 2026 (`06-2026/`)
+Section -> filename:
+
+- **Chorlton Open Gardens** - chorlton-open-gardens.jpg
+- **British Cycling Volunteer Day** - british-cycling-volunteer-day.jpg
+- **Our First Trishaw Wedding!** - trishaw-wedding.jpg
+- **Community Ride 2026 - Save the Date!** - community-ride.jpg
+- **Meeting with Councillor Grace Worrall** - councillor-meeting.jpg
+- **Tesco Roadshow for Emmeline's** - emmelines-tesco.jpg
+- **Tandem Hire - Bike Library** - bike-library-1.jpg, bike-library-2.jpg (two-col)
+
+Used by: `newsletter/2026-06.html`. Sync from Google Drive with `npm run newsletter:sync-images -- --month June --year 2026`.
