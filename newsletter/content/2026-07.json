@@ -1,0 +1,119 @@
+{
+  "month": "July",
+  "year": 2026,
+  "intro": {
+    "greeting": "Hello Friends and Members of Chorlton Bikes,",
+    "paragraphs": [
+      "We're really glad you're here. This newsletter is a chance to share what we've been up to - our riders, our partners, and the difference we're making together in Chorlton and beyond.",
+      "July has been a busy month of new delivery partnerships, community events and exciting additions to our bike library. Here's what we've been up to."
+    ]
+  },
+  "monthIntro": "From pizza deliveries on Deansgate to coffee briquettes, a school bike bus and a new e-cargo bike for families, July has been full of zero-emissions momentum across Greater Manchester.",
+  "sections": [
+    {
+      "title": "Pizza Pilgrims",
+      "bullets": [
+        "🍕 We've started delivering for Pizza Pilgrims, a new pizza restaurant on Deansgate who want to use our zero-emissions service for their catering deliveries.",
+        "🍕 If you know a workplace or event that needs a stack of delicious pizzas, get in touch with Pizza Pilgrims and we'll deliver!"
+      ],
+      "cta": {
+        "label": "Know somewhere that needs pizza deliveries? Get in touch",
+        "url": "mailto:hello@chorltonbikes.coop?subject=Pizza%20Pilgrims%20delivery&body="
+      },
+      "images": [
+        {
+          "file": "Pizza Pilgrims.jpg",
+          "alt": "Chorlton Bikes pizza delivery for Pizza Pilgrims"
+        }
+      ],
+      "layout": "single"
+    },
+    {
+      "title": "Wythenshawe Live leaflets",
+      "bullets": [
+        "🎵 We're preparing to deliver leaflets for Wythenshawe Live music festival to local residents in the Wythenshawe area.",
+        "🎵 They've used us for this job for the last few years, and we're grateful that they remain committed to zero-emissions deliveries on their project."
+      ],
+      "images": [
+        {
+          "file": "Wythenshawe Live.jpg",
+          "alt": "Wythenshawe Live leaflet delivery"
+        }
+      ],
+      "layout": "single"
+    },
+    {
+      "title": "Brewcycle partnership update",
+      "bullets": [
+        "☕ The guys at Brewcycle have another coffee-grounds related dream! This time they're using the grounds we collect from local coffee shops and bars to manufacture coffee briquettes for commercial and domestic heating.",
+        "☕ We've extended the coffee collection to Volta on Burton Road and City Tower in Piccadilly.",
+        "☕ Email Jay to find out more."
+      ],
+      "cta": {
+        "label": "Find out more about the Brewcycle partnership",
+        "url": "mailto:hello@chorltonbikes.coop?subject=Brewcycle%20partnership&body="
+      },
+      "images": [
+        {
+          "file": "Brewcycle.jpg",
+          "alt": "Brewcycle coffee grounds collection partnership"
+        }
+      ],
+      "layout": "single"
+    },
+    {
+      "title": "Trishaw support for Oswald Road Bike Bus",
+      "bullets": [
+        "🚲 Tom Donald borrowed the trishaw for the Oswald Road Primary School bike bus.",
+        "🚲 They transported a guitarist who played for the riders!",
+        "🚲 If you want to use the trishaw for a community event or hire it for a private event, please get in touch."
+      ],
+      "cta": {
+        "label": "Hire a trishaw for your community or private event",
+        "url": "mailto:hello@chorltonbikes.coop?subject=Trishaw%20hire&body="
+      },
+      "images": [
+        {
+          "file": "Trishaw-Oswald Road.jpg",
+          "alt": "Trishaw supporting the Oswald Road Primary School bike bus"
+        }
+      ],
+      "layout": "single"
+    },
+    {
+      "title": "Exciting cargo bike news!",
+      "bullets": [
+        "🚚 We have a new addition to our bike library - an e-cargo bike purchased with grant funds from TfGM.",
+        "🚚 We'll soon be promoting it as part of our library, particularly aimed at young families thanks to a great seating fixture on the bike.",
+        "🚚 Watch this space!"
+      ],
+      "cta": {
+        "label": "Interested in borrowing from our bike library? Get in touch",
+        "url": "mailto:hello@chorltonbikes.coop?subject=Bike%20library%20-%20e-cargo%20bike&body="
+      }
+    },
+    {
+      "title": "Green Roots, Global Voices at Cafe Bembe",
+      "bullets": [
+        "🌍 Despite some very unpredictable weather, Reg and Peter had a great day at the Green Roots, Global Voices event at Cafe Bembe in Alexandra Park.",
+        "🌍 It was a fantastic opportunity to talk to people about Chorlton Bikes, share what we do, and make new connections.",
+        "🌍 We're hopeful that we inspired a few people to join the co-op - and perhaps even sparked the interest of a couple of local councillors too!"
+      ],
+      "images": [
+        {
+          "file": "Green Roots, Global Voices.jpg",
+          "alt": "Chorlton Bikes at Green Roots, Global Voices, Cafe Bembe"
+        }
+      ],
+      "layout": "single"
+    }
+  ],
+  "thankYou": {
+    "paragraphs": [
+      "Thank you to everyone for the continued energy, care and commitment that keeps Chorlton Bikes moving forward - from new delivery partners to community events and our growing bike library.",
+      "Whether you're riding, volunteering, donating, or simply spreading the word, you're helping us build a stronger and more connected community. 🚲💚"
+    ]
+  },
+  "footerYear": 2025,
+  "status": "DRAFT"
+}

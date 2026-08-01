@@ -46,8 +46,26 @@ async function listFolderFiles(drive, folderId) {
   return files;
 }
 
+function extensionForMime(mimeType) {
+  switch (mimeType) {
+    case 'image/jpeg':
+      return '.jpg';
+    case 'image/png':
+      return '.png';
+    case 'image/webp':
+      return '.webp';
+    case 'image/gif':
+      return '.gif';
+    default:
+      return '';
+  }
+}
+
 async function downloadFile(drive, file, destDir) {
-  const safeName = file.name.replace(/[\\/:*?"<>|]/g, '-');
+  let safeName = file.name.replace(/[\\/:*?"<>|]/g, '-');
+  if (!path.extname(safeName)) {
+    safeName += extensionForMime(file.mimeType);
+  }
   const destPath = path.join(destDir, safeName);
 
   const response = await drive.files.get(

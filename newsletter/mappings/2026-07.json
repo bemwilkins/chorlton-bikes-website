@@ -1,0 +1,49 @@
+{
+  "sections": {
+    "pizza-pilgrims": {
+      "images": [
+        {
+          "file": "Pizza Pilgrims.jpg",
+          "alt": "Chorlton Bikes pizza delivery for Pizza Pilgrims"
+        }
+      ],
+      "layout": "single"
+    },
+    "wythenshawe-live-leaflets": {
+      "images": [
+        {
+          "file": "Wythenshawe Live.jpg",
+          "alt": "Wythenshawe Live leaflet delivery"
+        }
+      ],
+      "layout": "single"
+    },
+    "brewcycle-partnership-update": {
+      "images": [
+        {
+          "file": "Brewcycle.jpg",
+          "alt": "Brewcycle coffee grounds collection partnership"
+        }
+      ],
+      "layout": "single"
+    },
+    "trishaw-support-for-oswald-road-bike-bus": {
+      "images": [
+        {
+          "file": "Trishaw-Oswald Road.jpg",
+          "alt": "Trishaw supporting the Oswald Road Primary School bike bus"
+        }
+      ],
+      "layout": "single"
+    },
+    "green-roots-global-voices-at-cafe-bembe": {
+      "images": [
+        {
+          "file": "Green Roots, Global Voices.jpg",
+          "alt": "Chorlton Bikes at Green Roots, Global Voices, Cafe Bembe"
+        }
+      ],
+      "layout": "single"
+    }
+  }
+}

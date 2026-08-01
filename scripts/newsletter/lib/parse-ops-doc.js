@@ -248,14 +248,40 @@ function parsePreamble(lines) {
   return { intro, monthIntro };
 }
 
+function looksLikePlainTitle(line) {
+  const value = normalizeLine(line);
+  if (!value || value.length > 100) {
+    return false;
+  }
+  if (MONTH_PATTERN.test(value) || SECTION_PATTERN.test(value) || isDivider(value)) {
+    return false;
+  }
+  // Body copy almost always ends with a period; titles are short phrases.
+  if (/\.\s*$/.test(value)) {
+    return false;
+  }
+  return true;
+}
+
+function findFirstSectionIndex(lines) {
+  const starred = lines.findIndex((line) => SECTION_PATTERN.test(line));
+  if (starred !== -1) {
+    return starred;
+  }
+  return lines.findIndex((line) => looksLikePlainTitle(line));
+}
+
 export function parseMonthBlock(block) {
-  const firstSectionIndex = block.lines.findIndex((line) => SECTION_PATTERN.test(line));
+  const firstSectionIndex = findFirstSectionIndex(block.lines);
   if (firstSectionIndex === -1) {
-    throw new Error(`No sections found for ${block.month} ${block.year}. Use "* Section title" lines.`);
+    throw new Error(
+      `No sections found for ${block.month} ${block.year}. Use "* Section title" lines, or plain title lines above each paragraph.`,
+    );
   }
 
   const preamble = parsePreamble(block.lines.slice(0, firstSectionIndex));
   const sectionLines = block.lines.slice(firstSectionIndex);
+  const usePlainTitles = !sectionLines.some((line) => SECTION_PATTERN.test(line));
 
   const sections = [];
   let currentTitle = null;
@@ -280,6 +306,12 @@ export function parseMonthBlock(block) {
     if (sectionMatch) {
       flushSection();
       currentTitle = sectionMatch[1].trim();
+      continue;
+    }
+
+    if (usePlainTitles && looksLikePlainTitle(line) && (currentTitle === null || currentBody.length > 0)) {
+      flushSection();
+      currentTitle = normalizeLine(line);
       continue;
     }
 
