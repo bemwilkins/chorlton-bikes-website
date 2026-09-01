@@ -1,0 +1,93 @@
+{
+  "sections": {
+    "our-new-family-cargo-bike-is-on-its-way": {
+      "images": [
+        {
+          "file": "Estarli.jpg",
+          "alt": "Estarli Longtail electric cargo bike for Chorlton Bikes bike library"
+        }
+      ],
+      "layout": "single"
+    },
+    "the-community-will-ride": {
+      "images": [
+        {
+          "file": "Community Ride.jpg",
+          "alt": "Chorlton Bikes Community Ride"
+        }
+      ],
+      "layout": "single"
+    },
+    "belvoir-green-community-fun-day": {
+      "images": [
+        {
+          "file": "Belvoir Community Day.jpg",
+          "alt": "Trishaw at Belvoir Green Community Fun Day"
+        }
+      ],
+      "layout": "single"
+    },
+    "trishaws-at-ride-and-stride-and-family-fun-days": {
+      "images": [
+        {
+          "file": "Chris at Ride and Stride festival.jpg",
+          "alt": "Chris with the trishaw at Ride and Stride Festival, Seymour Park"
+        },
+        {
+          "file": "Merseybank family fun day.jpg",
+          "alt": "Trishaw at Merseybank Family Fun Day"
+        }
+      ],
+      "layout": "two-col"
+    },
+    "bye-scarlett": {
+      "images": [
+        {
+          "file": "Scarlett.jpg",
+          "alt": "Farewell to rider Scarlett"
+        }
+      ],
+      "layout": "single"
+    },
+    "leaflets-delivered-for-live-at-wythenshawe": {
+      "images": [
+        {
+          "file": "Live at Wythenshawe Park.png",
+          "alt": "Live at Wythenshawe music festival leaflet delivery"
+        }
+      ],
+      "layout": "single"
+    },
+    "rhs-cycle-hire-scheme": {
+      "images": [
+        {
+          "file": "Reg Cycle Hire.jpg",
+          "alt": "Reg at the RHS Bridgewater Bike Hire Scheme launch"
+        }
+      ],
+      "layout": "single"
+    },
+    "manchester-climate-ready": {
+      "images": [
+        {
+          "file": "MCR Climate Ready.png",
+          "alt": "Manchester Climate Ready partnership"
+        }
+      ],
+      "layout": "single"
+    },
+    "trishaw-takes-on-pride": {
+      "images": [
+        {
+          "file": "Pride.jpg",
+          "alt": "Trishaw at Manchester Pride parade 1"
+        },
+        {
+          "file": "Pride 2 .jpg",
+          "alt": "Trishaw at Manchester Pride parade 2"
+        }
+      ],
+      "layout": "two-col"
+    }
+  }
+}
