@@ -118,20 +118,23 @@ function imageBlock(src, alt, bg) {
 </td></tr></tbody></table>`;
 }
 
-function twoColImageBlock(images, bg) {
-  const cells = images
-    .map(
-      (image) => `<td style="padding-top:0;padding-bottom:0" valign="top" class="mceColumn" colspan="6" width="50%">
+const TWO_COL_IMAGE_WIDTH = 298;
+const TWO_COL_IMAGE_HEIGHT = 373; // 4:5 aspect ratio — matches web .newsletter-image-grid.two-col
+
+function twoColImageCell(image, bg) {
+  return `<td style="padding-top:0;padding-bottom:0" valign="top" class="mceColumn" colspan="6" width="50%">
 <table border="0" cellpadding="0" cellspacing="0" width="100%" role="presentation"><tbody><tr>
 <td style="background-color:${bg};padding:12px 16px;border:0;border-radius:0" valign="top" class="mceImageBlockContainer" align="center">
-<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:separate;margin:0;vertical-align:top;max-width:100%;width:100%;height:auto" role="presentation"><tbody><tr>
-<td style="border:0;border-radius:0;margin:0" valign="top">
-<img alt="${escapeHtml(image.alt)}" src="${escapeHtml(image.src)}" width="298" height="auto" style="display:block;max-width:100%;height:auto;border-radius:0" class="mceImage">
+<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:separate;margin:0;vertical-align:top;max-width:100%;width:100%" role="presentation"><tbody><tr>
+<td style="border:0;border-radius:0;margin:0;overflow:hidden;height:${TWO_COL_IMAGE_HEIGHT}px;line-height:0" valign="top">
+<img alt="${escapeHtml(image.alt)}" src="${escapeHtml(image.src)}" width="${TWO_COL_IMAGE_WIDTH}" height="${TWO_COL_IMAGE_HEIGHT}" style="display:block;width:100%;max-width:${TWO_COL_IMAGE_WIDTH}px;height:${TWO_COL_IMAGE_HEIGHT}px;object-fit:cover;object-position:center;border-radius:0" class="mceImage mceImageTwoCol">
 </td></tr></tbody></table>
 </td></tr></tbody></table>
-</td>`,
-    )
-    .join('');
+</td>`;
+}
+
+function twoColImageBlock(images, bg) {
+  const cells = images.map((image) => twoColImageCell(image, bg)).join('');
   return `<table border="0" cellpadding="0" cellspacing="24" width="100%" style="table-layout:fixed" role="presentation"><tbody><tr>${cells}</tr></tbody></table>`;
 }
 
