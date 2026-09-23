@@ -1,0 +1,190 @@
+{
+  "month": "September",
+  "year": 2026,
+  "intro": {
+    "greeting": "Hello Friends and Members of Chorlton Bikes,",
+    "paragraphs": [
+      "We're really glad you're here. This newsletter is a chance to share what we've been up to - our riders, our partners, and the difference we're making together in Chorlton and beyond.",
+      "September has been a busy month of school bike buses, film crews, community events and looking ahead to our AGM. Here's what we've been up to."
+    ]
+  },
+  "monthIntro": "From Longford Park Pedal Party and trishaw rides at community events to Social Value, TfGM and Our Business GM films - plus our AGM date and bike library updates - September has been full of zero-emissions momentum.",
+  "sections": [
+    {
+      "title": "Longford Park Pedal Party",
+      "bullets": [
+        "🚲 On Friday 11th September, we joined Chorlton Park Primary's Bike Bus to Longford Park where we offered trishaw rides as part of 'The Buzz' celebration for the other six primary schools who have set up these bike buses.",
+        "🚲 These groups are led by parent/teacher volunteers who encourage children to cycle to and from school by cycling together in an atmosphere of safety and celebration!"
+      ],
+      "images": [
+        {
+          "file": "PedalParty1.jpg",
+          "alt": "Trishaw rides at Longford Park Pedal Party 1"
+        },
+        {
+          "file": "PedalParty2.jpg",
+          "alt": "Trishaw rides at Longford Park Pedal Party 2"
+        }
+      ],
+      "layout": "two-col"
+    },
+    {
+      "title": "Social Value film",
+      "bullets": [
+        "🎬 Manchester City Council's Social Value team came to the Boiler House to film Chorlton Bikes and document what we do and how it benefits the community.",
+        "🎬 Thanks to Nick, Glynis and Lucy for contributing to the film.",
+        "🎬 Watch this space for the final cut!"
+      ],
+      "images": [
+        {
+          "file": "SocialValue.png",
+          "alt": "Manchester City Council Social Value film with Chorlton Bikes"
+        }
+      ],
+      "layout": "single"
+    },
+    {
+      "title": "TfGM film",
+      "bullets": [
+        "🎥 TfGM approached us about a film they are making about the Chorlton-Deansgate cycleway.",
+        "🎥 Mick and Reg got involved - so expect to see more Chorlton Bikes representation in another film coming soon!"
+      ],
+      "images": [
+        {
+          "file": "tfgm.png",
+          "alt": "TfGM film about the Chorlton-Deansgate cycleway"
+        }
+      ],
+      "layout": "single"
+    },
+    {
+      "title": "Our Business GM film",
+      "bullets": [
+        "💼 Our Business GM is the directory for purposeful enterprise - a place to discover, connect and showcase businesses that put people and communities first.",
+        "💼 We filmed a short promo for this directory to strengthen our links with similar businesses and to shine a light on zero-emissions deliveries for these groups.",
+        "💼 Thanks to Mick again for starring!"
+      ],
+      "images": [
+        {
+          "file": "OurBusinessGM.png",
+          "alt": "Our Business GM directory promo film"
+        }
+      ],
+      "layout": "single"
+    },
+    {
+      "title": "Trishaw events - Emmeline's Summer Party and Together Dementia",
+      "bullets": [
+        "🌿 Trishaw pilot Anne pedalled folk around Wythenshawe Park for Together Dementia Support on the 'Together Trail' - a sponsored walk to celebrate memories and support local dementia services.",
+        "🌿 At Emmeline's Pantry's Summer Party, Anna piloted the trishaw for people who were involved in all sorts of gardening activities, from guerrilla gardening to spring bulb planting."
+      ],
+      "images": [
+        {
+          "file": "Together Dementia.jpeg",
+          "alt": "Trishaw at Together Dementia Support Together Trail"
+        }
+      ],
+      "layout": "single"
+    },
+    {
+      "title": "Emmeline's Pantry September appeal",
+      "bullets": [
+        "💛 Our friends at Emmeline's Pantry are in need of any new women or girls' pyjama sets and toys/gifts for children.",
+        "💛 If you can help to support this, please get in touch with us and we can collect to take direct to Emmeline's Pantry.",
+        "💛 Thank you!"
+      ],
+      "cta": {
+        "label": "Donate pyjamas or toys for Emmeline's - get in touch",
+        "url": "mailto:hello@chorltonbikes.coop?subject=Emmeline%27s%20Pantry%20September%20appeal&body="
+      },
+      "images": [
+        {
+          "file": "Emmelines Pantry September appeal.jpeg",
+          "alt": "Emmeline's Pantry September appeal for pyjamas and toys"
+        }
+      ],
+      "layout": "single"
+    },
+    {
+      "title": "Best of Manchester - Nominees Celebration Evening",
+      "bullets": [
+        "🏆 Reg represented Chorlton Bikes at the Best of Manchester Nominees Celebration Evening on 15th September.",
+        "🏆 Rubbing shoulders with Manchester luminaries such as the newly appointed leader of Manchester City Council, Gary Bridges (pictured) and the Lord Mayor Shaukat Ali, Reg also met with hundreds of outstanding local groups who have been nominated for their work in the community.",
+        "🏆 We also nominated our own Dave for the amazing work he does refurbishing bikes for the charity Bikes4Refugees, and Lucy who coordinates the whole charity singlehandedly!",
+        "🏆 We will find out the successful nominees at the ceremony on 22nd October. Fingers crossed!"
+      ],
+      "images": [
+        {
+          "file": "Best Of Manchester.jpg",
+          "alt": "Reg at the Best of Manchester Nominees Celebration Evening with Gary Bridges"
+        }
+      ],
+      "layout": "single"
+    },
+    {
+      "title": "AGM and Directors election",
+      "bullets": [
+        "📅 We are holding our AGM and Open Social at Dulcimer Bar, Chorlton on 25th November 2026 from 6pm-9pm.",
+        "📅 Members and non-members are welcome to attend to find out more about what we have done in 2026, our plans for 2027 and how you can support us or get involved.",
+        "📅 You will also soon receive an email invitation with details for anyone interested in becoming a director of Chorlton Bikes."
+      ],
+      "cta": {
+        "label": "Interested in becoming a director? Get in touch",
+        "url": "mailto:hello@chorltonbikes.coop?subject=Chorlton%20Bikes%20Director%20interest&body="
+      },
+      "images": [
+        {
+          "file": "AGM and Open Social.jpg",
+          "alt": "Chorlton Bikes AGM and Open Social at Dulcimer Bar"
+        }
+      ],
+      "layout": "single"
+    },
+    {
+      "title": "Bike library - Bromptons, tandem and family cargo bike",
+      "bullets": [
+        "🚲 At the time of writing, all of our Bromptons are out on loan - but we do have a tandem available for the co-commuters out there!",
+        "🚲 Since the last newsletter, we've had interest in our new addition to the bike library - an Estarli cargo bike.",
+        "🚲 We want to give local families the chance to try out an electric cargo bike and discover how it could make everyday journeys easier, cheaper and more fun - less time stuck in traffic jams and more time enjoying the journey!"
+      ],
+      "cta": {
+        "label": "Register your interest in hiring the family cargo bike",
+        "url": "https://forms.gle/c5fZuYXt7x1NV8SV7"
+      },
+      "images": [
+        {
+          "file": "Estarli.jpeg",
+          "alt": "Estarli cargo bike available in the Chorlton Bikes bike library"
+        }
+      ],
+      "layout": "single"
+    },
+    {
+      "title": "Bike Maintenance Crew - Saturday sessions at Boiler House",
+      "bullets": [
+        "🔧 Most Saturdays our committed volunteer maintenance crew meet to inspect and make any needed repairs to our fleet.",
+        "🔧 They do such an amazing job and we value the time they give up to look after the bikes.",
+        "🔧 If you would like to join the crew, you can hop on the Bike Maintenance WhatsApp group that is featured in the Chorlton Bikes WhatsApp community."
+      ],
+      "cta": {
+        "label": "Want to join the maintenance crew? Get in touch",
+        "url": "mailto:hello@chorltonbikes.coop?subject=Bike%20Maintenance%20Crew&body="
+      },
+      "images": [
+        {
+          "file": "Bike maintenance crew.jpeg",
+          "alt": "Volunteer bike maintenance crew at the Boiler House"
+        }
+      ],
+      "layout": "single"
+    }
+  ],
+  "thankYou": {
+    "paragraphs": [
+      "Thank you to everyone for the continued energy, care and commitment that keeps Chorlton Bikes moving forward - from school bike buses and film days to our maintenance crew and community partners.",
+      "Whether you're riding, volunteering, donating, or simply spreading the word, you're helping us build a stronger and more connected community. See you at the AGM on 25th November! 🚲💚"
+    ]
+  },
+  "footerYear": 2025,
+  "status": "DRAFT"
+}

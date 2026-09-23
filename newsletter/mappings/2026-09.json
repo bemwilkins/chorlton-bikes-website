@@ -1,0 +1,98 @@
+{
+  "sections": {
+    "longford-park-pedal-party": {
+      "images": [
+        {
+          "file": "PedalParty1.jpg",
+          "alt": "Trishaw rides at Longford Park Pedal Party 1"
+        },
+        {
+          "file": "PedalParty2.jpg",
+          "alt": "Trishaw rides at Longford Park Pedal Party 2"
+        }
+      ],
+      "layout": "two-col"
+    },
+    "social-value-film": {
+      "images": [
+        {
+          "file": "SocialValue.png",
+          "alt": "Manchester City Council Social Value film with Chorlton Bikes"
+        }
+      ],
+      "layout": "single"
+    },
+    "tfgm-film": {
+      "images": [
+        {
+          "file": "tfgm.png",
+          "alt": "TfGM film about the Chorlton-Deansgate cycleway"
+        }
+      ],
+      "layout": "single"
+    },
+    "our-business-gm-film": {
+      "images": [
+        {
+          "file": "OurBusinessGM.png",
+          "alt": "Our Business GM directory promo film"
+        }
+      ],
+      "layout": "single"
+    },
+    "trishaw-events-emmeline-s-summer-party-and-together-dementia": {
+      "images": [
+        {
+          "file": "Together Dementia.jpeg",
+          "alt": "Trishaw at Together Dementia Support Together Trail"
+        }
+      ],
+      "layout": "single"
+    },
+    "emmeline-s-pantry-september-appeal": {
+      "images": [
+        {
+          "file": "Emmelines Pantry September appeal.jpeg",
+          "alt": "Emmeline's Pantry September appeal for pyjamas and toys"
+        }
+      ],
+      "layout": "single"
+    },
+    "best-of-manchester-nominees-celebration-evening": {
+      "images": [
+        {
+          "file": "Best Of Manchester.jpg",
+          "alt": "Reg at the Best of Manchester Nominees Celebration Evening with Gary Bridges"
+        }
+      ],
+      "layout": "single"
+    },
+    "agm-and-directors-election": {
+      "images": [
+        {
+          "file": "AGM and Open Social.jpg",
+          "alt": "Chorlton Bikes AGM and Open Social at Dulcimer Bar"
+        }
+      ],
+      "layout": "single"
+    },
+    "bike-library-bromptons-tandem-and-family-cargo-bike": {
+      "images": [
+        {
+          "file": "Estarli.jpeg",
+          "alt": "Estarli cargo bike available in the Chorlton Bikes bike library"
+        }
+      ],
+      "layout": "single"
+    },
+    "bike-maintenance-crew-saturday-sessions-at-boiler-house": {
+      "images": [
+        {
+          "file": "Bike maintenance crew.jpeg",
+          "alt": "Volunteer bike maintenance crew at the Boiler House"
+        }
+      ],
+      "layout": "single"
+    }
+  }
+}
