@@ -77,16 +77,14 @@ function helloBlock(introParagraphs) {
 }
 
 function monthIntroBlock(month, year, introText) {
-  const monthLabel = `${month} ${year}`;
+  // Stack month + year (matches web). Avoid mid-word wraps on long names like September.
+  const monthHeading = `<h1 class="last-child mceMonthHeading" style="word-break:normal;overflow-wrap:normal;"><span style="color:#008037;"><span style="font-size: 30px; white-space:nowrap; word-break:keep-all;">${escapeHtml(month)}</span><br><span style="font-size: 30px; white-space:nowrap; word-break:keep-all;">${escapeHtml(String(year))}</span></span></h1>`;
   return mceSection(
     `<table border="0" cellpadding="0" cellspacing="24" width="100%" style="table-layout:fixed" role="presentation"><tbody><tr>
-<td style="padding-top:0;padding-bottom:0" valign="top" class="mceColumn" colspan="3" width="25%">
-${mceTextBlock(
-  `<h1 class="last-child"><span style="color:#008037;"><span style="font-size: 30px">${escapeHtml(monthLabel)}</span></span></h1>`,
-  { padding: '12px 16px' },
-)}
+<td style="padding-top:0;padding-bottom:0" valign="top" class="mceColumn" colspan="4" width="33%">
+${mceTextBlock(monthHeading, { padding: '12px 16px' })}
 </td>
-<td style="padding-top:0;padding-bottom:0" valign="top" class="mceColumn" colspan="9" width="75%">
+<td style="padding-top:0;padding-bottom:0" valign="top" class="mceColumn" colspan="8" width="67%">
 ${mceTextBlock(
   `<p class="mcePastedContent last-child">${escapeHtml(introText)}</p>`,
   { padding: '24px 16px 12px' },

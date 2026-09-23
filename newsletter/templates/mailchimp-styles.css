@@ -32,6 +32,7 @@ body, #bodyTable{background-color:rgb(255, 255, 255);}
 .mceText a, .mcnTextContent a{color:rgb(0, 0, 0);font-style:normal;font-weight:normal;text-decoration:underline;direction:ltr;}
 .mceArticleText p, .mceArticleText h1, .mceArticleText ul{text-align:left;}
 .mceCenterText p, .mceCenterText h1{text-align:center;}
+.mceMonthHeading, .mceMonthHeading span{word-break:normal!important;overflow-wrap:normal!important;}
 @media only screen and (max-width: 480px) {
 body, table, td, p, a, li, blockquote{-webkit-text-size-adjust:none!important;}
 body{width:100%!important;min-width:100%!important;}
