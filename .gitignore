@@ -15,6 +15,7 @@ Thumbs.db
 # Environment variables (if you add any)
 .env
 .env.local
+scripts/forms/config.json
 *-service-account.json
 google-service-account.json
 google-oauth-client.json
@@ -25,6 +26,7 @@ newsletter/content/*.raw.json
 
 # Node modules (if you add any build tools later)
 node_modules/
+.wrangler/
 
 # Build outputs (if you add any build tools later)
 dist/

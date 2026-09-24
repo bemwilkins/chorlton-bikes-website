@@ -12,6 +12,8 @@
     "newsletter:mailchimp": "node scripts/newsletter/cli.js mailchimp",
     "newsletter:generate": "node scripts/newsletter/cli.js generate",
     "newsletter:build": "node scripts/newsletter/cli.js build",
+    "forms:dev": "node scripts/forms/server.js",
+    "forms:deploy": "npx wrangler deploy",
     "test": "node scripts/newsletter/test/parse-google-doc.test.js"
   },
   "engines": {

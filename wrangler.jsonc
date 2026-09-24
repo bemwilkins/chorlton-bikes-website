@@ -1,0 +1,19 @@
+{
+  "name": "chorlton-bikes-forms",
+  "main": "scripts/forms/worker.js",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": ".",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"]
+  },
+  "vars": {
+    "AIRTABLE_BASE_ID": "appT6YjaGO6hRmNaU",
+    "AIRTABLE_TABLE_ID": "tblqgtpXroIv0cmZc",
+    "STRIPE_MEMBERSHIP_PRICE": "price_1UJGBXIkHkkpJoWnC2LkcS0p",
+    "STRIPE_MONTHLY_5": "price_1SVr81IkHkkpJoWn1zEt7VTP",
+    "STRIPE_MONTHLY_10": "price_1SVrANIkHkkpJoWn47QawSZD",
+    "STRIPE_MONTHLY_20": "price_1SVrANIkHkkpJoWnfAj6gJrS",
+    "STRIPE_ONCE_PRODUCT": "prod_OFvSLdJGjRVF84"
+  }
+}

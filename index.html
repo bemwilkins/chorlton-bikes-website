@@ -439,7 +439,72 @@
                         <p>Membership means you have a voice in our future direction and can help shape how we serve our community.</p>
                     </div>
                     <div class="pathway-form">
-                        <div data-paperform-id="cbd-membership"></div>
+                        <form class="signup-form js-signup-form" data-form="membership" novalidate>
+                            <p>Your £1 membership fee is a one-off payment that makes you a member of Chorlton Bikes Community Benefit Society. A donation is optional and is separate from that £1 share.</p>
+                            <div class="form-group">
+                                <label for="member-name">Full name <span class="required">*</span></label>
+                                <input id="member-name" name="name" type="text" autocomplete="name" required maxlength="200">
+                            </div>
+                            <div class="form-group">
+                                <label for="member-email">Email address <span class="required">*</span></label>
+                                <input id="member-email" name="email" type="email" autocomplete="email" required maxlength="200">
+                            </div>
+                            <div class="form-group">
+                                <label for="member-phone">Phone number <span class="required">*</span></label>
+                                <input id="member-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required maxlength="40" placeholder="07123 456789">
+                                <small>UK mobile or landline. +44 is fine too.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="member-address">Home address <span class="required">*</span></label>
+                                <textarea id="member-address" name="address" rows="3" autocomplete="street-address" required maxlength="500" placeholder="House number, street, town, postcode"></textarea>
+                                <small>Include your postcode. If your browser knows this address, it can fill it in.</small>
+                            </div>
+                            <fieldset class="signup-fieldset">
+                                <legend>I confirm the following in order to be considered for membership:</legend>
+                                <label class="signup-check">
+                                    <input type="checkbox" name="confirmRules" value="yes" required>
+                                    <span>I am applying to become a member of Chorlton Bike Deliveries and agree to the rules of the society</span>
+                                </label>
+                                <label class="signup-check">
+                                    <input type="checkbox" name="confirmApproval" value="yes" required>
+                                    <span>I understand membership is subject to board approval</span>
+                                </label>
+                            </fieldset>
+                            <p class="signup-note">If you have donated before, this payment is added to your record. A new monthly donation does not cancel an earlier one.</p>
+                            <fieldset class="signup-fieldset">
+                                <legend>Would you like to set up a donation?</legend>
+                                <label class="signup-check">
+                                    <input type="radio" name="donationType" value="monthly" required>
+                                    <span>Yes — I'd like to set up a monthly donation</span>
+                                </label>
+                                <label class="signup-check">
+                                    <input type="radio" name="donationType" value="once">
+                                    <span>Yes — I'd like to set up a one-time donation</span>
+                                </label>
+                                <label class="signup-check">
+                                    <input type="radio" name="donationType" value="none">
+                                    <span>No</span>
+                                </label>
+                            </fieldset>
+                            <div class="signup-panel" data-panel="monthly" hidden>
+                                <fieldset class="signup-fieldset">
+                                    <legend>Select your monthly donation amount</legend>
+                                    <label class="signup-check"><input type="radio" name="monthlyAmount" value="5"> <span>£5 a month</span></label>
+                                    <label class="signup-check"><input type="radio" name="monthlyAmount" value="10"> <span>£10 a month</span></label>
+                                    <label class="signup-check"><input type="radio" name="monthlyAmount" value="20"> <span>£20 a month</span></label>
+                                </fieldset>
+                            </div>
+                            <div class="signup-panel" data-panel="once" hidden>
+                                <div class="form-group">
+                                    <label for="member-once">One-time donation amount (£) <span class="required">*</span></label>
+                                    <input id="member-once" name="onceAmount" type="number" min="1" max="10000" step="0.01" inputmode="decimal">
+                                    <small>Minimum £1. This is in addition to the £1 membership share.</small>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Continue to payment</button>
+                            <p class="signup-note">The £1 share is taken by Stripe. You will confirm the card on the next page. This is a real charge.</p>
+                            <div class="form-message" role="alert"></div>
+                        </form>
                     </div>
                 </div>
 
@@ -517,7 +582,57 @@
                     </ul>
                 </div>
                 <div class="pathway-form">
-                    <div data-paperform-id="cbd-donate"></div>
+                    <form class="signup-form js-signup-form" data-form="donation" novalidate>
+                        <p>Become a Friend of Chorlton Bikes with a one-time gift or a monthly donation. This does not include the £1 membership share.</p>
+                        <div class="form-group">
+                            <label for="donor-name">Full name <span class="required">*</span></label>
+                            <input id="donor-name" name="name" type="text" autocomplete="name" required maxlength="200">
+                        </div>
+                        <div class="form-group">
+                            <label for="donor-email">Email address <span class="required">*</span></label>
+                            <input id="donor-email" name="email" type="email" autocomplete="email" required maxlength="200">
+                        </div>
+                        <div class="form-group">
+                            <label for="donor-phone">Phone number <span class="required">*</span></label>
+                            <input id="donor-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required maxlength="40" placeholder="07123 456789">
+                            <small>UK mobile or landline. +44 is fine too.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="donor-address">Home address <span class="required">*</span></label>
+                            <textarea id="donor-address" name="address" rows="3" autocomplete="street-address" required maxlength="500" placeholder="House number, street, town, postcode"></textarea>
+                            <small>Include your postcode. If your browser knows this address, it can fill it in.</small>
+                        </div>
+                        <p class="signup-note">If you have donated before, this payment is added to your record. A new monthly donation does not cancel an earlier one.</p>
+                        <fieldset class="signup-fieldset">
+                            <legend>Would you like to set up a one-time or monthly donation?</legend>
+                            <label class="signup-check">
+                                <input type="radio" name="donationType" value="monthly" required>
+                                <span>Monthly donation</span>
+                            </label>
+                            <label class="signup-check">
+                                <input type="radio" name="donationType" value="once">
+                                <span>One-time donation</span>
+                            </label>
+                        </fieldset>
+                        <div class="signup-panel" data-panel="monthly" hidden>
+                            <fieldset class="signup-fieldset">
+                                <legend>Select your monthly donation amount</legend>
+                                <label class="signup-check"><input type="radio" name="monthlyAmount" value="5"> <span>£5 a month</span></label>
+                                <label class="signup-check"><input type="radio" name="monthlyAmount" value="10"> <span>£10 a month</span></label>
+                                <label class="signup-check"><input type="radio" name="monthlyAmount" value="20"> <span>£20 a month</span></label>
+                            </fieldset>
+                        </div>
+                        <div class="signup-panel" data-panel="once" hidden>
+                            <div class="form-group">
+                                <label for="donor-once">One-time donation amount (£) <span class="required">*</span></label>
+                                <input id="donor-once" name="onceAmount" type="number" min="1" max="10000" step="0.01" inputmode="decimal">
+                                <small>Minimum £1.</small>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Continue to payment</button>
+                        <p class="signup-note">You will confirm the card on the next page. Stripe emails you a receipt. This is a real charge.</p>
+                        <div class="form-message" role="alert"></div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -797,6 +912,7 @@
     </footer>
 
     <script src="script.js"></script>
+    <script src="signup-forms.js"></script>
     <!-- Defer third-party scripts to improve performance -->
     <script>
         // Load third-party scripts after page is interactive

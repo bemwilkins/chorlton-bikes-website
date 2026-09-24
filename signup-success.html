@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment received — Chorlton Bikes</title>
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main class="signup-result">
+        <h1>Thank you</h1>
+        <p id="signup-status">Confirming your payment…</p>
+        <p><a href="index.html">Back to the site</a></p>
+    </main>
+    <script>
+        const status = document.getElementById('signup-status');
+        const sessionId = new URLSearchParams(window.location.search).get('session_id');
+
+        if (!sessionId) {
+            status.textContent = 'This page needs a payment to confirm.';
+        } else {
+            fetch('/api/signup-complete?session_id=' + encodeURIComponent(sessionId))
+                .then(async (response) => {
+                    const body = await response.json().catch(() => ({}));
+                    if (!response.ok) {
+                        throw new Error(body.error || 'Could not save this signup');
+                    }
+                    return body;
+                })
+                .then((body) => {
+                    const who = body.name ? body.name : 'you';
+                    if (body.kind === 'membership' && body.pending) {
+                        status.textContent = 'Payment received. ' + who + ' is recorded as a membership application. The board still confirms membership.';
+                    } else if (body.updated || body.kind === 'membership') {
+                        status.textContent = 'Payment received. This has been added to the existing record for ' + who + '.';
+                    } else {
+                        status.textContent = 'Payment received. Thank you, ' + who + '. The donation is recorded.';
+                    }
+                })
+                .catch((error) => {
+                    status.textContent = error.message;
+                });
+        }
+    </script>
+</body>
+</html>
