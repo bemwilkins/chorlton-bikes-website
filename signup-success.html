@@ -17,17 +17,30 @@
         const status = document.getElementById('signup-status');
         const sessionId = new URLSearchParams(window.location.search).get('session_id');
 
-        if (!sessionId) {
-            status.textContent = 'This page needs a payment to confirm.';
-        } else {
-            fetch('/api/signup-complete?session_id=' + encodeURIComponent(sessionId))
-                .then(async (response) => {
+        async function confirmSignup(id) {
+            let lastError = new Error('Could not save this signup');
+            for (let attempt = 0; attempt < 3; attempt += 1) {
+                try {
+                    const response = await fetch('/api/signup-complete?session_id=' + encodeURIComponent(id));
                     const body = await response.json().catch(() => ({}));
                     if (!response.ok) {
                         throw new Error(body.error || 'Could not save this signup');
                     }
                     return body;
-                })
+                } catch (error) {
+                    lastError = error;
+                    if (attempt < 2) {
+                        await new Promise((resolve) => setTimeout(resolve, 1000));
+                    }
+                }
+            }
+            throw lastError;
+        }
+
+        if (!sessionId) {
+            status.textContent = 'This page needs a payment to confirm.';
+        } else {
+            confirmSignup(sessionId)
                 .then((body) => {
                     const who = body.name ? body.name : 'you';
                     if (body.kind === 'membership' && body.pending) {

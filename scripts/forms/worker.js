@@ -1,4 +1,4 @@
-import { handleSignupRequest } from './signup-core.js';
+import { handleSignupRequest, reconcileRecentSignups } from './signup-core.js';
 
 function pricesFromEnv(env) {
   return {
@@ -35,5 +35,14 @@ export default {
       }
     }
     return env.ASSETS.fetch(request);
+  },
+
+  async scheduled(_event, env, ctx) {
+    const liveTable = env.AIRTABLE_TABLE_ID === 'tblqgtpXroIv0cmZc';
+    const liveKey = env.STRIPE_SECRET_KEY?.startsWith('sk_live_') || env.STRIPE_SECRET_KEY?.startsWith('rk_live_');
+    if (liveTable && !liveKey) return;
+    ctx.waitUntil(reconcileRecentSignups(env, Date.now()).catch((error) => {
+      console.error(error);
+    }));
   },
 };

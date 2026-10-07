@@ -280,7 +280,19 @@ function signupFromSession(session) {
   };
 }
 
-export async function recordSignup(env, session) {
+const recordedSessions = new Map();
+
+export function recordSignup(env, session) {
+  const existing = recordedSessions.get(session.id);
+  if (existing) return existing;
+  const job = recordSignupOnce(env, session).finally(() => {
+    recordedSessions.delete(session.id);
+  });
+  recordedSessions.set(session.id, job);
+  return job;
+}
+
+async function recordSignupOnce(env, session) {
   if (!env.AIRTABLE_TABLE_ID) {
     throw new Error('Payment succeeded, but the Airtable test table is not configured.');
   }
@@ -288,28 +300,123 @@ export async function recordSignup(env, session) {
   if (!signup.form || !signup.email) {
     throw new Error('This payment is missing the signup details');
   }
-  const tablePath = `/v0/${env.AIRTABLE_BASE_ID}/${env.AIRTABLE_TABLE_ID}`;
-  const sessionFormula = encodeURIComponent(`{Checkout session}="${formulaValue(session.id)}"`);
-  const existingSession = await airtable(env, 'GET', `${tablePath}?filterByFormula=${sessionFormula}&maxRecords=1`);
-  if (existingSession.records?.length) {
-    const pending = signup.form === 'membership' && membershipStatus(existingSession.records[0].fields) === 'Pending';
-    return { created: false, pending, signup };
+  const tablePath = tablePathFor(env);
+  const already = await sessionRecords(env, session.id);
+  if (already.length) {
+    const kept = await collapseSessionDuplicates(env, session.id);
+    return { created: false, pending: isPendingMembership(signup, kept), signup };
   }
 
   const emailFormula = encodeURIComponent(contactFormula(env, signup.email));
   const matches = await airtable(env, 'GET', `${tablePath}?filterByFormula=${emailFormula}&maxRecords=10`);
   const match = chooseContact(matches.records || []);
-  const memberId = !match && env.AIRTABLE_TABLE_ID === 'tblqgtpXroIv0cmZc' ? await nextMemberId(env) : '';
+  const liveTable = env.AIRTABLE_TABLE_ID === 'tblqgtpXroIv0cmZc';
+  const memberId = !match && liveTable ? await nextMemberId(env) : '';
   const fields = fieldsForSignup(env, signup, session, match?.fields, memberId);
   const pending = signup.form === 'membership' && !['Live Member', 'Cancelled', 'Deceased'].includes(membershipStatus(match?.fields));
   if (match) {
     await airtable(env, 'PATCH', `${tablePath}/${match.id}`, { fields, typecast: true });
+    await collapseSessionDuplicates(env, session.id);
     console.log(`Updated ${signup.form} for ${signup.email} (${session.id})`);
     return { created: false, updated: true, pending, signup };
   }
-  await airtable(env, 'POST', tablePath, { fields, typecast: true });
+  const created = await airtable(env, 'POST', tablePath, { fields, typecast: true });
+  const kept = await collapseSessionDuplicates(env, session.id);
+  if (kept && kept.id !== created.id) {
+    console.log(`Dropped duplicate ${signup.form} for ${signup.email} (${session.id})`);
+    return { created: false, pending: isPendingMembership(signup, kept), signup };
+  }
+  if (memberId) await separateSharedMemberId(env, created.id, memberId);
   console.log(`Recorded ${signup.form} for ${signup.email} (${session.id})`);
   return { created: true, pending, signup };
+}
+
+function tablePathFor(env) {
+  return `/v0/${env.AIRTABLE_BASE_ID}/${env.AIRTABLE_TABLE_ID}`;
+}
+
+function isPendingMembership(signup, record) {
+  return signup.form === 'membership' && membershipStatus(record?.fields) === 'Pending';
+}
+
+async function sessionRecords(env, sessionId) {
+  const formula = encodeURIComponent(`{Checkout session}="${formulaValue(sessionId)}"`);
+  const page = await airtable(env, 'GET', `${tablePathFor(env)}?filterByFormula=${formula}&pageSize=10`);
+  return page.records || [];
+}
+
+async function collapseSessionDuplicates(env, sessionId) {
+  let rows = await sessionRecords(env, sessionId);
+  if (rows.length < 2) {
+    await delay(600);
+    rows = await sessionRecords(env, sessionId);
+  }
+  if (rows.length < 2) return rows[0] || null;
+  const sorted = [...rows].sort((a, b) => {
+    const time = String(a.createdTime || '').localeCompare(String(b.createdTime || ''));
+    return time || a.id.localeCompare(b.id);
+  });
+  for (const extra of sorted.slice(1)) {
+    await deleteRecord(env, extra.id);
+  }
+  return sorted[0];
+}
+
+async function separateSharedMemberId(env, recordId, memberId) {
+  const formula = encodeURIComponent(`{Member ID}="${formulaValue(memberId)}"`);
+  const page = await airtable(env, 'GET', `${tablePathFor(env)}?filterByFormula=${formula}&pageSize=10`);
+  const rows = page.records || [];
+  if (rows.length < 2) return;
+  const sorted = [...rows].sort((a, b) => {
+    const time = String(a.createdTime || '').localeCompare(String(b.createdTime || ''));
+    return time || a.id.localeCompare(b.id);
+  });
+  if (sorted[0].id === recordId) return;
+  const next = await nextMemberId(env);
+  await airtable(env, 'PATCH', `${tablePathFor(env)}/${recordId}`, {
+    fields: { 'Member ID': next },
+    typecast: true,
+  });
+}
+
+async function deleteRecord(env, recordId) {
+  const response = await fetch(`https://api.airtable.com${tablePathFor(env)}/${recordId}`, {
+    method: 'DELETE',
+    headers: { Authorization: `Bearer ${env.AIRTABLE_TOKEN}` },
+  });
+  if (response.status === 404) return;
+  const data = await response.json();
+  if (!response.ok) {
+    const message = data.error?.message || `Airtable request failed (${response.status})`;
+    throw new Error(typeof message === 'string' ? message : JSON.stringify(message));
+  }
+}
+
+function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+export async function reconcileRecentSignups(env, now = Date.now()) {
+  const since = Math.floor(now / 1000) - 48 * 60 * 60;
+  let startingAfter = '';
+  let pages = 0;
+  do {
+    const params = new URLSearchParams({ limit: '100' });
+    params.set('created[gte]', String(since));
+    if (startingAfter) params.set('starting_after', startingAfter);
+    const page = await stripe(env, 'GET', `/checkout/sessions?${params}`);
+    for (const session of page.data || []) {
+      if (!session.metadata?.cb_form || !session.metadata?.cb_email) continue;
+      if (session.payment_status !== 'paid' && session.payment_status !== 'no_payment_required') continue;
+      try {
+        await recordSignup(env, session);
+      } catch (error) {
+        console.error(`Could not record ${session.id}: ${error.message}`);
+      }
+    }
+    startingAfter = page.has_more && page.data?.length ? page.data[page.data.length - 1].id : '';
+    pages += 1;
+  } while (startingAfter && pages < 5);
 }
 
 function formulaValue(value) {
@@ -508,10 +615,15 @@ export async function handleSignupRequest(request, env) {
       return json(400, { error: 'Invalid Stripe signature' });
     }
     const event = JSON.parse(raw);
-    if (event.type === 'checkout.session.completed') {
+    if (event.type === 'checkout.session.completed' || event.type === 'checkout.session.async_payment_succeeded') {
       const session = event.data.object;
       if (session.payment_status === 'paid' || session.payment_status === 'no_payment_required') {
-        await recordSignup(env, session);
+        try {
+          await recordSignup(env, session);
+        } catch (error) {
+          console.error(error);
+          return json(500, { error: 'Could not record this payment' });
+        }
       }
     }
     return json(200, { received: true });
