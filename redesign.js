@@ -1,7 +1,7 @@
 /* Homepage behaviour for the redesign/on-the-move preview.
    Stories and films are edited in index.html.
-   Set data-video="https://www.youtube.com/watch?v=…" or a Vimeo URL on a film
-   card to play it in the page. With no data-video, the card's link is followed. */
+   Set data-video to an mp4 on this site, or a YouTube, Vimeo, or Instagram
+   reel URL, to play it in the page. With no data-video, the card's link is followed. */
 (function () {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     document.documentElement.classList.add("js");
@@ -13,7 +13,27 @@
     flag?.querySelector("button")?.addEventListener("click", () => {
         sessionStorage.setItem("cb-preview-dismissed", "1");
         flag.remove();
+        measureHead();
     });
+
+    const announce = document.querySelector(".announce");
+    if (announce) {
+        const until = announce.dataset.until;
+        const today = new Intl.DateTimeFormat("en-CA", {
+            timeZone: "Europe/London",
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit"
+        }).format(new Date());
+        if (!until || today >= until) announce.remove();
+    }
+
+    function measureHead() {
+        const head = document.querySelector(".nav");
+        if (head) document.documentElement.style.setProperty("--head-h", head.offsetHeight + "px");
+    }
+    measureHead();
+    window.addEventListener("resize", measureHead);
 
     const toggle = document.querySelector(".nav-toggle");
     toggle?.addEventListener("click", () => {
@@ -69,13 +89,13 @@
     const dialog = document.getElementById("sheet");
     const sheetBody = dialog?.querySelector(".sheet-body");
 
-    function contactRow(subject, message) {
+    function contactRow(subject, message, label) {
         const row = document.createElement("div");
         row.className = "sheet-contact";
         const mail = document.createElement("a");
         mail.className = "btn btn-green";
         mail.href = "mailto:hello@chorltonbikes.coop?subject=" + encodeURIComponent(subject);
-        mail.textContent = "Email us";
+        mail.textContent = label || "Get in touch";
         const whats = document.createElement("a");
         whats.className = "btn btn-line";
         whats.href = "https://wa.me/447561737986?text=" + encodeURIComponent(message);
@@ -103,7 +123,8 @@
         copy.hidden = false;
         if (card.classList.contains("job")) {
             const wrap = document.createElement("div");
-            wrap.append(copy, contactRow(card.dataset.subject || "Hello", card.dataset.wa || "Hi, I'd like to get in touch about Chorlton Bikes"));
+            const label = card.dataset.lane === "commercial" ? "Enquire about this" : "Get in touch";
+            wrap.append(copy, contactRow(card.dataset.subject || "Hello", card.dataset.wa || "Hi, I'd like to get in touch about Chorlton Bikes", label));
             openSheet(wrap);
             return;
         }
@@ -115,7 +136,14 @@
         if (event.target === dialog) dialog.close();
     });
     dialog?.addEventListener("close", () => {
-        dialog.querySelectorAll("iframe").forEach((frame) => frame.remove());
+        dialog.querySelectorAll("iframe, video").forEach((el) => {
+            if (el.tagName === "VIDEO") {
+                el.pause();
+                el.removeAttribute("src");
+                el.load();
+            }
+            el.remove();
+        });
     });
 
     function embedUrl(url) {
@@ -123,39 +151,79 @@
             const parsed = new URL(url);
             const host = parsed.hostname.replace(/^www\./, "");
             if (host === "youtu.be") {
-                return "https://www.youtube-nocookie.com/embed/" + parsed.pathname.slice(1);
+                const id = parsed.pathname.slice(1).split("/")[0];
+                if (id) return { src: "https://www.youtube-nocookie.com/embed/" + id, portrait: false };
             }
             if (host === "youtube.com" || host === "m.youtube.com") {
                 const id = parsed.searchParams.get("v") || parsed.pathname.split("/").filter(Boolean).pop();
-                if (id) return "https://www.youtube-nocookie.com/embed/" + id;
+                if (id && id !== "watch") return { src: "https://www.youtube-nocookie.com/embed/" + id, portrait: false };
             }
             if (host === "vimeo.com") {
                 const id = parsed.pathname.split("/").filter(Boolean).pop();
-                if (id) return "https://player.vimeo.com/video/" + id;
+                if (id) return { src: "https://player.vimeo.com/video/" + id, portrait: false };
+            }
+            if (host === "instagram.com") {
+                const parts = parsed.pathname.split("/").filter(Boolean);
+                const kind = parts[0];
+                const id = parts[1];
+                if ((kind === "reel" || kind === "p" || kind === "tv") && id) {
+                    return { src: "https://www.instagram.com/" + kind + "/" + id + "/embed", portrait: true };
+                }
             }
         } catch (error) {
-            return "";
+            return null;
         }
-        return "";
+        return null;
+    }
+
+    function fileVideo(url) {
+        if (!url || !/\.(mp4|webm)(\?|$)/i.test(url)) return null;
+        return url;
     }
 
     document.querySelectorAll(".film").forEach((film) => {
         film.addEventListener("click", (event) => {
-            const src = embedUrl(film.dataset.video || "");
-            if (!src || !dialog) return;
+            const src = film.dataset.video || "";
+            const file = fileVideo(src);
+            const embed = file ? null : embedUrl(src);
+            if ((!file && !embed) || !dialog) return;
             event.preventDefault();
-            const frame = document.createElement("iframe");
-            frame.className = "sheet-frame";
-            frame.src = src;
-            frame.title = film.querySelector("h3")?.textContent || "Film";
-            frame.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-            frame.allowFullscreen = true;
             const caption = document.createElement("p");
             caption.textContent = film.querySelector("figcaption p")?.textContent || "";
             const wrap = document.createElement("div");
-            wrap.append(frame, caption);
+            if (file) {
+                const video = document.createElement("video");
+                video.className = "sheet-video";
+                video.controls = true;
+                video.autoplay = true;
+                video.playsInline = true;
+                video.preload = "metadata";
+                video.src = file;
+                const poster = film.querySelector("img")?.getAttribute("src");
+                if (poster) video.poster = poster;
+                video.title = film.querySelector("h3")?.textContent || "Film";
+                wrap.append(video, caption);
+            } else {
+                const frame = document.createElement("iframe");
+                frame.className = embed.portrait ? "sheet-frame is-portrait" : "sheet-frame";
+                frame.src = embed.src;
+                frame.title = film.querySelector("h3")?.textContent || "Film";
+                frame.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen";
+                frame.allowFullscreen = true;
+                wrap.append(frame, caption);
+            }
             openSheet(wrap);
         });
+    });
+
+    const filmsMore = document.querySelector(".films-more");
+    filmsMore?.addEventListener("click", () => {
+        const open = filmsMore.getAttribute("aria-expanded") === "true";
+        document.querySelectorAll(".film-later").forEach((film) => {
+            film.hidden = open;
+        });
+        filmsMore.setAttribute("aria-expanded", open ? "false" : "true");
+        filmsMore.textContent = open ? "More films" : "Fewer films";
     });
 
     const quotes = Array.from(document.querySelectorAll(".voice-quote"));
@@ -180,6 +248,40 @@
     voice?.addEventListener("focusin", () => clearInterval(quoteTimer));
     voice?.addEventListener("focusout", startQuotes);
     startQuotes();
+
+    document.querySelectorAll(".story img").forEach((img) => {
+        const fit = () => {
+            if (!img.naturalWidth || img.classList.contains("is-fit")) return;
+            const ratio = img.naturalWidth / img.naturalHeight;
+            if (ratio > 1.55 || ratio < 0.62 || (ratio > 0.92 && flatGraphic(img))) {
+                img.classList.add("is-fit");
+            }
+        };
+        if (img.complete) fit();
+        else img.addEventListener("load", fit);
+    });
+
+    function flatGraphic(img) {
+        try {
+            const canvas = document.createElement("canvas");
+            const size = 24;
+            canvas.width = size;
+            canvas.height = size;
+            const context = canvas.getContext("2d", { willReadFrequently: true });
+            context.drawImage(img, 0, 0, size, size);
+            const data = context.getImageData(0, 0, size, size).data;
+            const spots = [[1, 1], [size - 2, 1], [1, size - 2], [size - 2, size - 2]];
+            const samples = spots.map(([x, y]) => {
+                const index = (y * size + x) * 4;
+                return [data[index], data[index + 1], data[index + 2]];
+            });
+            const average = samples.reduce((sum, sample) => [sum[0] + sample[0], sum[1] + sample[1], sum[2] + sample[2]], [0, 0, 0]).map((value) => value / samples.length);
+            const spread = samples.reduce((max, sample) => Math.max(max, Math.abs(sample[0] - average[0]), Math.abs(sample[1] - average[1]), Math.abs(sample[2] - average[2])), 0);
+            return spread < 28;
+        } catch {
+            return false;
+        }
+    }
 
     const road = document.querySelector(".road");
     document.querySelectorAll("[data-nudge]").forEach((button) => {
@@ -210,40 +312,69 @@
         }
         requestAnimationFrame(tick);
     }
-    if ("IntersectionObserver" in window) {
+    if (reduced) {
+        stats.forEach(runStat);
+    } else if ("IntersectionObserver" in window) {
+        const proof = document.querySelector(".proof");
         const seen = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (!entry.isIntersecting) return;
-                runStat(entry.target);
-                seen.unobserve(entry.target);
-            });
-        }, { threshold: 0.6 });
-        stats.forEach((el) => seen.observe(el));
+            if (!entries.some((entry) => entry.isIntersecting)) return;
+            stats.forEach(runStat);
+            seen.disconnect();
+        }, { threshold: 0.25 });
+        if (proof) seen.observe(proof);
+        else stats.forEach(runStat);
     } else {
         stats.forEach(runStat);
     }
 
-    const bike = document.querySelector(".route");
-    let ticking = false;
-    function placeBike() {
-        ticking = false;
-        if (!bike) return;
-        const max = document.documentElement.scrollHeight - window.innerHeight;
-        const progress = max > 0 ? window.scrollY / max : 0;
-        document.documentElement.style.setProperty("--ride", progress.toFixed(4));
-        document.documentElement.style.setProperty("--spin", String(Math.round(window.scrollY / 3)));
+    const arrivals = document.querySelectorAll(".arrive");
+    if (reduced) {
+        arrivals.forEach((el) => el.classList.add("is-in"));
+    } else if ("IntersectionObserver" in window) {
+        const arriving = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add("is-in");
+                arriving.unobserve(entry.target);
+            });
+        }, { threshold: 0.35 });
+        arrivals.forEach((el) => arriving.observe(el));
+    } else {
+        arrivals.forEach((el) => el.classList.add("is-in"));
     }
+
+    const route = document.querySelector(".route");
+    const stops = [...document.querySelectorAll(".route-stop")];
+    const sections = stops.map((stop) => document.querySelector(stop.getAttribute("href")));
+    let ticking = false;
+
+    function placeRoute() {
+        ticking = false;
+        if (!route) return;
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+        const ats = sections.map((section) => (
+            section && max > 0 ? Math.min(0.96, Math.max(0.02, section.offsetTop / max)) : 0
+        ));
+        let current = -1;
+        ats.forEach((at, index) => {
+            if (progress + 0.02 >= at) current = index;
+        });
+        ats.forEach((at, index) => {
+            stops[index].style.setProperty("--at", at.toFixed(4));
+            stops[index].classList.toggle("is-passed", index < current);
+            stops[index].classList.toggle("is-here", index === current);
+            if (index === current) stops[index].setAttribute("aria-current", "true");
+            else stops[index].removeAttribute("aria-current");
+        });
+        route.style.setProperty("--ride", progress.toFixed(4));
+    }
+
     window.addEventListener("scroll", () => {
         if (ticking) return;
         ticking = true;
-        requestAnimationFrame(placeBike);
+        requestAnimationFrame(placeRoute);
     }, { passive: true });
-    placeBike();
-
-    if (!("animationTimeline" in document.documentElement.style || CSS.supports?.("animation-timeline", "view()"))) {
-        document.querySelectorAll(".reveal").forEach((el) => {
-            el.style.opacity = "1";
-            el.style.transform = "none";
-        });
-    }
+    window.addEventListener("resize", placeRoute);
+    placeRoute();
 })();

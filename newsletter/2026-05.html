@@ -1,88 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Newsletter – May 2026 | Chorlton Bikes</title>
     <link rel="canonical" href="https://chorltonbikes.coop/newsletter/2026-05.html">
-    <link rel="stylesheet" href="../styles.css">
     <link rel="icon" type="image/png" href="../assets/images/logo.png">
-    <style>
-        body { margin: 0; font-family: Arial, sans-serif; font-size: 16px; line-height: 1.5; color: #333333; }
-        .inner { max-width: 600px; margin: 0 auto; padding: 0 24px; box-sizing: border-box; }
-        .newsletter-logo-block { width: 100%; background: #ffffff; padding: 32px 24px; text-align: center; box-sizing: border-box; }
-        .newsletter-logo-block .inner { padding: 0 24px; }
-        .newsletter-logo-block img { max-width: 280px; width: 100%; height: auto; display: block; margin: 0 auto; }
-        .newsletter-hello-block { width: 100%; background: #008037; padding: 28px 24px; box-sizing: border-box; }
-        .newsletter-hello-block .inner { color: #fff; text-align: center; }
-        .newsletter-hello-block .intro { font-size: 1.5rem; font-weight: bold; margin: 0 0 12px 0; }
-        .newsletter-hello-block p { margin: 0; color: #fff; }
-        .newsletter-hello-block p + p { margin-top: 12px; }
-        .newsletter-january-block { width: 100%; background: #ffffff; padding: 24px 0; box-sizing: border-box; }
-        .newsletter-january-block .inner { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
-        .newsletter-january-block .title-col { flex: 0 0 auto; }
-        .newsletter-january-block .title-col .month { font-size: 1.5rem; font-weight: bold; color: #008037; margin: 0; line-height: 1.2; }
-        .newsletter-january-block .title-col .year { font-size: 1.5rem; font-weight: bold; color: #008037; margin: 0; }
-        .newsletter-january-block .text-col { flex: 1; min-width: 0; margin: 0; color: #333; }
-        .newsletter-article-block { width: 100%; padding: 24px 0; box-sizing: border-box; }
-        .newsletter-article-block.block-cream { background: #fffde7; }
-        .newsletter-article-block.block-white { background: #ffffff; }
-        .newsletter-article-block h2 { font-size: 1.75rem; color: #333; margin: 0 0 0.5rem 0; font-weight: bold; }
-        .newsletter-article-block ul { margin: 0 0 1rem 0; padding-left: 0; list-style: none; }
-        .newsletter-article-block ul li { margin-bottom: 0.5rem; padding-left: 0; }
-        .newsletter-article-block .newsletter-img { width: 100%; max-width: 100%; height: auto; display: block; margin: 0 0 1rem 0; border-radius: 4px; }
-        .newsletter-image-grid { display: grid; gap: 12px; margin: 0 0 1rem 0; }
-        .newsletter-image-grid.two-col { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-        .newsletter-image-grid.three-col { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-        .newsletter-image-grid .newsletter-img { margin: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
-        .newsletter-image-grid.two-col .newsletter-img { aspect-ratio: 4 / 5; }
-        .newsletter-image-grid.three-col .newsletter-img { aspect-ratio: 1 / 1; }
-        .newsletter-img.square-crop { aspect-ratio: 1 / 1; object-fit: cover; }
-        .newsletter-img.square-crop.center { object-position: center; }
-        .newsletter-img.square-crop.top { object-position: top center; }
-        .newsletter-cta { margin: 1.25rem 0 0; }
-        .newsletter-cta a { display: block; width: 100%; box-sizing: border-box; background: #ff8210; color: #fff !important; padding: 14px 20px; text-align: center; text-decoration: none; font-weight: bold; font-size: 15px; }
-        .newsletter-cta a:hover { opacity: 0.9; }
-        .newsletter-thankyou-block { width: 100%; background: #ffffff; padding: 24px 0 32px; box-sizing: border-box; }
-        .newsletter-thankyou-block .inner { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
-        .newsletter-thankyou-block .title-col { flex: 0 0 auto; }
-        .newsletter-thankyou-block .title-col h2 { font-size: 1.75rem; font-weight: bold; color: #008037; margin: 0; line-height: 1.2; }
-        .newsletter-thankyou-block .text-col { flex: 1; min-width: 0; margin: 0; color: #333; }
-        @media (max-width: 640px) {
-            .newsletter-image-grid.two-col,
-            .newsletter-image-grid.three-col { grid-template-columns: 1fr; }
-        }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../redesign.css">
 </head>
-<body id="top">
-    <nav class="navbar">
-        <div class="container">
-            <a href="../index.html" class="nav-brand" aria-label="Chorlton Bikes Home">
-                <img src="../assets/images/logo-white.png" alt="Chorlton Bikes Logo" class="logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                <span class="logo-text">Chorlton Bikes</span>
+<body class="issue" id="top">
+    <header class="nav">
+        <div class="nav-inner">
+            <a href="../index.html" aria-label="Chorlton Bikes, back to the homepage">
+                <img class="logo" src="../assets/images/logo-white.png" alt="Chorlton Bikes">
             </a>
-            <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
-                <span></span>
-                <span></span>
+            <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu">
                 <span></span>
             </button>
             <ul class="nav-links">
-                <li><a href="../index.html#services">Services</a></li>
-                <li><a href="../index.html#membership">Join Us</a></li>
-                <li><a href="../index.html#donate">Donate</a></li>
-                <li><a href="../index.html#about">About</a></li>
+                <li><a href="../index.html#work">What we do</a></li>
+                <li><a href="../index.html#book">Book a delivery</a></li>
+                <li><a href="../index.html#road">On the road</a></li>
+                <li><a href="../index.html#films">Films</a></li>
+                <li><a href="index.html">Newsletters</a></li>
+                <li><a href="../index.html#panel-friend">Donate</a></li>
+                <li><a class="nav-join" href="../index.html#panel-member">Join — £1</a></li>
             </ul>
-            <div class="mobile-menu-overlay"></div>
         </div>
-    </nav>
-
-    <div class="newsletter-logo-block">
-        <div class="inner">
-            <img src="../assets/images/logo-green.png" alt="Chorlton Bikes" width="280" height="auto">
-        </div>
-    </div>
-
-    <div class="newsletter-hello-block">
+    </header>
+    <main>
+<div class="newsletter-hello-block">
         <div class="inner">
             <p class="intro">Hello Friends and Members of Chorlton Bikes,</p>
             <p>We&#x27;re really glad you&#x27;re here. This newsletter is a chance to share what we&#x27;ve been up to - our riders, our partners, and the difference we&#x27;re making together in Chorlton and beyond.</p>
@@ -240,26 +190,34 @@
             </div>
         </div>
     </div>
-
+    </main>
     <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>Contact Us</h4>
-                    <p><a href="https://wa.me/447561737986" target="_blank" rel="noopener noreferrer" class="whatsapp-button">Chat on WhatsApp</a></p>
-                    <p><a href="https://mail.google.com/mail/?view=cm&fs=1&to=hello@chorltonbikes.coop" target="_blank" rel="noopener noreferrer" class="footer-link">hello@chorltonbikes.coop</a></p>
-                    <p><a href="tel:+447561737986" class="footer-link">+44 7561 737986</a></p>
-                    <p><a href="https://maps.app.goo.gl/LZXcpTXvTtkWwr8o9" target="_blank" rel="noopener noreferrer" class="footer-link">Find Us on Google Maps</a></p>
-                </div>
-                <div class="footer-section footer-logo-section">
-                    <img src="../assets/images/real-living-wage-logo.webp" alt="Real Living Wage Employer" class="footer-logo">
-                </div>
+        <div class="wrap footer-grid">
+            <div>
+                <h2>Visit</h2>
+                <p>Boiler House, 9 Wilcock Street<br>Moss Side, Manchester, M16 7DA</p>
+                <p>Monday to Saturday, 9am–5pm</p>
+                <p><a href="https://maps.app.goo.gl/LZXcpTXvTtkWwr8o9" target="_blank" rel="noopener noreferrer">Map</a></p>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Chorlton Bikes. All Rights Reserved. | <a href="../privacy-policy.html" class="footer-link">Privacy Policy</a></p>
+            <div>
+                <h2>Talk to us</h2>
+                <p><a href="mailto:hello@chorltonbikes.coop">hello@chorltonbikes.coop</a></p>
+                <p><a href="tel:+447561737986">07561 737986</a></p>
+                <p><a href="https://wa.me/447561737986" target="_blank" rel="noopener noreferrer">WhatsApp</a></p>
+            </div>
+            <div>
+                <h2>Follow</h2>
+                <p><a href="https://www.instagram.com/chorltonbikes" target="_blank" rel="noopener noreferrer">Instagram</a></p>
+                <p><a href="https://www.facebook.com/chorltonbikedeliveries/" target="_blank" rel="noopener noreferrer">Facebook</a></p>
+            </div>
+            <div>
+                <img class="footer-logo" src="../assets/images/real-living-wage-logo.webp" alt="Real Living Wage employer">
             </div>
         </div>
+        <div class="wrap footer-base">
+            <p>© 2026 Chorlton Bikes Community Benefit Society. <a href="../privacy-policy.html">Privacy</a></p>
+        </div>
     </footer>
-    <script src="../script.js"></script>
+    <script src="../redesign.js"></script>
 </body>
 </html>

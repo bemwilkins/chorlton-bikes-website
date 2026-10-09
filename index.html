@@ -13,17 +13,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="redesign.css">
     <link rel="preload" href="assets/images/carousel/04.png" as="image" fetchpriority="high">
-    <script>document.documentElement.classList.add("js");</script>
+    <script>
+        document.documentElement.classList.add("js");
+    </script>
 </head>
 <body>
     <a class="skip" href="#work">Skip to what we do</a>
 
     <div class="preview-flag">
-        <span>Design preview on branch redesign/on-the-move. The live site on main is unchanged.</span>
+        <span>Preview. The day-to-day site is unchanged.</span>
         <button type="button">Dismiss</button>
     </div>
 
     <header class="nav">
+        <!-- Announcement. Remove this block when there is nothing to say.
+             data-until is the first London date it disappears. This one is off from 26 November 2026. -->
+        <div class="announce" data-until="2026-11-26">
+            <p><strong>AGM and Open Social.</strong> Wednesday 25 November, 6–9pm, Dulcimer Bar, Chorlton. Members and non-members welcome. <a href="mailto:hello@chorltonbikes.coop?subject=AGM%2025%20November">Tell us you're coming</a></p>
+        </div>
         <div class="nav-inner">
             <a href="#top" aria-label="Chorlton Bikes, back to top">
                 <img class="logo" src="assets/images/logo-white.png" alt="Chorlton Bikes">
@@ -33,6 +40,7 @@
             </button>
             <ul class="nav-links">
                 <li><a href="#work">What we do</a></li>
+                <li><a href="#book">Book a delivery</a></li>
                 <li><a href="#road">On the road</a></li>
                 <li><a href="#films">Films</a></li>
                 <li><a href="#panel-friend" data-path="friend">Donate</a></li>
@@ -42,18 +50,14 @@
     </header>
 
     <nav class="route" aria-label="On this page">
-        <div class="route-line"></div>
-        <svg class="route-bike" viewBox="0 0 64 36" aria-hidden="true">
-            <g class="wheel"><circle cx="14" cy="26" r="7" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M14 19.5 V32.5 M7.5 26 H20.5" stroke="currentColor" stroke-width="1.4"/></g>
-            <g class="wheel"><circle cx="46" cy="26" r="7" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M46 19.5 V32.5 M39.5 26 H52.5" stroke="currentColor" stroke-width="1.4"/></g>
-            <path d="M14 26 H28 L36 16 H22 M28 26 L36 16 M36 16 H58 V24 H52" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/>
-            <rect x="40" y="12" width="18" height="10" rx="1" fill="currentColor"/>
-        </svg>
-        <a class="route-stop" style="--at: 0.02" href="#work">Work</a>
-        <a class="route-stop" style="--at: 0.28" href="#road">Road</a>
-        <a class="route-stop" style="--at: 0.46" href="#films">Films</a>
-        <a class="route-stop" style="--at: 0.66" href="#join">Join</a>
-        <a class="route-stop" style="--at: 0.86" href="#about">Us</a>
+        <div class="route-line" aria-hidden="true"></div>
+        <div class="route-fill" aria-hidden="true"></div>
+        <span class="route-mark" aria-hidden="true"></span>
+        <a class="route-stop" href="#work">Work</a>
+        <a class="route-stop" href="#road">Road</a>
+        <a class="route-stop" href="#films">Films</a>
+        <a class="route-stop" href="#join">Join</a>
+        <a class="route-stop" href="#about">Us</a>
     </nav>
 
     <main id="top">
@@ -72,13 +76,13 @@
             </div>
             <div class="hero-shade"></div>
             <div class="hero-copy">
+                <p class="hero-name">Chorlton Bikes</p>
                 <p class="kicker">Community Benefit Society · South Manchester</p>
                 <h1>Out on the bikes.</h1>
-                <p class="lede">Cargo bikes, trishaws and community rides, run by a co-op you can join for a pound. We take vans off the streets we live on, and we pay the Real Living Wage.</p>
+                <p class="lede">Cargo bikes, trishaws and community rides, run by a co-op you can join for a pound. We take vans off the streets we live on, pay the Real Living Wage, and work to make the communities we live in a better place.</p>
                 <div class="hero-actions">
-                    <a class="btn btn-lime" href="#panel-member" data-path="member">Become a member — £1</a>
-                    <a class="btn btn-orange" href="#panel-friend" data-path="friend">Give as a Friend</a>
-                    <a class="btn btn-line" href="#work">See what we carry</a>
+                    <a class="btn btn-orange" href="#panel-member" data-path="member">Become a member — £1</a>
+                    <a class="btn btn-line" href="#panel-friend" data-path="friend">Give as a Friend</a>
                 </div>
             </div>
             <div class="blind">
@@ -94,20 +98,30 @@
 
         <section class="section" id="work">
             <div class="wrap">
-                <div class="section-head reveal">
+                <div class="section-head arrive">
                     <div>
                         <p class="kicker">What we do</p>
-                        <h2>If it fits on a bike, ask.</h2>
+                        <h2>If we can do it on a bike, we'll do it.</h2>
                     </div>
-                    <p>Community work and paid deliveries, side by side. Open a card for the detail — you only need to get in touch once.</p>
+                    <p>Community work, and deliveries for local businesses and the public sector. Open a card if you might use a service, get involved, or benefit from it.</p>
+                </div>
+                <div class="book" id="book">
+                    <div>
+                        <p class="kicker">Get in touch</p>
+                        <p>Book a delivery, or ask about anything below.</p>
+                    </div>
+                    <div class="book-actions">
+                        <a class="btn btn-orange" href="mailto:hello@chorltonbikes.coop?subject=Book%20a%20delivery">Book a delivery</a>
+                        <a class="btn btn-line" href="https://wa.me/447561737986" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+                    </div>
                 </div>
                 <div class="filters" role="group" aria-label="Filter services">
                     <button class="filter is-on" type="button" data-lane="all" aria-pressed="true">Everything</button>
                     <button class="filter" type="button" data-lane="community" aria-pressed="false">Community</button>
-                    <button class="filter" type="button" data-lane="commercial" aria-pressed="false">For businesses</button>
+                    <button class="filter" type="button" data-lane="commercial" aria-pressed="false">Businesses &amp; public sector</button>
                 </div>
                 <div class="jobs">
-                    <article class="job reveal" data-lane="community" data-subject="Surplus Food Collection Inquiry" data-wa="Hi, I'd like to inquire about Surplus Food Collections">
+                    <article class="job" data-lane="community" data-subject="Surplus Food Collection Inquiry" data-wa="Hi, I'd like to inquire about Surplus Food Collections">
                         <button class="job-open" type="button">
                             <img src="assets/images/services/surplus-food.png" alt="Riders collecting surplus food">
                             <span class="job-meta"><span class="job-lane">Community</span><span class="job-name">Surplus food</span><span class="job-tease">Daily collections, straight to foodbanks.</span></span>
@@ -118,7 +132,7 @@
                             <p>If you're a shop, café or household with food to pass on, we'd like to hear from you.</p>
                         </div>
                     </article>
-                    <article class="job reveal" data-lane="community" data-subject="Shop N Drop Inquiry" data-wa="Hi, I'd like to inquire about Unicorn Shop & Drop">
+                    <article class="job" data-lane="community" data-subject="Shop N Drop Inquiry" data-wa="Hi, I'd like to inquire about Unicorn Shop & Drop">
                         <button class="job-open" type="button">
                             <img src="assets/images/services/shop-drop.jpg" alt="A cargo bike outside Unicorn Grocery">
                             <span class="job-meta"><span class="job-lane">Community</span><span class="job-name">Unicorn Shop &amp; Drop</span><span class="job-tease">Shopping delivered, for people who can't get there.</span></span>
@@ -129,7 +143,7 @@
                             <p>To be eligible you need a physical or mental health obstacle that stops you shopping in person, and you live in Chorlton or the M21 borders.</p>
                         </div>
                     </article>
-                    <article class="job reveal" data-lane="community" data-subject="Community Trishaw Ride Inquiry" data-wa="Hi, I'd like to inquire about Community Trishaw Rides">
+                    <article class="job" data-lane="community" data-subject="Community Trishaw Ride Inquiry" data-wa="Hi, I'd like to inquire about Community Trishaw Rides">
                         <button class="job-open" type="button">
                             <img src="assets/images/services/community-trishaw.jpg" alt="A trishaw pilot with a passenger">
                             <span class="job-meta"><span class="job-lane">Community</span><span class="job-name">Trishaw rides</span><span class="job-tease">Back out and about, with someone else pedalling.</span></span>
@@ -140,7 +154,7 @@
                             <p>Rides are free when they're offered through community organisations.</p>
                         </div>
                     </article>
-                    <article class="job reveal" data-lane="community" data-subject="Bike Donation Inquiry" data-wa="Hi, I'd like to donate a bike for Bikes4Refugees">
+                    <article class="job" data-lane="community" data-subject="Bike Donation Inquiry" data-wa="Hi, I'd like to donate a bike for Bikes4Refugees">
                         <button class="job-open" type="button">
                             <img src="assets/images/services/bikes4refugees.jpg" alt="Bikes collected for refugees">
                             <span class="job-meta"><span class="job-lane">Community</span><span class="job-name">Bikes4Refugees</span><span class="job-tease">Unused bikes, revived and ridden again.</span></span>
@@ -150,7 +164,7 @@
                             <p>We work with Refugee Aid (Care UK), reviving unused bikes for asylum-seekers and refugees. A donated bike can mean work, college, or simply getting across the city.</p>
                         </div>
                     </article>
-                    <article class="job reveal" data-lane="community" data-subject="Bike Library Inquiry" data-wa="Hi, I'd like to inquire about the Bike Library">
+                    <article class="job" data-lane="community" data-subject="Bike Library Inquiry" data-wa="Hi, I'd like to inquire about the Bike Library">
                         <button class="job-open" type="button">
                             <img src="assets/images/services/bike-library.jpg" alt="Bikes in the Chorlton Bikes library">
                             <span class="job-meta"><span class="job-lane">Community</span><span class="job-name">Bike library</span><span class="job-tease">Borrow a Brompton, a tandem, a family cargo bike.</span></span>
@@ -160,7 +174,7 @@
                             <p>With support from TfGM we run a bike library, to get more people in the community onto bikes. That includes Bromptons, a tandem for co-commuters, and an Estarli electric cargo bike families can try.</p>
                         </div>
                     </article>
-                    <article class="job reveal" data-lane="community" data-subject="Community Project Inquiry" data-wa="Hi, I'd like to discuss a Community Project">
+                    <article class="job" data-lane="community" data-subject="Community Project Inquiry" data-wa="Hi, I'd like to discuss a Community Project">
                         <button class="job-open" type="button">
                             <img src="assets/images/services/community-projects.png" alt="Riders helping with a community project">
                             <span class="job-meta"><span class="job-lane">Community</span><span class="job-name">Community projects</span><span class="job-tease">Got an idea? The bikes can help it happen.</span></span>
@@ -170,10 +184,10 @@
                             <p>Have an idea for a community project? Our riders and fleet of electric cargo bikes can help you make it happen.</p>
                         </div>
                     </article>
-                    <article class="job reveal" data-lane="commercial" data-subject="Health & Public Service Logistics Inquiry" data-wa="Hi, I'd like to inquire about Healthcare Logistics">
+                    <article class="job" data-lane="commercial" data-subject="Health & Public Service Logistics Inquiry" data-wa="Hi, I'd like to inquire about Healthcare Logistics">
                         <button class="job-open" type="button">
                             <img src="assets/images/services/health-logistics.jpg" alt="A rider on an NHS delivery">
-                            <span class="job-meta"><span class="job-lane">For businesses</span><span class="job-name">Healthcare logistics</span><span class="job-tease">Specimens from GP surgeries to hospital, every day.</span></span>
+                            <span class="job-meta"><span class="job-lane">Businesses &amp; public sector</span><span class="job-name">Healthcare logistics</span><span class="job-tease">Specimens from GP surgeries to hospital, every day.</span></span>
                         </button>
                         <div class="job-copy" hidden>
                             <h3>Healthcare logistics</h3>
@@ -181,10 +195,10 @@
                             <p>We can support other NHS trusts, health institutions and pharmacies.</p>
                         </div>
                     </article>
-                    <article class="job reveal" data-lane="commercial" data-subject="Food & Catering Delivery Inquiry" data-wa="Hi, I'd like to inquire about Food & Catering Deliveries">
+                    <article class="job" data-lane="commercial" data-subject="Food & Catering Delivery Inquiry" data-wa="Hi, I'd like to inquire about Food & Catering Deliveries">
                         <button class="job-open" type="button">
                             <img src="assets/images/services/food-catering.jpg" alt="Food loaded into a cargo bike">
-                            <span class="job-meta"><span class="job-lane">For businesses</span><span class="job-name">Food &amp; catering</span><span class="job-tease">Bread, platters, veg boxes. Dry and secure.</span></span>
+                            <span class="job-meta"><span class="job-lane">Businesses &amp; public sector</span><span class="job-name">Food &amp; catering</span><span class="job-tease">Bread, platters, veg boxes. Dry and secure.</span></span>
                         </button>
                         <div class="job-copy" hidden>
                             <h3>Food &amp; catering deliveries</h3>
@@ -192,66 +206,73 @@
                             <p>The bikes are fitted so food arrives dry, secure and contamination-free.</p>
                         </div>
                     </article>
-                    <article class="job reveal" data-lane="commercial" data-subject="Leaflet & Magazine Distribution Inquiry" data-wa="Hi, I'd like to inquire about Leaflet & Magazine Distribution">
+                    <article class="job" data-lane="commercial" data-subject="Leaflet & Magazine Distribution Inquiry" data-wa="Hi, I'd like to inquire about Leaflet & Magazine Distribution">
                         <button class="job-open" type="button">
                             <img src="assets/images/services/leaflet_magazine_distribution.jpg" alt="Magazines ready for a delivery round">
-                            <span class="job-meta"><span class="job-lane">For businesses</span><span class="job-name">Leaflets &amp; magazines</span><span class="job-tease">Doors, bars, theatres — we know the rounds.</span></span>
+                            <span class="job-meta"><span class="job-lane">Businesses &amp; public sector</span><span class="job-name">Leaflets &amp; magazines</span><span class="job-tease">Doors, bars, theatres — we know the rounds.</span></span>
                         </button>
                         <div class="job-copy" hidden>
                             <h3>Leaflet &amp; magazine distribution</h3>
                             <p>We deliver leaflets and flyers to South Manchester residents, and magazines to businesses and social venues — bars, theatres and the like. Local knowledge is the point.</p>
                         </div>
                     </article>
-                    <article class="job reveal" data-lane="commercial" data-subject="Trishaw Hire Inquiry" data-wa="Hi, I'd like to inquire about Trishaw Hire">
+                    <article class="job" data-lane="commercial" data-subject="Trishaw Hire Inquiry" data-wa="Hi, I'd like to inquire about Trishaw Hire">
                         <button class="job-open" type="button">
                             <img src="assets/images/services/trishaw-hire.jpg" alt="A trishaw dressed for a celebration">
-                            <span class="job-meta"><span class="job-lane">For businesses</span><span class="job-name">Trishaw hire</span><span class="job-tease">Weddings, birthdays, and the odd office do.</span></span>
+                            <span class="job-meta"><span class="job-lane">Businesses &amp; public sector</span><span class="job-name">Trishaw hire</span><span class="job-tease">Weddings, birthdays, and the odd office do.</span></span>
                         </button>
                         <div class="job-copy" hidden>
                             <h3>Trishaw hire</h3>
                             <p>Hire the trishaw and a pilot for a wedding, a birthday, a celebration or a corporate event.</p>
                         </div>
                     </article>
-                    <article class="job reveal" data-lane="commercial" data-subject="Other Delivery Service Inquiry" data-wa="Hi, I'd like to discuss a delivery">
+                    <article class="job" data-lane="commercial" data-subject="Other Delivery Service Inquiry" data-wa="Hi, I'd like to discuss a delivery">
                         <button class="job-open" type="button">
                             <img src="assets/images/services/other-deliveries.png" alt="A cargo bike loaded for a delivery">
-                            <span class="job-meta"><span class="job-lane">For businesses</span><span class="job-name">Other deliveries</span><span class="job-tease">Trees, books, beer, and whatever's next.</span></span>
+                            <span class="job-meta"><span class="job-lane">Businesses &amp; public sector</span><span class="job-name">Other deliveries</span><span class="job-tease">Trees, books, beer, and whatever's next.</span></span>
                         </button>
                         <div class="job-copy" hidden>
                             <h3>Other deliveries</h3>
-                            <p>Regular rounds or a one-off. We've carried Christmas trees, books, beer and plenty more. If it fits on a bike, tell us what you need.</p>
+                            <p>Regular rounds or a one-off. We've carried Christmas trees, books, beer and plenty more. Tell us what you need.</p>
                         </div>
                     </article>
                 </div>
-                <p class="ask-bar">Rather just talk? <a href="mailto:hello@chorltonbikes.coop">hello@chorltonbikes.coop</a> <a href="https://wa.me/447561737986" target="_blank" rel="noopener noreferrer">WhatsApp</a></p>
             </div>
         </section>
 
+        <!-- Impact figures are the last agreed counts. A running total needs, for each line:
+             the count, the date it was true, and a weekly average the team is happy to stand behind.
+             Carbon should follow the miles, not a second guess. Bikes arrive in batches, so that one
+             should step when a real total is logged rather than tick every day. -->
         <section class="section proof" aria-label="Impact">
             <div class="wrap proof-grid">
-                <div class="reveal">
+                <div class="stat">
+                    <svg class="stat-mark" viewBox="0 0 48 48" aria-hidden="true"><circle cx="12" cy="32" r="6" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="34" cy="32" r="6" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M12 32 H22 L28 20 H18 M22 32 L28 20 M28 20 H42 V28" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></svg>
                     <p class="stat-num" data-count="40890">0</p>
                     <p class="stat-label">Van miles kept off the road</p>
                 </div>
-                <div class="reveal">
+                <div class="stat">
+                    <svg class="stat-mark" viewBox="0 0 48 48" aria-hidden="true"><path d="M14 34 C14 18 24 8 38 12 C34 28 24 40 14 34Z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M18 30 C24 24 30 18 36 14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
                     <p class="stat-num" data-count="10" data-suffix="+">0</p>
                     <p class="stat-label">Tonnes of carbon saved</p>
                 </div>
-                <div class="reveal">
+                <div class="stat">
+                    <svg class="stat-mark" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 18 H40 L36 38 H12 Z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M8 18 L14 10 H34 L40 18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/></svg>
                     <p class="stat-num" data-count="1000" data-suffix="+">0</p>
                     <p class="stat-label">Foodbank donation collections</p>
                 </div>
-                <div class="reveal">
+                <div class="stat">
+                    <svg class="stat-mark" viewBox="0 0 48 48" aria-hidden="true"><circle cx="14" cy="32" r="6" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="36" cy="32" r="6" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M14 32 H22 L28 18 H36 M22 32 L30 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></svg>
                     <p class="stat-num" data-count="300" data-suffix="+">0</p>
                     <p class="stat-label">Bikes passed on for refugees</p>
                 </div>
             </div>
         </section>
 
-        <!-- ON THE ROAD: replace these cards when a newsletter goes out. Photos are in assets/images/newsletter/. -->
+        <!-- road:start -->
         <section class="section" id="road">
             <div class="wrap">
-                <div class="section-head reveal">
+                <div class="section-head arrive">
                     <div>
                         <p class="kicker">September</p>
                         <h2>On the road</h2>
@@ -263,79 +284,123 @@
                 </div>
                 <div class="road">
                     <article class="story">
-                        <img class="is-fit" src="assets/images/newsletter/09-2026/AGM%20and%20Open%20Social.jpg" alt="Poster for the Chorlton Bikes AGM and open social">
-                        <div class="story-body">
-                            <p class="story-tag">25 November</p>
-                            <h3>AGM &amp; open social</h3>
-                            <p>Dulcimer Bar, Chorlton, 6–9pm. Members and non-members. What we did in 2026, what's planned for 2027, and how to stand as a director.</p>
-                        </div>
-                    </article>
-                    <article class="story">
-                        <img src="assets/images/newsletter/09-2026/PedalParty1.jpg" alt="Two children in a trishaw at Longford Park, with a pilot waving">
+                        <img src="assets/images/newsletter/09-2026/PedalParty1.jpg" alt="Trishaw rides at Longford Park Pedal Party 1">
                         <div class="story-body">
                             <p class="story-tag">11 September</p>
-                            <h3>Pedal Party</h3>
-                            <p>We rode with Chorlton Park Primary's bike bus to Longford Park and ran trishaw rides for The Buzz — six primary schools, and the volunteers who get children to school by bike.</p>
+                            <h3>Longford Park Pedal Party</h3>
+                            <p>On Friday 11th September, we joined Chorlton Park Primary's Bike Bus to Longford Park where we offered trishaw rides as part of 'The Buzz' celebration for the other six primary schools who have set up these bike buses.</p>
                         </div>
                     </article>
                     <article class="story">
-                        <img src="assets/images/carousel/04.png" alt="Riders in hi-vis cycling a tree-lined path">
+                        <img class="is-fit" src="assets/images/newsletter/09-2026/SocialValue.png" alt="Manchester City Council Social Value film with Chorlton Bikes">
                         <div class="story-body">
-                            <p class="story-tag">In the edit</p>
-                            <h3>Three film crews</h3>
-                            <p>Social Value at the Boiler House, TfGM on the Chorlton–Deansgate cycleway, and a short promo for Our Business GM. Mick, Reg, Nick, Glynis and Lucy all ended up on camera.</p>
-                            <p><a href="#films">See the films</a></p>
+                            <h3>Social Value film</h3>
+                            <p>Manchester City Council's Social Value team came to the Boiler House to film Chorlton Bikes and document what we do and how it benefits the community.</p>
                         </div>
                     </article>
                     <article class="story">
-                        <img src="assets/images/newsletter/09-2026/Best%20Of%20Manchester.jpg" alt="Reg at the Best of Manchester nominees evening">
+                        <img class="is-fit" src="assets/images/newsletter/09-2026/tfgm.png" alt="TfGM film about the Chorlton-Deansgate cycleway">
                         <div class="story-body">
-                            <p class="story-tag">22 October</p>
-                            <h3>Best of Manchester</h3>
-                            <p>Reg was at the nominees evening on 15 September. We put forward Dave, who refurbishes bikes for Bikes4Refugees, and Lucy, who coordinates the charity. The ceremony is 22 October.</p>
+                            <h3>TfGM film</h3>
+                            <p>TfGM approached us about a film they are making about the Chorlton-Deansgate cycleway.</p>
                         </div>
                     </article>
                     <article class="story">
-                        <img src="assets/images/newsletter/09-2026/Estarli.jpeg" alt="The Estarli family cargo bike">
+                        <img class="is-fit" src="assets/images/newsletter/09-2026/OurBusinessGM.png" alt="Our Business GM directory promo film">
                         <div class="story-body">
-                            <p class="story-tag">Bike library</p>
-                            <h3>Tandem's free</h3>
-                            <p>The Bromptons are all out on loan. The tandem is available for co-commuters, and families have started asking about the Estarli electric cargo bike.</p>
+                            <h3>Our Business GM film</h3>
+                            <p>Our Business GM is the directory for purposeful enterprise - a place to discover, connect and showcase businesses that put people and communities first.</p>
                         </div>
                     </article>
                     <article class="story">
-                        <img class="is-fit" src="assets/images/newsletter/09-2026/Emmelines%20Pantry%20September%20appeal.jpeg" alt="Emmeline's Pantry">
+                        <img src="assets/images/newsletter/09-2026/Together%20Dementia.jpeg" alt="Trishaw at Together Dementia Support Together Trail">
                         <div class="story-body">
-                            <p class="story-tag">This month</p>
-                            <h3>Emmeline's pantry</h3>
-                            <p>New pyjama sets for women and girls, and toys or gifts for children. Get in touch and we'll collect and take them straight there. Trishaw rides at their summer party were piloted by Anna.</p>
+                            <h3>Trishaw events - Emmeline's Summer Party and Together Dementia</h3>
+                            <p>Trishaw pilot Anne pedalled folk around Wythenshawe Park for Together Dementia Support on the 'Together Trail' - a sponsored walk to celebrate memories and support local dementia services.</p>
+                        </div>
+                    </article>
+                    <article class="story">
+                        <img class="is-fit" src="assets/images/newsletter/09-2026/Emmelines%20Pantry%20September%20appeal.jpeg" alt="Emmeline&#39;s Pantry September appeal for pyjamas and toys">
+                        <div class="story-body">
+                            <h3>Emmeline's Pantry September appeal</h3>
+                            <p>Our friends at Emmeline's Pantry are in need of any new women or girls' pyjama sets and toys/gifts for children.</p>
+                        </div>
+                    </article>
+                    <article class="story">
+                        <img src="assets/images/newsletter/09-2026/Best%20Of%20Manchester.jpg" alt="Reg at the Best of Manchester Nominees Celebration Evening with Gary Bridges">
+                        <div class="story-body">
+                            <p class="story-tag">15 September</p>
+                            <h3>Best of Manchester - Nominees Celebration Evening</h3>
+                            <p>Reg represented Chorlton Bikes at the Best of Manchester Nominees Celebration Evening on 15th September.</p>
+                        </div>
+                    </article>
+                    <article class="story">
+                        <img src="assets/images/newsletter/09-2026/AGM%20and%20Open%20Social.jpg" alt="Chorlton Bikes AGM and Open Social at Dulcimer Bar">
+                        <div class="story-body">
+                            <p class="story-tag">25 November</p>
+                            <h3>AGM and Directors election</h3>
+                            <p>We are holding our AGM and Open Social at Dulcimer Bar, Chorlton on 25th November 2026 from 6pm-9pm.</p>
+                        </div>
+                    </article>
+                    <article class="story">
+                        <img src="assets/images/newsletter/09-2026/Estarli.jpeg" alt="Estarli cargo bike available in the Chorlton Bikes bike library">
+                        <div class="story-body">
+                            <h3>Bike library - Bromptons, tandem and family cargo bike</h3>
+                            <p>At the time of writing, all of our Bromptons are out on loan - but we do have a tandem available for the co-commuters out there!</p>
+                        </div>
+                    </article>
+                    <article class="story">
+                        <img src="assets/images/newsletter/09-2026/Bike%20maintenance%20crew.jpeg" alt="Volunteer bike maintenance crew at the Boiler House">
+                        <div class="story-body">
+                            <h3>Bike Maintenance Crew - Saturday sessions at Boiler House</h3>
+                            <p>Most Saturdays our committed volunteer maintenance crew meet to inspect and make any needed repairs to our fleet.</p>
                         </div>
                     </article>
                 </div>
-                <p class="newsletter-link"><a href="newsletter/2026-09.html">Read the September newsletter</a></p>
+                <p class="newsletter-links">
+                    <a href="newsletter/2026-09.html">Read the September newsletter</a>
+                    <a href="newsletter/index.html">Newsletter archive</a>
+                </p>
             </div>
         </section>
+        <!-- road:end -->
 
-        <!-- FILMS: add data-video="https://www.youtube.com/watch?v=…" or a Vimeo URL to play in the page. -->
+        <!-- FILMS: data-video can be an mp4 in assets/video/, or a YouTube, Vimeo, or Instagram reel URL. -->
         <section class="section films" id="films">
             <div class="wrap">
-                <div class="section-head reveal">
+                <div class="section-head arrive">
                     <div>
                         <p class="kicker">Films</p>
-                        <h2>The bikes, moving.</h2>
+                        <h2>See us in motion.</h2>
                     </div>
-                    <p>Luke Shepherd has been making these. The rebrand film is up. The September shoots are still in the edit — they'll play here as soon as there's a link.</p>
+                    <p>A look at the work as it happens, out in the community. The rides, the deliveries, and the people on either side of them.</p>
                 </div>
-                <div class="film-grid">
-                    <a class="film film-feature" href="https://www.instagram.com/reel/DRmDzYGikwu/" target="_blank" rel="noopener noreferrer">
-                        <img src="assets/images/carousel/04.png" alt="Chorlton Bikes riders leading a group through the park">
+                <div class="film-grid" id="film-grid">
+                    <a class="film film-feature" href="assets/video/cbd-promo.mp4" data-video="assets/video/cbd-promo.mp4">
+                        <img src="assets/images/films/cbd-promo.jpg" alt="Chorlton Bike Deliveries riders gathered in a park">
                         <figcaption>
                             <span class="play">Watch</span>
-                            <h3>Our last film as Bike Deliveries</h3>
-                            <p>The rebrand, shot by Luke Shepherd. We're Chorlton Bikes now. The hi-vis still says Deliveries until the new ones arrive.</p>
+                            <h3>The promo</h3>
+                            <p>Chorlton Bike Deliveries, out in the community. The hi-vis still says Deliveries.</p>
                         </figcaption>
                     </a>
-                    <a class="film" href="https://www.instagram.com/chorltonbikes/" target="_blank" rel="noopener noreferrer">
+                    <a class="film" href="assets/video/cargo-bike-revolution.mp4" data-video="assets/video/cargo-bike-revolution.mp4">
+                        <img src="assets/images/films/cargo-bike-revolution.jpg" alt="A rider in a Chorlton Bike Deliveries vest handing a delivery through a health centre hatch">
+                        <figcaption>
+                            <span class="play">Watch</span>
+                            <h3>Cargo bike revolution</h3>
+                            <p>The NHS round, and the riders who carry it.</p>
+                        </figcaption>
+                    </a>
+                    <a class="film" href="assets/video/community-ride-2025.mp4" data-video="assets/video/community-ride-2025.mp4">
+                        <img src="assets/images/films/community-ride-2025.jpg" alt="A rider on the Chorlton cycleway during the 2025 community ride">
+                        <figcaption>
+                            <span class="play">Watch</span>
+                            <h3>Community ride, 2025</h3>
+                            <p>The ride through South Manchester. Riders, neighbours, and the park at the end.</p>
+                        </figcaption>
+                    </a>
+                    <a class="film film-later" hidden href="https://www.instagram.com/chorltonbikes/" target="_blank" rel="noopener noreferrer">
                         <img src="assets/images/services/community-projects.png" alt="The team at a community project">
                         <figcaption>
                             <span class="play">Coming</span>
@@ -343,7 +408,7 @@
                             <p>Manchester City Council's Social Value team, filming at the Boiler House. Nick, Glynis and Lucy.</p>
                         </figcaption>
                     </a>
-                    <a class="film" href="https://www.instagram.com/chorltonbikes/" target="_blank" rel="noopener noreferrer">
+                    <a class="film film-later" hidden href="https://www.instagram.com/chorltonbikes/" target="_blank" rel="noopener noreferrer">
                         <img src="assets/images/carousel/01.png" alt="South Manchester rooftops with the city centre beyond">
                         <figcaption>
                             <span class="play">Coming</span>
@@ -351,7 +416,7 @@
                             <p>TfGM's film about the cycleway. Mick and Reg are in it.</p>
                         </figcaption>
                     </a>
-                    <a class="film" href="https://www.instagram.com/chorltonbikes/" target="_blank" rel="noopener noreferrer">
+                    <a class="film film-later" hidden href="https://www.instagram.com/chorltonbikes/" target="_blank" rel="noopener noreferrer">
                         <img src="assets/images/services/food-catering.jpg" alt="Food packed for a cargo bike delivery">
                         <figcaption>
                             <span class="play">Coming</span>
@@ -360,13 +425,15 @@
                         </figcaption>
                     </a>
                 </div>
+                <button class="films-more" type="button" aria-expanded="false" aria-controls="film-grid">More films</button>
             </div>
         </section>
 
         <section class="section voice" id="voices" aria-labelledby="voices-title">
             <div class="wrap">
                 <p class="kicker">In their words</p>
-                <h2 id="voices-title">Why people stay.</h2>
+                <h2 class="arrive" id="voices-title">Why people come to us.</h2>
+                <p class="voice-mix">People in the community. Riders, neighbours we deliver for, and people the services are there to help.</p>
                 <div class="voice-stage">
                     <blockquote class="voice-quote is-active">
                         <p>I love cycling because it's a better alternative to cars. At Chorlton Bikes we share that philosophy. Also maintaining our fleet of bikes is a very rewarding activity.</p>
@@ -403,8 +470,8 @@
         <section class="section join" id="join">
             <div class="wrap">
                 <p class="kicker">Get involved</p>
-                <h2>One share. Or a pint a month.</h2>
-                <p class="intro">We're a member organisation, not a charity appeal. The £1 share is how you join the society. A donation is separate, and optional. Pick one path — you don't have to fill in two forms.</p>
+                <h2 class="arrive">One share. Or a pint a month.</h2>
+                <p class="intro">We're a Community Benefit Society. A £1 share makes you a member, with a say in how we're run. If you like what we do, a donation helps keep the rides and services open for more people. If you can't afford to give, that's fine.</p>
                 <div class="join-layout">
                     <div class="paths">
                         <a class="path is-active" href="#panel-member" data-path="member" aria-current="true">
@@ -413,7 +480,7 @@
                         </a>
                         <a class="path" href="#panel-friend" data-path="friend">
                             <strong>Give as a Friend</strong>
-                            <span>The price of a pint or a coffee, if you can.</span>
+                            <span>A gift, if you can. This does not make you a member.</span>
                         </a>
                         <a class="path" href="#panel-ride" data-path="ride">
                             <strong>Ride with us</strong>
@@ -428,7 +495,9 @@
                     <div>
                         <div class="panel is-active" id="panel-member">
                             <form class="signup-form js-signup-form" data-form="membership" novalidate>
-                                <p>Your £1 membership fee is a one-off payment that makes you a member of Chorlton Bikes Community Benefit Society. A donation is optional and is separate from that £1 share.</p>
+                                <h3>Become a member</h3>
+                                <p class="form-steer">The £1 on this form is your membership share. A donation is optional, and it is separate from that share.</p>
+                                <p>That share makes you a member of Chorlton Bikes Community Benefit Society, with a say in how we're run.</p>
                                 <div class="form-group">
                                     <label for="member-name">Full name <span class="required">*</span></label>
                                     <input id="member-name" name="name" type="text" autocomplete="name" required maxlength="200">
@@ -489,7 +558,7 @@
                                         <small>Minimum £1. This is in addition to the £1 membership share.</small>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-lime">Continue to payment</button>
+                                <button type="submit" class="btn btn-green">Continue to membership payment</button>
                                 <p class="signup-note">The £1 share is taken by Stripe. You will confirm the card on the next page. This is a real charge.</p>
                                 <div class="form-message" role="alert"></div>
                             </form>
@@ -497,7 +566,9 @@
 
                         <div class="panel" id="panel-friend">
                             <form class="signup-form js-signup-form" data-form="donation" novalidate>
-                                <p>Friends of Chorlton Bikes. A one-time gift or a monthly donation. This does not include the £1 membership share. The aim is £1,000 a month in regular gifts — a stable team, premises, more bikes, and Real Living Wage jobs. If you can't afford it, that's fine.</p>
+                                <h3>Give as a Friend</h3>
+                                <p class="form-steer">This payment is a gift. It does not make you a member. <a href="#panel-member" data-path="member">Become a member — £1</a> if you want a say in how we're run.</p>
+                                <p>A one-time gift or a monthly donation. The aim is £1,000 a month in regular gifts — a stable team, premises, more bikes, and Real Living Wage jobs. If you can't afford it, that's fine.</p>
                                 <div class="form-group">
                                     <label for="donor-name">Full name <span class="required">*</span></label>
                                     <input id="donor-name" name="name" type="text" autocomplete="name" required maxlength="200">
@@ -540,10 +611,10 @@
                                     <div class="form-group">
                                         <label for="donor-once">One-time donation amount (£) <span class="required">*</span></label>
                                         <input id="donor-once" name="onceAmount" type="number" min="1" max="10000" step="0.01" inputmode="decimal">
-                                        <small>Minimum £1.</small>
+                                        <small>Minimum £1. A pound here is a donation, not membership.</small>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-orange">Continue to payment</button>
+                                <button type="submit" class="btn btn-orange">Continue to donation payment</button>
                                 <p class="signup-note">You will confirm the card on the next page. Stripe emails you a receipt. This is a real charge.</p>
                                 <div class="form-message" role="alert"></div>
                             </form>
@@ -554,11 +625,11 @@
                                 <h3>Ride with us</h3>
                                 <p>The pool of riders is growing. Paid roles are Real Living Wage. Volunteer rides are welcome too. You don't need to have ridden a cargo bike before.</p>
                                 <ul>
-                                    <li>A community co-op, not a courier app</li>
+                                    <li>A community co-op you can be part of</li>
                                     <li>Fewer cars and vans on local roads</li>
                                     <li>A fleet of genuinely good bikes</li>
                                 </ul>
-                                <a class="btn btn-lime" href="mailto:hello@chorltonbikes.coop?subject=Rider%20Application">Email us to ride</a>
+                                <a class="btn btn-green" href="mailto:hello@chorltonbikes.coop?subject=Rider%20Application">Email us to ride</a>
                             </div>
                         </div>
 
@@ -566,7 +637,7 @@
                             <div class="panel-card">
                                 <h3>Volunteer</h3>
                                 <p>Operations, community projects, bike care, events. If riding isn't your thing, there is still a place for you. Your time is part of how the society works.</p>
-                                <a class="btn btn-lime" href="mailto:hello@chorltonbikes.coop?subject=Volunteer%20Inquiry">Email us to volunteer</a>
+                                <a class="btn btn-green" href="mailto:hello@chorltonbikes.coop?subject=Volunteer%20Inquiry">Email us to volunteer</a>
                             </div>
                         </div>
                     </div>
@@ -576,28 +647,28 @@
 
         <section class="section about" id="about">
             <div class="wrap">
-                <div class="section-head reveal">
+                <div class="section-head arrive">
                     <div>
                         <p class="kicker">Who we are</p>
-                        <h2>From a lockdown favour to a society.</h2>
+                        <h2>From lockdown, into a society.</h2>
                     </div>
-                    <p>About 80% of what we spend goes to people. That's the riders and the staff. We're a Real Living Wage employer.</p>
+                    <p>The mission is to reduce carbon emissions, support the communities we live in, and create Real Living Wage jobs. About 80% of what we spend goes to the riders and the staff.</p>
                 </div>
                 <ol class="beats">
-                    <li class="reveal">
+                    <li>
                         <span>2020</span>
                         <h3>Lockdown</h3>
-                        <p>Neighbours with cargo bikes, so people in Chorlton could keep shopping locally when the shops were hard to reach and the bags were heavy.</p>
+                        <p>A grassroots response to Covid. Neighbours with cargo bikes, so people in Chorlton could keep shopping locally. That was Chorlton Bike Deliveries.</p>
                     </li>
-                    <li class="reveal">
-                        <span>2021</span>
+                    <li>
+                        <span>2025</span>
                         <h3>A society</h3>
-                        <p>That group became Chorlton Bikes, a Community Benefit Society. One share, one vote. Membership is still a pound.</p>
+                        <p>We became a Community Benefit Society, and Chorlton Bikes. Member-owned, one share, one vote. Membership is a pound.</p>
                     </li>
-                    <li class="reveal">
+                    <li>
                         <span>Now</span>
                         <h3>South Manchester</h3>
-                        <p>Based at the Boiler House, Moss Side. NHS rounds, foodbanks, trishaws, a bike library, and paid work on bikes. The rides run out well past Chorlton.</p>
+                        <p>From the Boiler House in Moss Side: fewer emissions on local streets, support for the communities we live in, and Real Living Wage jobs.</p>
                     </li>
                 </ol>
 
@@ -708,10 +779,10 @@
         </section>
 
         <section class="section partners" id="partners">
-            <div class="wrap section-head">
+            <div class="wrap section-head arrive">
                 <div>
                     <p class="kicker">Alongside</p>
-                    <h2>The people we ride with.</h2>
+                    <h2>The people we ride for.</h2>
                 </div>
             </div>
             <div class="marquee">
