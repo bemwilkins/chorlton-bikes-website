@@ -1065,10 +1065,27 @@ h1 {
 }
 
 .signup-check input {
-    width: 1.05rem;
-    height: 1.05rem;
-    margin-top: 0.2rem;
-    accent-color: var(--green);
+    appearance: none;
+    flex: 0 0 1.15rem;
+    width: 1.15rem;
+    height: 1.15rem;
+    margin: 0.18rem 0 0;
+    border: 2px solid var(--green);
+    background: white;
+    display: grid;
+    place-content: center;
+}
+
+.signup-check input[type="checkbox"] { border-radius: 0.2rem; }
+.signup-check input[type="radio"] { border-radius: 50%; }
+
+.signup-check input[type="checkbox"]:checked {
+    background: var(--green) center / 0.8rem no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23fffde7' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round' d='M3.5 8.5 6.5 11.5 12.5 4.5'/%3E%3C/svg%3E");
+}
+
+.signup-check input[type="radio"]:checked {
+    background: white;
+    box-shadow: inset 0 0 0 0.28rem var(--green);
 }
 
 .signup-form .btn { margin-top: 0.4rem; }
