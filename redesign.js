@@ -339,31 +339,30 @@
         });
     });
 
-    /* Impact estimates. Baselines are the figures on chorltonbikes.coop as of
+    /* Impact estimates. Mileage, food and bikes start from the live site on
        baselineDate (28 Nov 2025), not an older AGM pack. Do not swap in an
        older total where it would sit below that baseline.
-       Estimate = baseline + rate * (London days since baselineDate / every).
-       A week is 7 days, a month is 365/12 days, a year is 365 days, so carbon
-       reaches the next whole tonne on the anniversary (20+ on 28 Nov 2026).
+       Miles, food and bikes: baseline + rate * (London days since baselineDate / every).
+       A week is 7 days, a month is 365/12 days.
+       CO₂e uses the same unrounded mileage, not a separate annual guess:
+       tonnes = unrounded miles × kgPerMile / 1000.
        Display floors to `round` and is shown with +. Calculated once on load.
-       Reviewed 10 Oct 2026. */
+       Reviewed 12 Oct 2026. On that date: 65,000+ miles and 27+ tonnes. */
     const impact = {
         baselineDate: "2025-11-28",
-        reviewedOn: "2026-10-10",
+        reviewedOn: "2026-10-12",
         stats: {
             miles: {
                 baseline: 40890,
                 rate: 545,
                 every: 7,
                 round: 1000,
-                source: "Live site, 28 Nov 2025: 40,890 van miles avoided. Conservative run-rate of 545 miles a week."
+                source: "Live site, 28 Nov 2025: 40,890 van miles avoided. Conservative run-rate of 545 miles a week. CO₂e is calculated from this unrounded total."
             },
             carbon: {
-                baseline: 10,
-                rate: 10,
-                every: 365,
+                kgPerMile: 0.41218,
                 round: 1,
-                source: "Live site, 28 Nov 2025: 10+ tonnes of carbon saved. Conservative run-rate of 10 tonnes a year. Shows 18+ in October 2026 and 20+ from 28 Nov 2026."
+                source: "Linked to the unrounded van-miles figure. UK Government 2026 greenhouse-gas conversion factor for an average van of unknown fuel: 0.41218 kg CO₂e per mile. Tonnes = miles × 0.41218 / 1000, then floored to a whole tonne."
             },
             food: {
                 baseline: 1000,
@@ -396,9 +395,22 @@
         return Date.UTC(year, month - 1, day) / 86400000;
     }
 
-    function impactTotal(stat, today) {
-        const elapsed = Math.max(0, dayNumber(today) - dayNumber(impact.baselineDate));
-        const estimated = stat.baseline + stat.rate * (elapsed / stat.every);
+    function elapsedDays(today) {
+        return Math.max(0, dayNumber(today) - dayNumber(impact.baselineDate));
+    }
+
+    function unroundedMiles(today) {
+        const miles = impact.stats.miles;
+        return miles.baseline + miles.rate * (elapsedDays(today) / miles.every);
+    }
+
+    function impactTotal(key, today) {
+        if (key === "carbon") {
+            const tonnes = unroundedMiles(today) * impact.stats.carbon.kgPerMile / 1000;
+            return Math.floor(tonnes);
+        }
+        const stat = impact.stats[key];
+        const estimated = stat.baseline + stat.rate * (elapsedDays(today) / stat.every);
         const floored = Math.floor(estimated / stat.round) * stat.round;
         return floored < stat.baseline ? stat.baseline : floored;
     }
@@ -407,7 +419,7 @@
     document.querySelectorAll("[data-impact]").forEach((el) => {
         const stat = impact.stats[el.dataset.impact];
         if (!stat) return;
-        el.dataset.count = String(impactTotal(stat, impactToday));
+        el.dataset.count = String(impactTotal(el.dataset.impact, impactToday));
         el.dataset.suffix = "+";
     });
 
