@@ -96,6 +96,8 @@ a { color: var(--green); }
     text-align: center;
 }
 
+.announce[hidden] { display: none; }
+
 .announce p {
     width: min(var(--wrap), calc(100% - 2rem));
     margin: 0 auto;
@@ -533,6 +535,13 @@ h1 {
 .stat-num { color: var(--cream); }
 
 .proof .stat-label { color: rgba(255, 253, 231, 0.78); }
+
+.proof-note {
+    margin: 1.6rem 0 0;
+    max-width: 36rem;
+    color: rgba(255, 253, 231, 0.62);
+    font-size: 0.85rem;
+}
 
 .proof-grid {
     display: grid;

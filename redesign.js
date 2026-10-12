@@ -26,7 +26,53 @@
             day: "2-digit"
         }).format(new Date());
         if (!until || today >= until) announce.remove();
+        else announce.hidden = true;
     }
+
+    function applyAnnouncement(announcement) {
+        const header = document.querySelector(".nav");
+        if (!header) return;
+        let bar = header.querySelector(".announce");
+        if (!announcement) {
+            bar?.remove();
+            return;
+        }
+        if (!bar) {
+            bar = document.createElement("div");
+            bar.className = "announce";
+            header.prepend(bar);
+        }
+        bar.hidden = false;
+        const p = document.createElement("p");
+        if (announcement.title) {
+            const strong = document.createElement("strong");
+            strong.textContent = announcement.title;
+            p.append(strong, " ");
+        }
+        p.append(announcement.message || "");
+        if (announcement.linkHref && announcement.linkLabel) {
+            p.append(" ");
+            const link = document.createElement("a");
+            link.href = announcement.linkHref;
+            link.textContent = announcement.linkLabel;
+            p.append(link);
+        }
+        bar.replaceChildren(p);
+    }
+
+    fetch("/api/announcement", { headers: { Accept: "application/json" }, cache: "no-store" })
+        .then((res) => {
+            if (!res.ok) throw new Error("no announcement feed");
+            return res.json();
+        })
+        .then((body) => {
+            applyAnnouncement(body?.announcement || null);
+            measureHead();
+        })
+        .catch(() => {
+            if (announce?.isConnected) announce.hidden = false;
+            measureHead();
+        });
 
     function measureHead() {
         const head = document.querySelector(".nav");
@@ -291,6 +337,78 @@
                 behavior: reduced ? "auto" : "smooth",
             });
         });
+    });
+
+    /* Impact estimates. Baselines are the figures on chorltonbikes.coop as of
+       baselineDate (28 Nov 2025), not an older AGM pack. Do not swap in an
+       older total where it would sit below that baseline.
+       Estimate = baseline + rate * (London days since baselineDate / every).
+       A week is 7 days, a month is 365/12 days, a year is 365 days, so carbon
+       reaches the next whole tonne on the anniversary (20+ on 28 Nov 2026).
+       Display floors to `round` and is shown with +. Calculated once on load.
+       Reviewed 10 Oct 2026. */
+    const impact = {
+        baselineDate: "2025-11-28",
+        reviewedOn: "2026-10-10",
+        stats: {
+            miles: {
+                baseline: 40890,
+                rate: 545,
+                every: 7,
+                round: 1000,
+                source: "Live site, 28 Nov 2025: 40,890 van miles avoided. Conservative run-rate of 545 miles a week."
+            },
+            carbon: {
+                baseline: 10,
+                rate: 10,
+                every: 365,
+                round: 1,
+                source: "Live site, 28 Nov 2025: 10+ tonnes of carbon saved. Conservative run-rate of 10 tonnes a year. Shows 18+ in October 2026 and 20+ from 28 Nov 2026."
+            },
+            food: {
+                baseline: 1000,
+                rate: 11,
+                every: 7,
+                round: 100,
+                source: "Live site, 28 Nov 2025: 1,000+ foodbank donation collections. Conservative run-rate of 11 collections a week. Floors to the previous 100: 1,499 still shows as 1,400+, and 1,500+ starts on 13 Oct 2026."
+            },
+            bikes: {
+                baseline: 300,
+                rate: 7,
+                every: 365 / 12,
+                round: 10,
+                source: "Live site, 28 Nov 2025: 300+ Bikes for Refugees. Conservative run-rate of 7 a month for bikes passed on, so October 2026 shows 370+. Use 400+ only if this line is widened to bikes supported, moved or repaired for Bikes4Refugees."
+            }
+        }
+    };
+
+    function londonToday() {
+        return new Intl.DateTimeFormat("en-CA", {
+            timeZone: "Europe/London",
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit"
+        }).format(new Date());
+    }
+
+    function dayNumber(iso) {
+        const [year, month, day] = iso.split("-").map(Number);
+        return Date.UTC(year, month - 1, day) / 86400000;
+    }
+
+    function impactTotal(stat, today) {
+        const elapsed = Math.max(0, dayNumber(today) - dayNumber(impact.baselineDate));
+        const estimated = stat.baseline + stat.rate * (elapsed / stat.every);
+        const floored = Math.floor(estimated / stat.round) * stat.round;
+        return floored < stat.baseline ? stat.baseline : floored;
+    }
+
+    const impactToday = londonToday();
+    document.querySelectorAll("[data-impact]").forEach((el) => {
+        const stat = impact.stats[el.dataset.impact];
+        if (!stat) return;
+        el.dataset.count = String(impactTotal(stat, impactToday));
+        el.dataset.suffix = "+";
     });
 
     const stats = document.querySelectorAll("[data-count]");

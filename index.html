@@ -26,8 +26,9 @@
     </div>
 
     <header class="nav">
-        <!-- Announcement. Remove this block when there is nothing to say.
-             data-until is the first London date it disappears. This one is off from 26 November 2026. -->
+        <!-- Shown only when this page cannot reach /api/announcement (the live site).
+             On the preview, an empty schedule removes this bar.
+             data-until is the first London date this fallback disappears: 26 November 2026. -->
         <div class="announce" data-until="2026-11-26">
             <p><strong>AGM and Open Social.</strong> Wednesday 25 November, 6–9pm, Dulcimer Bar, Chorlton. Members and non-members welcome. <a href="mailto:hello@chorltonbikes.coop?subject=AGM%2025%20November">Tell us you're coming</a></p>
         </div>
@@ -240,32 +241,32 @@
             </div>
         </section>
 
-        <!-- Impact figures are the last agreed counts. A running total needs, for each line:
-             the count, the date it was true, and a weekly average the team is happy to stand behind.
-             Carbon should follow the miles, not a second guess. Bikes arrive in batches, so that one
-             should step when a real total is logged rather than tick every day. -->
+        <!-- Numbers are estimated in redesign.js (impact). Baselines are the live site on 28 Nov 2025. -->
         <section class="section proof" aria-label="Impact">
-            <div class="wrap proof-grid">
-                <div class="stat">
-                    <svg class="stat-mark" viewBox="0 0 48 48" aria-hidden="true"><circle cx="12" cy="32" r="6" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="34" cy="32" r="6" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M12 32 H22 L28 20 H18 M22 32 L28 20 M28 20 H42 V28" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></svg>
-                    <p class="stat-num" data-count="40890">0</p>
-                    <p class="stat-label">Van miles kept off the road</p>
+            <div class="wrap">
+                <div class="proof-grid">
+                    <div class="stat">
+                        <svg class="stat-mark" viewBox="0 0 48 48" aria-hidden="true"><circle cx="12" cy="32" r="6" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="34" cy="32" r="6" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M12 32 H22 L28 20 H18 M22 32 L28 20 M28 20 H42 V28" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></svg>
+                        <p class="stat-num" data-impact="miles">0</p>
+                        <p class="stat-label">Van miles kept off the road</p>
+                    </div>
+                    <div class="stat">
+                        <svg class="stat-mark" viewBox="0 0 48 48" aria-hidden="true"><path d="M14 34 C14 18 24 8 38 12 C34 28 24 40 14 34Z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M18 30 C24 24 30 18 36 14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+                        <p class="stat-num" data-impact="carbon">0</p>
+                        <p class="stat-label">Tonnes of carbon saved</p>
+                    </div>
+                    <div class="stat">
+                        <svg class="stat-mark" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 18 H40 L36 38 H12 Z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M8 18 L14 10 H34 L40 18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/></svg>
+                        <p class="stat-num" data-impact="food">0</p>
+                        <p class="stat-label">Foodbank donation collections</p>
+                    </div>
+                    <div class="stat">
+                        <svg class="stat-mark" viewBox="0 0 48 48" aria-hidden="true"><circle cx="14" cy="32" r="6" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="36" cy="32" r="6" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M14 32 H22 L28 18 H36 M22 32 L30 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></svg>
+                        <p class="stat-num" data-impact="bikes">0</p>
+                        <p class="stat-label">Bikes passed on for refugees</p>
+                    </div>
                 </div>
-                <div class="stat">
-                    <svg class="stat-mark" viewBox="0 0 48 48" aria-hidden="true"><path d="M14 34 C14 18 24 8 38 12 C34 28 24 40 14 34Z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M18 30 C24 24 30 18 36 14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
-                    <p class="stat-num" data-count="10" data-suffix="+">0</p>
-                    <p class="stat-label">Tonnes of carbon saved</p>
-                </div>
-                <div class="stat">
-                    <svg class="stat-mark" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 18 H40 L36 38 H12 Z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M8 18 L14 10 H34 L40 18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/></svg>
-                    <p class="stat-num" data-count="1000" data-suffix="+">0</p>
-                    <p class="stat-label">Foodbank donation collections</p>
-                </div>
-                <div class="stat">
-                    <svg class="stat-mark" viewBox="0 0 48 48" aria-hidden="true"><circle cx="14" cy="32" r="6" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="36" cy="32" r="6" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M14 32 H22 L28 18 H36 M22 32 L30 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></svg>
-                    <p class="stat-num" data-count="300" data-suffix="+">0</p>
-                    <p class="stat-label">Bikes passed on for refugees</p>
-                </div>
+                <p class="proof-note">Figures are estimated from operational records and reviewed periodically.</p>
             </div>
         </section>
 
@@ -867,7 +868,7 @@
         <div class="sheet-body"></div>
     </dialog>
 
-    <script src="redesign.js"></script>
+    <script src="redesign.js?v=20261012c"></script>
     <script src="signup-forms.js"></script>
 </body>
 </html>

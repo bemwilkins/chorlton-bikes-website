@@ -1,0 +1,23 @@
+/
+  Cache-Control: no-cache
+
+/index.html
+  Cache-Control: no-cache
+
+/redesign.js
+  Cache-Control: no-cache
+
+/redesign.css
+  Cache-Control: no-cache
+
+/admin
+  Cache-Control: no-cache
+
+/admin/
+  Cache-Control: no-cache
+
+/admin/*
+  Cache-Control: no-cache
+
+/signed-out.html
+  Cache-Control: no-cache
