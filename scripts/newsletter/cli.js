@@ -15,6 +15,7 @@ import { runGoogleLogin } from './lib/google-auth.js';
 import { syncNewsletterImages } from './sync-images.js';
 import { printAudienceReport, syncAudience } from './sync-audience.js';
 import { createMailchimpCampaign, printCampaignResult } from './create-mailchimp-campaign.js';
+import { createOneOffCampaign, printOneOffResult } from './create-one-off-campaign.js';
 import { slugId } from './lib/utils.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -37,6 +38,7 @@ Commands:
   sync-images     Download images from Drive + match + generate
   sync-audience   Sync Airtable contacts to Mailchimp audience
   mailchimp       Create Mailchimp campaign draft from newsletter HTML
+  one-off         Create Mailchimp draft from a hand-built email (--html newsletter/one-off/<file>.html)
   generate      Build newsletter HTML from .json
   build         parse-doc → refine → generate
 
@@ -318,6 +320,22 @@ async function main() {
 
   if (command === 'mailchimp') {
     await commandMailchimp(flags);
+    return;
+  }
+
+  if (command === 'one-off') {
+    if (!flags.html) {
+      throw new Error('one-off requires --html <path>');
+    }
+    const result = await createOneOffCampaign({
+      htmlPath: flags.html,
+      subject: flags.subject,
+      previewText: flags.preview,
+      title: flags.title,
+      campaignId: flags['campaign-id'],
+      refreshOnly: Boolean(flags.refresh),
+    });
+    printOneOffResult(result);
     return;
   }
 

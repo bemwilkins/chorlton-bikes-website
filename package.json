@@ -10,6 +10,7 @@
     "newsletter:sync-images": "node scripts/newsletter/cli.js sync-images",
     "newsletter:sync-audience": "node scripts/newsletter/cli.js sync-audience",
     "newsletter:mailchimp": "node scripts/newsletter/cli.js mailchimp",
+    "newsletter:one-off": "node scripts/newsletter/cli.js one-off",
     "newsletter:generate": "node scripts/newsletter/cli.js generate",
     "newsletter:build": "node scripts/newsletter/cli.js build",
     "forms:dev": "node scripts/forms/server.js",
