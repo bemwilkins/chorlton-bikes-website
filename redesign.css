@@ -1589,7 +1589,8 @@ h1 {
     .issue .newsletter-image-grid.three-col { grid-template-columns: 1fr; }
 }
 
-.policy h1 {
+.policy h1,
+.thanks h1 {
     max-width: 12ch;
     margin-bottom: 0.35rem;
     font-size: clamp(2.8rem, 7vw, 4.4rem);
