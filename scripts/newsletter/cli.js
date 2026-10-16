@@ -17,6 +17,7 @@ import { printAudienceReport, syncAudience } from './sync-audience.js';
 import { createMailchimpCampaign, printCampaignResult } from './create-mailchimp-campaign.js';
 import { createOneOffCampaign, printOneOffResult } from './create-one-off-campaign.js';
 import { slugId } from './lib/utils.js';
+import { updateRoadFromNewsletters } from './update-road.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, '../..');
@@ -101,6 +102,8 @@ async function commandGenerate(flags) {
     console.log(`Would write: ${result.outputPath}`);
   } else {
     console.log(`Generated: ${result.outputPath}`);
+    const latest = await updateRoadFromNewsletters();
+    if (latest) console.log(`On the road updated to ${latest.name}`);
   }
   console.log(`Image folder: assets/images/newsletter/${result.imageFolder}/`);
   console.log(`Canonical URL: https://chorltonbikes.coop/newsletter/${result.slug}.html`);

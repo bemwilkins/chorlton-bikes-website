@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>Website admin — Chorlton Bikes</title>
+    <link rel="icon" type="image/png" href="../assets/images/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../redesign.css">
+    <style>
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        .admin-main { padding: 2rem 0 4rem; }
+        .admin-main h1 {
+            font-size: clamp(2.2rem, 4vw, 3.2rem);
+            max-width: 16ch;
+            margin: 0.2rem 0 0.6rem;
+        }
+        .admin-card {
+            max-width: 52rem;
+            background: white;
+            border-radius: 0.8rem;
+            padding: 1.2rem 1.2rem 1.4rem;
+            margin-top: 1.25rem;
+        }
+        .admin-card h2 { font-size: 1.7rem; margin: 0 0 0.8rem; }
+        .admin-card label { display: block; font-weight: 700; margin: 0.9rem 0 0.35rem; }
+        .admin-card .signup-check { font-weight: 700; margin: 0 0 0.2rem; }
+        .admin-card input[type="text"],
+        .admin-card input[type="url"],
+        .admin-card input[type="date"],
+        .admin-card textarea {
+            width: 100%;
+            padding: 0.7rem 0.75rem;
+            border: 2px solid var(--line);
+            border-radius: 0.45rem;
+            background: white;
+        }
+        .admin-dates { display: grid; gap: 0.8rem; }
+        @media (min-width: 640px) {
+            .admin-dates { grid-template-columns: 1fr 1fr; }
+        }
+        .admin-table-wrap { overflow-x: auto; }
+        .admin-table { width: 100%; border-collapse: collapse; }
+        .admin-table td:nth-child(2),
+        .admin-table td:nth-child(3),
+        .admin-table td:nth-child(4) { white-space: nowrap; }
+        .admin-table th {
+            text-align: left;
+            font-size: 0.78rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--muted);
+            font-weight: 700;
+        }
+        .admin-table th,
+        .admin-table td {
+            padding: 0.75rem 0.55rem;
+            border-bottom: 1px solid var(--line);
+            vertical-align: top;
+        }
+        .admin-table tr.is-editing { background: rgba(0, 128, 55, 0.06); }
+        .admin-message { font-weight: 700; }
+        .admin-detail { color: var(--muted); margin-top: 0.15rem; }
+        .admin-pill {
+            display: inline-block;
+            font-size: 0.78rem;
+            font-weight: 700;
+            padding: 0.15rem 0.5rem;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+        .admin-pill.is-now { background: var(--green); color: white; }
+        .admin-pill.is-soon { background: var(--forest); color: var(--cream); }
+        .admin-pill.is-done,
+        .admin-pill.is-off { background: rgba(28, 22, 18, 0.08); color: var(--muted); }
+        .admin-actions { display: flex; gap: 0.85rem; }
+        .admin-actions button {
+            background: none;
+            border: 0;
+            padding: 0;
+            color: var(--green);
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: underline;
+            text-underline-offset: 0.16em;
+        }
+        .admin-actions .is-remove { color: #7a1f16; }
+        .admin-actions button:focus-visible { outline: 3px solid var(--forest); outline-offset: 2px; }
+        .admin-save { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 0.4rem; }
+        .admin-status { min-height: 1.4rem; font-weight: 700; }
+        .admin-status.is-error { color: #7a1f16; }
+        .admin-note { color: var(--muted); }
+        .admin-session[hidden],
+        #people[hidden],
+        #pending[hidden],
+        #gate[hidden],
+        #app[hidden] { display: none; }
+        .admin-gate { max-width: 34rem; }
+        .admin-gate p { font-size: 1.05rem; }
+        .admin-gate .btn { margin-top: 0.4rem; }
+        .admin-session {
+            margin-left: auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 0.35rem 0.9rem;
+            text-align: right;
+        }
+        .admin-session p { margin: 0; font-weight: 700; font-size: 0.95rem; }
+        .admin-session a {
+            color: var(--cream);
+            font-weight: 800;
+            text-underline-offset: 0.16em;
+        }
+        .admin-session a:hover { color: white; }
+        .admin-people { list-style: none; margin: 0.8rem 0 0; padding: 0; }
+        .admin-people li {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.35rem 0.8rem;
+            align-items: baseline;
+            padding: 0.7rem 0;
+            border-bottom: 1px solid var(--line);
+        }
+        .admin-people li:last-child { border-bottom: 0; padding-bottom: 0; }
+        .admin-you {
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--green);
+        }
+        .admin-group { font-weight: 800; color: var(--ink); }
+        .admin-preview { margin-top: 1rem; border-radius: 0.5rem; overflow: hidden; }
+        @media (max-width: 700px) {
+            .admin-table-wrap { overflow: visible; }
+            .admin-table thead { display: none; }
+            .admin-table tr { display: block; padding: 0.85rem 0; border-bottom: 1px solid var(--line); }
+            .admin-table td {
+                display: block;
+                border: 0;
+                padding: 0.12rem 0;
+                white-space: normal;
+            }
+            .admin-table td:nth-child(2) { color: var(--muted); margin-top: 0.2rem; }
+            .admin-actions { margin-top: 0.45rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="nav">
+        <div class="nav-inner">
+            <a href="/" aria-label="Chorlton Bikes homepage on this preview">
+                <img class="logo" src="../assets/images/logo-white.png" alt="Chorlton Bikes">
+            </a>
+            <div class="admin-session" id="session" hidden>
+                <p id="session-label">Signed in</p>
+                <a id="logout" href="https://chorltonbikes.cloudflareaccess.com/cdn-cgi/access/logout?redirect_url=https%3A%2F%2Fchorlton-bikes-preview.pages.dev%2Fsigned-out.html">Log out</a>
+            </div>
+        </div>
+    </header>
+    <main class="admin-main">
+        <div class="wrap">
+            <p class="admin-note" id="pending">Opening the admin…</p>
+            <section class="admin-gate" id="gate" hidden>
+                <p class="kicker">Website admin</p>
+                <h1>Sign in.</h1>
+                <p>This is the Chorlton Bikes preview. Log in with your Chorlton Bikes Google account to change the top bar.</p>
+                <p><a class="btn btn-green" href="/admin/session">Log in</a></p>
+            </section>
+            <div id="app" hidden>
+            <p class="kicker">Website admin</p>
+            <h1>The top bar.</h1>
+            <p class="admin-note">Staff only. The orange bar on this preview’s homepage follows this list. It shows on the days you set, and it goes when you remove it. The logo opens that homepage.</p>
+            <section class="admin-card" aria-labelledby="schedule-heading">
+                <h2 id="schedule-heading">Messages</h2>
+                <p class="admin-note" id="empty">No messages saved. The homepage bar is off.</p>
+                <div class="admin-table-wrap" id="table-wrap" hidden>
+                    <table class="admin-table">
+                        <caption class="sr-only">Scheduled top bar messages</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">Message</th>
+                                <th scope="col">Dates</th>
+                                <th scope="col">Status</th>
+                                <th scope="col"><span class="sr-only">Actions</span></th>
+                            </tr>
+                        </thead>
+                        <tbody id="rows"></tbody>
+                    </table>
+                </div>
+            </section>
+            <form class="admin-card" id="banner-form">
+                <h2 id="form-heading">Add a message</h2>
+                <label for="title">Lead-in</label>
+                <input id="title" name="title" type="text" maxlength="80" placeholder="AGM and Open Social.">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="3" maxlength="280" placeholder="Wednesday 25 November, 6–9pm, Dulcimer Bar, Chorlton."></textarea>
+                <label for="linkLabel">Link text</label>
+                <input id="linkLabel" name="linkLabel" type="text" maxlength="48" placeholder="Tell us you're coming">
+                <label for="linkHref">Link address</label>
+                <input id="linkHref" name="linkHref" type="text" maxlength="500" placeholder="mailto:hello@chorltonbikes.coop">
+                <div class="admin-dates">
+                    <div>
+                        <label for="from">First day</label>
+                        <input id="from" name="from" type="date" required>
+                    </div>
+                    <div>
+                        <label for="through">Last day</label>
+                        <input id="through" name="through" type="date" required>
+                    </div>
+                </div>
+                <p class="admin-note">The last day is the last day it appears, London time. Dates cannot overlap, so the list stays one message at a time.</p>
+                <div class="admin-preview announce" id="preview" hidden></div>
+                <p class="admin-status" id="status" role="status"></p>
+                <div class="admin-save">
+                    <button class="btn btn-green" type="submit" id="save-button">Add the message</button>
+                    <button class="btn btn-line" type="button" id="cancel-edit" hidden>Cancel</button>
+                </div>
+            </form>
+            <section class="admin-card" id="people" hidden aria-labelledby="people-heading">
+                <h2 id="people-heading">People</h2>
+                <p class="admin-note">A person can open this page when their Google Workspace account is in <strong class="admin-group">web-admin@chorltonbikes.coop</strong>. Add or remove someone in that group. The list below is who has signed in here.</p>
+                <p><a href="https://groups.google.com/a/chorltonbikes.coop/g/web-admin">Open the web-admin group</a></p>
+                <ul class="admin-people" id="people-list"></ul>
+            </section>
+            </div>
+        </div>
+    </main>
+    <script>
+        const form = document.getElementById("banner-form");
+        const status = document.getElementById("status");
+        const preview = document.getElementById("preview");
+        const rows = document.getElementById("rows");
+        const empty = document.getElementById("empty");
+        const tableWrap = document.getElementById("table-wrap");
+        const formHeading = document.getElementById("form-heading");
+        const saveButton = document.getElementById("save-button");
+        const cancelEdit = document.getElementById("cancel-edit");
+        const pending = document.getElementById("pending");
+        const gate = document.getElementById("gate");
+        const app = document.getElementById("app");
+        const session = document.getElementById("session");
+        const sessionLabel = document.getElementById("session-label");
+        const peopleSection = document.getElementById("people");
+        const peopleList = document.getElementById("people-list");
+        let banners = [];
+        let editingId = "";
+        let configured = false;
+        let me = "";
+
+        function londonToday() {
+            return new Intl.DateTimeFormat("en-CA", {
+                timeZone: "Europe/London",
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit"
+            }).format(new Date());
+        }
+
+        function formatDay(iso) {
+            const [year, month, day] = iso.split("-").map(Number);
+            return new Intl.DateTimeFormat("en-GB", {
+                day: "numeric",
+                month: "short",
+                year: "numeric",
+                timeZone: "UTC"
+            }).format(new Date(Date.UTC(year, month - 1, day)));
+        }
+
+        function formatRange(from, through) {
+            if (from && through && from !== through) return `${formatDay(from)} – ${formatDay(through)}`;
+            return formatDay(from || through);
+        }
+
+        function bannerStatus(banner) {
+            const today = londonToday();
+            if (!banner.enabled) return { key: "off", label: "Hidden" };
+            if (today < banner.from) return { key: "soon", label: "Scheduled" };
+            if (today > banner.through) return { key: "done", label: "Finished" };
+            return { key: "now", label: "On now" };
+        }
+
+        function safeHref(value) {
+            if (/^mailto:[^\s<>"]+$/i.test(value)) return value;
+            try {
+                const url = new URL(value);
+                if (url.protocol === "https:" || url.protocol === "http:") return url.toString();
+            } catch { /* leave the preview without a link */ }
+            return "";
+        }
+
+        function formatSeen(iso) {
+            const date = new Date(iso);
+            if (Number.isNaN(date.getTime())) return "";
+            return new Intl.DateTimeFormat("en-GB", {
+                day: "numeric",
+                month: "short",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+                timeZone: "Europe/London"
+            }).format(date);
+        }
+
+        function showGate() {
+            document.title = "Sign in — Chorlton Bikes";
+            pending.hidden = true;
+            app.hidden = true;
+            gate.hidden = false;
+        }
+
+        function showApp() {
+            document.title = "Website admin — Chorlton Bikes";
+            pending.hidden = true;
+            gate.hidden = true;
+            app.hidden = false;
+        }
+
+        function showSession(body) {
+            const email = body?.email || "";
+            if (!email) return;
+            me = email;
+            const name = body.name || "";
+            sessionLabel.textContent = name ? `Signed in as ${name} (${email})` : `Signed in as ${email}`;
+            session.hidden = false;
+            peopleSection.hidden = false;
+            renderPeople(body.people || []);
+        }
+
+        function renderPeople(people) {
+            peopleList.replaceChildren();
+            const seen = new Set();
+            people.forEach((person) => {
+                const email = person.email || "";
+                if (!email || seen.has(email.toLowerCase())) return;
+                seen.add(email.toLowerCase());
+                const li = document.createElement("li");
+                const who = document.createElement("strong");
+                who.textContent = person.name ? `${person.name} · ${email}` : email;
+                li.append(who);
+                if (email.toLowerCase() === me.toLowerCase()) {
+                    const you = document.createElement("span");
+                    you.className = "admin-you";
+                    you.textContent = "You";
+                    li.append(you);
+                }
+                const when = formatSeen(person.lastSeen);
+                if (when) {
+                    const seenAt = document.createElement("span");
+                    seenAt.className = "admin-detail";
+                    seenAt.textContent = `Last here ${when}`;
+                    li.append(seenAt);
+                }
+                peopleList.append(li);
+            });
+        }
+
+        function paintPreview() {
+            const data = Object.fromEntries(new FormData(form));
+            const show = Boolean(data.title || data.message);
+            preview.hidden = !show;
+            preview.replaceChildren();
+            if (!show) return;
+            const p = document.createElement("p");
+            if (data.title) {
+                const strong = document.createElement("strong");
+                strong.textContent = data.title;
+                p.append(strong, " ");
+            }
+            p.append(data.message || "");
+            const href = safeHref(data.linkHref);
+            if (data.linkLabel && href) {
+                p.append(" ");
+                const link = document.createElement("a");
+                link.href = href;
+                link.textContent = data.linkLabel;
+                p.append(link);
+            }
+            preview.append(p);
+        }
+
+        function say(text, isError, withHome) {
+            status.textContent = text;
+            status.classList.toggle("is-error", Boolean(isError));
+            if (!withHome) return;
+            status.append(" ");
+            const link = document.createElement("a");
+            link.href = "/";
+            link.textContent = "Open the homepage";
+            status.append(link);
+        }
+
+        function render() {
+            rows.replaceChildren();
+            const hasRows = banners.length > 0;
+            empty.hidden = hasRows;
+            tableWrap.hidden = !hasRows;
+            if (!hasRows) empty.textContent = "No messages saved. The homepage bar is off.";
+            const today = londonToday();
+            const ordered = banners.slice().sort((a, b) => {
+                const rank = (banner) => {
+                    if (banner.enabled && banner.from <= today && today <= banner.through) return 0;
+                    if (banner.enabled && today < banner.from) return 1;
+                    if (!banner.enabled) return 2;
+                    return 3;
+                };
+                return rank(a) - rank(b) || a.from.localeCompare(b.from);
+            });
+            ordered.forEach((banner) => {
+                const tr = document.createElement("tr");
+                if (banner.id === editingId) tr.className = "is-editing";
+                const message = document.createElement("td");
+                const name = document.createElement("div");
+                name.className = "admin-message";
+                name.textContent = banner.title || banner.message;
+                message.append(name);
+                if (banner.title && banner.message) {
+                    const detail = document.createElement("div");
+                    detail.className = "admin-detail";
+                    detail.textContent = banner.message;
+                    message.append(detail);
+                }
+                const dates = document.createElement("td");
+                dates.textContent = formatRange(banner.from, banner.through);
+                const state = document.createElement("td");
+                const pill = document.createElement("span");
+                const statusInfo = bannerStatus(banner);
+                pill.className = `admin-pill is-${statusInfo.key}`;
+                pill.textContent = statusInfo.label;
+                state.append(pill);
+                const actions = document.createElement("td");
+                const controls = document.createElement("div");
+                controls.className = "admin-actions";
+                const edit = document.createElement("button");
+                edit.type = "button";
+                edit.textContent = "Edit";
+                edit.addEventListener("click", () => startEdit(banner.id));
+                const remove = document.createElement("button");
+                remove.type = "button";
+                remove.className = "is-remove";
+                remove.textContent = "Remove";
+                remove.addEventListener("click", () => removeBanner(banner));
+                controls.append(edit, remove);
+                actions.append(controls);
+                tr.append(message, dates, state, actions);
+                rows.append(tr);
+            });
+        }
+
+        function resetForm() {
+            editingId = "";
+            form.reset();
+            formHeading.textContent = "Add a message";
+            saveButton.textContent = "Add the message";
+            cancelEdit.hidden = true;
+            paintPreview();
+            render();
+        }
+
+        function startEdit(id) {
+            const banner = banners.find((item) => item.id === id);
+            if (!banner) return;
+            editingId = id;
+            form.title.value = banner.title || "";
+            form.message.value = banner.message || "";
+            form.linkLabel.value = banner.linkLabel || "";
+            form.linkHref.value = banner.linkHref || "";
+            form.from.value = banner.from || "";
+            form.through.value = banner.through || "";
+            formHeading.textContent = "Edit this message";
+            saveButton.textContent = "Save changes";
+            cancelEdit.hidden = false;
+            say("");
+            paintPreview();
+            render();
+            form.scrollIntoView({ behavior: "smooth", block: "start" });
+            form.title.focus();
+        }
+
+        function localClash(candidate) {
+            return banners.find((item) => {
+                if (item.id === candidate.id) return false;
+                const startA = candidate.from || "0000-01-01";
+                const endA = candidate.through || "9999-12-31";
+                const startB = item.from || "0000-01-01";
+                const endB = item.through || "9999-12-31";
+                return startA <= endB && startB <= endA;
+            });
+        }
+
+        async function send(method, body) {
+            const res = await fetch("/admin/session/announcement", {
+                method,
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-Chorlton-Admin": "1"
+                },
+                body: JSON.stringify(body)
+            });
+            const payload = await res.json().catch(() => ({}));
+            if (!res.ok) throw new Error(payload.error || "Could not save the message.");
+            banners = payload.banners || [];
+            configured = true;
+            showSession(payload);
+            resetForm();
+            return payload;
+        }
+
+        document.getElementById("logout").addEventListener("click", (event) => {
+            event.preventDefault();
+            const link = event.currentTarget;
+            link.textContent = "Signing out…";
+            const finish = (popup) => {
+                try { popup?.close(); } catch { /* The sign-out window may already be gone. */ }
+                window.location.replace("/signed-out.html");
+            };
+            const team = window.open(
+                "https://chorltonbikes.cloudflareaccess.com/cdn-cgi/access/logout",
+                "cb-signout",
+                "popup,width=420,height=520"
+            );
+            if (team) window.setTimeout(() => finish(team), 1200);
+            fetch("/cdn-cgi/access/logout", {
+                method: "GET",
+                credentials: "include",
+                cache: "no-store",
+                redirect: "manual"
+            }).finally(() => {
+                if (!team) finish(null);
+            });
+        });
+
+        form.addEventListener("input", paintPreview);
+        cancelEdit.addEventListener("click", () => {
+            resetForm();
+            say("");
+        });
+
+        fetch("/admin/session/announcement", { headers: { Accept: "application/json" }, cache: "no-store", redirect: "manual" })
+            .then(async (res) => {
+                if (res.type === "opaqueredirect" || res.status === 401) {
+                    showGate();
+                    return;
+                }
+                const body = await res.json().catch(() => ({}));
+                if (res.status === 404) {
+                    showApp();
+                    say("Saving is ready once Google login and the banner store are connected.");
+                    return;
+                }
+                if (!res.ok) throw new Error(body.error || "The messages could not be loaded.");
+                showApp();
+                banners = body.banners || [];
+                configured = Boolean(body.configured);
+                showSession(body);
+                render();
+                if (body.email) return;
+                if (!configured && body.store) {
+                    say("The banner store is connected. Google login for web-admin@chorltonbikes.coop still needs to be switched on before a message can be saved.");
+                } else if (!configured) {
+                    say("Saving is ready once Google login and the banner store are connected.");
+                }
+            })
+            .catch((error) => {
+                showApp();
+                say(error.message, true);
+            });
+
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            const data = Object.fromEntries(new FormData(form));
+            if (editingId) data.id = editingId;
+            if (!data.title && !data.message) {
+                say("Add the message.", true);
+                return;
+            }
+            if (!data.from || !data.through) {
+                say("Add the first day and the last day.", true);
+                return;
+            }
+            if (data.from > data.through) {
+                say("The last day needs to be the same as the first day, or later.", true);
+                return;
+            }
+            const clash = localClash(data);
+            if (clash) {
+                const name = clash.title || clash.message || "another message";
+                say(`Those dates overlap “${name}” (${formatRange(clash.from, clash.through)}). Only one message can show at a time.`, true);
+                return;
+            }
+            say("Saving…");
+            try {
+                const body = await send(editingId ? "PUT" : "POST", data);
+                const today = londonToday();
+                const saved = (body.banners || []).find((item) => item.from === data.from && item.through === data.through);
+                const showing = saved && saved.from <= today && today <= saved.through;
+                if (showing) say("Saved. This message is on the homepage.", false, true);
+                else say("Saved. It will show on its dates. Open the homepage on one of those days.", false, true);
+            } catch (error) {
+                say(error.message, true);
+            }
+        });
+
+        async function removeBanner(banner) {
+            const name = banner.title || banner.message || "this message";
+            if (!window.confirm(`Remove “${name}”?`)) return;
+            say("Removing…");
+            try {
+                await send("DELETE", { id: banner.id });
+                say(banners.length ? "Removed." : "Removed. The homepage bar is off.", false, true);
+            } catch (error) {
+                say(error.message, true);
+            }
+        }
+    </script>
+</body>
+</html>

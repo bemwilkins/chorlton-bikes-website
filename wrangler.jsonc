@@ -7,6 +7,9 @@
     "binding": "ASSETS",
     "run_worker_first": ["/api/*"]
   },
+  "triggers": {
+    "crons": ["*/15 * * * *"]
+  },
   "vars": {
     "AIRTABLE_BASE_ID": "appT6YjaGO6hRmNaU",
     "AIRTABLE_TABLE_ID": "tblqgtpXroIv0cmZc",
