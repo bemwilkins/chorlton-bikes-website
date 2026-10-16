@@ -1589,6 +1589,94 @@ h1 {
     .issue .newsletter-image-grid.three-col { grid-template-columns: 1fr; }
 }
 
+.policy h1 {
+    max-width: 12ch;
+    margin-bottom: 0.35rem;
+    font-size: clamp(2.8rem, 7vw, 4.4rem);
+    color: var(--green);
+}
+
+.policy .intro { margin-bottom: 2rem; }
+
+.policy h2 {
+    margin: 2.4rem 0 0.75rem;
+    font-size: clamp(1.55rem, 3vw, 2.05rem);
+    line-height: 1.05;
+    color: var(--forest);
+}
+
+.policy h3 {
+    margin: 1.6rem 0 0.45rem;
+    font-family: Outfit, sans-serif;
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: 0;
+}
+
+.policy p,
+.policy li,
+.policy dd {
+    max-width: 42rem;
+}
+
+.policy p { margin: 0 0 0.9rem; }
+
+.policy a { font-weight: 700; }
+
+.policy ul {
+    margin: 0 0 1rem;
+    padding-left: 1.2rem;
+}
+
+.policy li { margin: 0 0 0.4rem; }
+
+.policy li strong { color: var(--forest); }
+
+.policy .definitions {
+    max-width: 42rem;
+    margin: 0 0 1rem;
+    padding: 0.35rem 1.15rem 0.9rem;
+    border: 1px solid var(--line);
+    border-radius: 0.75rem;
+    background: white;
+}
+
+.policy dt {
+    margin-top: 0.9rem;
+    font-weight: 800;
+    color: var(--forest);
+}
+
+.policy dd { margin: 0.2rem 0 0; }
+
+.policy-table {
+    max-width: 42rem;
+    margin: 0.4rem 0 1.2rem;
+    overflow-x: auto;
+}
+
+.policy table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.policy th,
+.policy td {
+    padding: 0.75rem 0.85rem;
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+    vertical-align: top;
+}
+
+.policy th {
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--forest);
+}
+
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .hero-slide { animation: none; opacity: 0; transform: none; }
