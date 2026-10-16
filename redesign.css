@@ -113,6 +113,20 @@ a { color: var(--green); }
     white-space: nowrap;
 }
 
+.announce a.announce-cal {
+    display: inline-block;
+    margin: 0.1rem 0 0.1rem 0.45rem;
+    padding: 0.18rem 0.72rem;
+    border-radius: 999px;
+    background: var(--forest);
+    color: var(--cream);
+    line-height: 1.35;
+    text-decoration: none;
+    vertical-align: baseline;
+}
+
+.announce a.announce-cal:hover { background: var(--green); color: white; }
+
 .announce :focus-visible { outline-color: var(--forest); }
 
 /* Nav */

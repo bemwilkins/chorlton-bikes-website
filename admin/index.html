@@ -10,6 +10,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../redesign.css">
+    <script type="module">
+        import { calendarIcs } from "/calendar.js";
+        window.cbCalendarIcs = calendarIcs;
+    </script>
     <style>
         .sr-only {
             position: absolute;
@@ -41,6 +45,7 @@
         .admin-card input[type="text"],
         .admin-card input[type="url"],
         .admin-card input[type="date"],
+        .admin-card input[type="time"],
         .admin-card textarea {
             width: 100%;
             padding: 0.7rem 0.75rem;
@@ -49,8 +54,21 @@
             background: white;
         }
         .admin-dates { display: grid; gap: 0.8rem; }
+        .admin-calendar {
+            margin: 1.1rem 0 0;
+            padding: 0.2rem 1rem 1rem;
+            border: 1px solid var(--line);
+            border-radius: 0.7rem;
+        }
+        .admin-calendar legend {
+            padding: 0 0.35rem;
+            font-family: "Lilita One", Outfit, sans-serif;
+            font-size: 1.25rem;
+            color: var(--green);
+        }
         @media (min-width: 640px) {
             .admin-dates { grid-template-columns: 1fr 1fr; }
+            .admin-calendar .admin-dates { grid-template-columns: 1.2fr 0.8fr 0.8fr; }
         }
         .admin-table-wrap { overflow-x: auto; }
         .admin-table { width: 100%; border-collapse: collapse; }
@@ -230,6 +248,26 @@
                     </div>
                 </div>
                 <p class="admin-note">The last day is the last day it appears, London time. Dates cannot overlap, so the list stays one message at a time.</p>
+                <fieldset class="admin-calendar">
+                    <legend>Add to calendar</legend>
+                    <p class="admin-note">Optional. This adds a button on the bar for the event itself. That day can be different from the days the bar shows.</p>
+                    <div class="admin-dates">
+                        <div>
+                            <label for="calendarDate">Event day</label>
+                            <input id="calendarDate" name="calendarDate" type="date">
+                        </div>
+                        <div>
+                            <label for="calendarStart">Starts</label>
+                            <input id="calendarStart" name="calendarStart" type="time">
+                        </div>
+                        <div>
+                            <label for="calendarEnd">Ends</label>
+                            <input id="calendarEnd" name="calendarEnd" type="time">
+                        </div>
+                    </div>
+                    <label for="calendarLocation">Place</label>
+                    <input id="calendarLocation" name="calendarLocation" type="text" maxlength="120" placeholder="Dulcimer Bar, Chorlton">
+                </fieldset>
                 <div class="admin-preview announce" id="preview" hidden></div>
                 <p class="admin-status" id="status" role="status"></p>
                 <div class="admin-save">
@@ -397,6 +435,34 @@
                 link.textContent = data.linkLabel;
                 p.append(link);
             }
+            if (data.calendarDate && data.calendarStart && data.calendarEnd && data.calendarStart < data.calendarEnd) {
+                p.append(" ");
+                const calendar = document.createElement("a");
+                calendar.className = "announce-cal";
+                calendar.href = "#calendar";
+                calendar.textContent = "Add to calendar";
+                calendar.addEventListener("click", (event) => {
+                    const ics = window.cbCalendarIcs?.({
+                        id: editingId || "preview",
+                        title: (data.title || data.message || "Chorlton Bikes").replace(/[.\s]+$/g, ""),
+                        message: data.message || "",
+                        date: data.calendarDate,
+                        start: data.calendarStart,
+                        end: data.calendarEnd,
+                        location: data.calendarLocation || ""
+                    });
+                    if (!ics) return;
+                    event.preventDefault();
+                    const file = new Blob([ics], { type: "text/calendar" });
+                    const url = URL.createObjectURL(file);
+                    const download = document.createElement("a");
+                    download.href = url;
+                    download.download = "chorlton-bikes.ics";
+                    download.click();
+                    URL.revokeObjectURL(url);
+                });
+                p.append(calendar);
+            }
             preview.append(p);
         }
 
@@ -440,6 +506,12 @@
                     detail.className = "admin-detail";
                     detail.textContent = banner.message;
                     message.append(detail);
+                }
+                if (banner.calendarDate) {
+                    const calendar = document.createElement("div");
+                    calendar.className = "admin-detail";
+                    calendar.textContent = "Add to calendar";
+                    message.append(calendar);
                 }
                 const dates = document.createElement("td");
                 dates.textContent = formatRange(banner.from, banner.through);
@@ -488,6 +560,10 @@
             form.linkHref.value = banner.linkHref || "";
             form.from.value = banner.from || "";
             form.through.value = banner.through || "";
+            form.calendarDate.value = banner.calendarDate || "";
+            form.calendarStart.value = banner.calendarStart || "";
+            form.calendarEnd.value = banner.calendarEnd || "";
+            form.calendarLocation.value = banner.calendarLocation || "";
             formHeading.textContent = "Edit this message";
             saveButton.textContent = "Save changes";
             cancelEdit.hidden = false;
@@ -602,6 +678,16 @@
             if (data.from > data.through) {
                 say("The last day needs to be the same as the first day, or later.", true);
                 return;
+            }
+            if (data.calendarDate || data.calendarStart || data.calendarEnd || data.calendarLocation) {
+                if (!data.calendarDate || !data.calendarStart || !data.calendarEnd) {
+                    say("Add the event day, the start time and the end time, or clear Add to calendar.", true);
+                    return;
+                }
+                if (data.calendarStart >= data.calendarEnd) {
+                    say("The end time needs to be later than the start time.", true);
+                    return;
+                }
             }
             const clash = localClash(data);
             if (clash) {

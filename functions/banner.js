@@ -1,3 +1,5 @@
+import { calendarIcs } from "../calendar.js";
+
 const KEY = "schedule";
 const STAFF_KEY = "staff";
 const ACCESS_GROUP = "web-admin@chorltonbikes.coop";
@@ -50,6 +52,32 @@ export function cleanLink(value) {
     return url.toString();
 }
 
+function cleanTime(value, label) {
+    const text = cleanText(value, 5);
+    if (!text) return "";
+    if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(text)) {
+        throw new Error(`${label} needs a time.`);
+    }
+    return text;
+}
+
+function calendarFields(body) {
+    const calendarDate = cleanDate(body?.calendarDate, "The event day");
+    const calendarStart = cleanTime(body?.calendarStart, "The start time");
+    const calendarEnd = cleanTime(body?.calendarEnd, "The end time");
+    const calendarLocation = cleanText(body?.calendarLocation, 120);
+    if (!calendarDate && !calendarStart && !calendarEnd && !calendarLocation) {
+        return { calendarDate: "", calendarStart: "", calendarEnd: "", calendarLocation: "" };
+    }
+    if (!calendarDate || !calendarStart || !calendarEnd) {
+        throw new Error("Add the event day, the start time and the end time, or clear Add to calendar.");
+    }
+    if (calendarStart >= calendarEnd) {
+        throw new Error("The end time needs to be later than the start time.");
+    }
+    return { calendarDate, calendarStart, calendarEnd, calendarLocation };
+}
+
 function cleanId(value) {
     const id = cleanText(value, 80);
     if (!/^[A-Za-z0-9_-]{1,80}$/.test(id)) {
@@ -94,7 +122,8 @@ export function parseBanner(body, id = "") {
         linkLabel: cleanText(body?.linkLabel, 48),
         linkHref: cleanLink(body?.linkHref),
         from: cleanDate(body?.from, "The first day"),
-        through: cleanDate(body?.through, "The last day")
+        through: cleanDate(body?.through, "The last day"),
+        ...calendarFields(body)
     };
     if (!banner.title && !banner.message) {
         throw new Error("Add the message.");
@@ -136,8 +165,23 @@ export function activeAnnouncement(banner, today = londonToday()) {
         title: banner.title,
         message: banner.message,
         linkLabel: banner.linkLabel,
-        linkHref: banner.linkHref
+        linkHref: banner.linkHref,
+        calendar: Boolean(banner.calendarDate)
     };
+}
+
+export function calendarDownload(banner) {
+    if (!banner?.calendarDate || !banner.calendarStart || !banner.calendarEnd) return null;
+    const title = (banner.title || banner.message || "Chorlton Bikes").replace(/[.\s]+$/g, "");
+    return calendarIcs({
+        id: banner.id,
+        title,
+        message: banner.message || "",
+        date: banner.calendarDate,
+        start: banner.calendarStart,
+        end: banner.calendarEnd,
+        location: banner.calendarLocation || ""
+    });
 }
 
 export function activeFromSchedule(banners, today = londonToday()) {
@@ -156,6 +200,10 @@ function normalizeBanner(banner) {
         linkHref: typeof banner?.linkHref === "string" ? banner.linkHref : "",
         from: typeof banner?.from === "string" ? banner.from : "",
         through: typeof banner?.through === "string" ? banner.through : "",
+        calendarDate: typeof banner?.calendarDate === "string" ? banner.calendarDate : "",
+        calendarStart: typeof banner?.calendarStart === "string" ? banner.calendarStart : "",
+        calendarEnd: typeof banner?.calendarEnd === "string" ? banner.calendarEnd : "",
+        calendarLocation: cleanText(banner?.calendarLocation, 120),
         updatedBy: cleanText(banner?.updatedBy, 120),
         updatedAt: cleanText(banner?.updatedAt, 40)
     };
@@ -311,6 +359,24 @@ export async function publicAnnouncement(request, env) {
     return json(200, {
         announcement: activeFromSchedule(banners),
         configured: true
+    });
+}
+
+export async function calendarAnnouncement(request, env) {
+    if (request.method !== "GET") return json(405, { error: "Not found" });
+    const { banners } = env.BANNER ? await loadSchedule(env) : { banners: [] };
+    const today = londonToday();
+    const banner = (banners || [])
+        .filter((item) => activeAnnouncement(item, today)?.calendar)
+        .sort((a, b) => b.from.localeCompare(a.from))[0];
+    const body = banner ? calendarDownload(banner) : "";
+    if (!body) return new Response("Not found", { status: 404 });
+    return new Response(body, {
+        headers: {
+            "Content-Type": "text/calendar; charset=utf-8",
+            "Content-Disposition": "attachment; filename=\"chorlton-bikes.ics\"",
+            "Cache-Control": "no-store"
+        }
     });
 }
 

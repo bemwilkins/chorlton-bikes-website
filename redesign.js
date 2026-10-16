@@ -57,6 +57,14 @@
             link.textContent = announcement.linkLabel;
             p.append(link);
         }
+        if (announcement.calendar) {
+            p.append(" ");
+            const calendar = document.createElement("a");
+            calendar.className = "announce-cal";
+            calendar.href = "/api/announcement.ics";
+            calendar.textContent = "Add to calendar";
+            p.append(calendar);
+        }
         bar.replaceChildren(p);
     }
 

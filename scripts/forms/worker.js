@@ -1,4 +1,4 @@
-import { adminAnnouncement, publicAnnouncement } from '../../functions/banner.js';
+import { adminAnnouncement, calendarAnnouncement, publicAnnouncement } from '../../functions/banner.js';
 import { handleSignupRequest, reconcileRecentSignups } from './signup-core.js';
 
 function pricesFromEnv(env) {
@@ -29,6 +29,9 @@ export default {
     const url = new URL(request.url);
     if (url.pathname === '/api/announcement') {
       return publicAnnouncement(request, env);
+    }
+    if (url.pathname === '/api/announcement.ics') {
+      return calendarAnnouncement(request, env);
     }
     if (url.pathname === '/admin/session') {
       if (request.method !== 'GET' && request.method !== 'HEAD') {
