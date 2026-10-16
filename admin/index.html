@@ -125,9 +125,13 @@
         .admin-session a {
             color: var(--cream);
             font-weight: 800;
-            text-underline-offset: 0.16em;
+            text-decoration: none;
+            border: 1.5px solid rgba(255, 253, 231, 0.75);
+            padding: 0.4rem 0.75rem;
+            border-radius: 999px;
         }
-        .admin-session a:hover { color: white; }
+        .admin-session a:hover { color: white; border-color: white; }
+        #session-label[hidden] { display: none; }
         .admin-people { list-style: none; margin: 0.8rem 0 0; padding: 0; }
         .admin-people li {
             display: flex;
@@ -168,9 +172,9 @@
             <a href="/" aria-label="Chorlton Bikes homepage on this preview">
                 <img class="logo" src="../assets/images/logo-white.png" alt="Chorlton Bikes">
             </a>
-            <div class="admin-session" id="session" hidden>
-                <p id="session-label">Signed in</p>
-                <a id="logout" href="https://chorltonbikes.cloudflareaccess.com/cdn-cgi/access/logout?redirect_url=https%3A%2F%2Fchorlton-bikes-preview.pages.dev%2Fsigned-out.html">Log out</a>
+            <div class="admin-session" id="session">
+                <p id="session-label" hidden>Signed in</p>
+                <a id="logout" href="/cdn-cgi/access/logout">Log out</a>
             </div>
         </div>
     </header>
@@ -337,6 +341,7 @@
             if (!email) return;
             me = email;
             const name = body.name || "";
+            sessionLabel.hidden = false;
             sessionLabel.textContent = name ? `Signed in as ${name} (${email})` : `Signed in as ${email}`;
             session.hidden = false;
             peopleSection.hidden = false;
