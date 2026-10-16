@@ -1,4 +1,4 @@
-/* Homepage behaviour for the redesign/on-the-move preview.
+/* Homepage behaviour.
    Stories and films are edited in index.html.
    Set data-video to an mp4 on this site, or a YouTube, Vimeo, or Instagram
    reel URL, to play it in the page. With no data-video, the card's link is followed. */

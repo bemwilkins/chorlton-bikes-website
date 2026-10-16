@@ -33,7 +33,7 @@ export function slugId(monthName, year) {
 }
 
 export function canonicalUrl(monthName, year) {
-  return `https://chorltonbikes.coop/newsletter/${slugId(monthName, year)}.html`;
+  return `https://chorltonbikes.coop/newsletter/${slugId(monthName, year)}`;
 }
 
 export function isExternalUrl(url) {

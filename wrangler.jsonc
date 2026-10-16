@@ -5,7 +5,7 @@
   "assets": {
     "directory": ".",
     "binding": "ASSETS",
-    "run_worker_first": ["/api/*", "/admin/session", "/admin/session/*"]
+    "run_worker_first": true
   },
   "triggers": {
     "crons": ["*/15 * * * *"]

@@ -13,8 +13,19 @@ function pricesFromEnv(env) {
   };
 }
 
+function redirectWww(request) {
+  const url = new URL(request.url);
+  if (url.hostname !== 'www.chorltonbikes.coop') return null;
+  if (request.method !== 'GET' && request.method !== 'HEAD') return null;
+  if (url.pathname === '/admin' || url.pathname.startsWith('/admin/') || url.pathname.startsWith('/cdn-cgi/')) return null;
+  url.hostname = 'chorltonbikes.coop';
+  return Response.redirect(url.toString(), 301);
+}
+
 export default {
   async fetch(request, env) {
+    const www = redirectWww(request);
+    if (www) return www;
     const url = new URL(request.url);
     if (url.pathname === '/api/announcement') {
       return publicAnnouncement(request, env);
