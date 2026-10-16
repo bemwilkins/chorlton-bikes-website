@@ -5,12 +5,19 @@
   "assets": {
     "directory": ".",
     "binding": "ASSETS",
-    "run_worker_first": ["/api/*"]
+    "run_worker_first": ["/api/*", "/admin/session", "/admin/session/*"]
   },
   "triggers": {
     "crons": ["*/15 * * * *"]
   },
+  "kv_namespaces": [
+    {
+      "binding": "BANNER",
+      "id": "3041268cae3e4d749b67be242c3618f6"
+    }
+  ],
   "vars": {
+    "ACCESS_TEAM_DOMAIN": "chorltonbikes.cloudflareaccess.com",
     "AIRTABLE_BASE_ID": "appT6YjaGO6hRmNaU",
     "AIRTABLE_TABLE_ID": "tblqgtpXroIv0cmZc",
     "STRIPE_MEMBERSHIP_PRICE": "price_1UJGBXIkHkkpJoWnC2LkcS0p",

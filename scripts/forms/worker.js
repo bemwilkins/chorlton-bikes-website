@@ -1,3 +1,4 @@
+import { adminAnnouncement, publicAnnouncement } from '../../functions/banner.js';
 import { handleSignupRequest, reconcileRecentSignups } from './signup-core.js';
 
 function pricesFromEnv(env) {
@@ -15,6 +16,18 @@ function pricesFromEnv(env) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    if (url.pathname === '/api/announcement') {
+      return publicAnnouncement(request, env);
+    }
+    if (url.pathname === '/admin/session') {
+      if (request.method !== 'GET' && request.method !== 'HEAD') {
+        return new Response('Not found', { status: 405 });
+      }
+      return Response.redirect(new URL('/admin/', request.url), 302);
+    }
+    if (url.pathname === '/admin/session/announcement') {
+      return adminAnnouncement(request, env);
+    }
     if (url.pathname.startsWith('/api/')) {
       const liveTable = env.AIRTABLE_TABLE_ID === 'tblqgtpXroIv0cmZc';
       const liveKey = env.STRIPE_SECRET_KEY?.startsWith('sk_live_') || env.STRIPE_SECRET_KEY?.startsWith('rk_live_');
