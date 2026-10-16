@@ -11,15 +11,29 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="redesign.css">
+    <script>
+        document.documentElement.classList.add("js");
+    </script>
 </head>
 <body>
     <a class="skip" href="#policy">Skip to the privacy policy</a>
 
     <header class="nav">
         <div class="nav-inner">
-            <a href="/" aria-label="Chorlton Bikes, back to the homepage">
+            <a href="/" aria-label="Chorlton Bikes homepage">
                 <img class="logo" src="assets/images/logo-white.png" alt="Chorlton Bikes">
             </a>
+            <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Menu">
+                <span></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="/#work">What we do</a></li>
+                <li><a href="/#book">Book a delivery</a></li>
+                <li><a href="/#road">On the road</a></li>
+                <li><a href="/#films">Films</a></li>
+                <li><a href="/#panel-friend">Donate</a></li>
+                <li><a class="nav-join" href="/#panel-member">Join — £1</a></li>
+            </ul>
         </div>
     </header>
 
@@ -242,5 +256,6 @@
             <p>© 2026 Chorlton Bikes Community Benefit Society. <a href="privacy-policy.html">Privacy</a></p>
         </div>
     </footer>
+    <script src="redesign.js"></script>
 </body>
 </html>
