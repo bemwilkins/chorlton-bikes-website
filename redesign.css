@@ -1261,15 +1261,25 @@ h1 {
 .sheet::backdrop { background: rgba(7, 51, 28, 0.62); }
 
 .sheet-top {
+    position: relative;
+    z-index: 5;
     display: flex;
     justify-content: flex-end;
+    margin-bottom: 0.45rem;
 }
 
 .sheet-close {
+    position: relative;
+    z-index: 5;
     border: 0;
     background: transparent;
     font-weight: 800;
     cursor: pointer;
+}
+
+.sheet-body {
+    position: relative;
+    z-index: 1;
 }
 
 .sheet-body h3 {
@@ -1531,6 +1541,27 @@ h1 {
     }
 
     .nav-links a { display: block; padding: 0.7rem 0; }
+
+    .nav-links .nav-join {
+        display: inline-block;
+        margin-top: 0.35rem;
+        padding: 0.8rem 1.25rem;
+    }
+
+    .sheet {
+        max-height: calc(100dvh - 1.25rem);
+        overflow: auto;
+    }
+
+    .sheet-top {
+        position: sticky;
+        top: 0;
+        margin: 0 0 0.75rem;
+        padding: 0 0 0.35rem;
+        background: var(--cream);
+    }
+
+    .sheet-video { max-height: 50vh; }
 
     .section-head { flex-direction: column; align-items: start; }
 
