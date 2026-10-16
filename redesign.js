@@ -59,13 +59,64 @@
         }
         if (announcement.calendar) {
             p.append(" ");
-            const calendar = document.createElement("a");
-            calendar.className = "announce-cal";
-            calendar.href = "/api/announcement.ics";
-            calendar.textContent = "Add to calendar";
-            p.append(calendar);
+            p.append(calendarMenu({
+                device: "/api/announcement.ics",
+                google: announcement.calendarGoogle,
+                outlook: announcement.calendarOutlook
+            }));
         }
         bar.replaceChildren(p);
+    }
+
+    function closeCalendarMenus() {
+        let changed = false;
+        document.querySelectorAll(".announce-cal-menu").forEach((menu) => {
+            if (menu.hidden) return;
+            menu.hidden = true;
+            changed = true;
+            menu.parentElement?.querySelector("button.announce-cal")?.setAttribute("aria-expanded", "false");
+        });
+        if (changed) measureHead();
+    }
+
+    function calendarMenu(links) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "announce-cal";
+        button.textContent = "Add to calendar";
+        button.setAttribute("aria-expanded", "false");
+        button.setAttribute("aria-controls", "announce-cal-menu");
+        const menu = document.createElement("span");
+        menu.className = "announce-cal-menu";
+        menu.id = "announce-cal-menu";
+        menu.hidden = true;
+        [
+            ["This device", links.device, false],
+            ["Google Calendar", links.google, true],
+            ["Outlook", links.outlook, true]
+        ].forEach(([label, href, external]) => {
+            if (!href) return;
+            const choice = document.createElement("a");
+            choice.className = "announce-cal";
+            choice.href = href;
+            choice.textContent = label;
+            if (external) {
+                choice.target = "_blank";
+                choice.rel = "noopener";
+            }
+            choice.addEventListener("click", () => closeCalendarMenus());
+            menu.append(choice);
+        });
+        button.addEventListener("click", () => {
+            const open = menu.hidden;
+            closeCalendarMenus();
+            menu.hidden = !open;
+            button.setAttribute("aria-expanded", open ? "true" : "false");
+            measureHead();
+        });
+        const holder = document.createDocumentFragment();
+        holder.append(button, menu);
+        return holder;
     }
 
     fetch("/api/announcement", { headers: { Accept: "application/json" }, cache: "no-store" })
@@ -112,6 +163,13 @@
             else link.removeAttribute("aria-current");
         });
     }
+
+    document.addEventListener("click", (event) => {
+        if (!event.target.closest(".announce-cal, .announce-cal-menu")) closeCalendarMenus();
+    });
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeCalendarMenus();
+    });
 
     document.addEventListener("click", (event) => {
         const link = event.target.closest("[data-path]");

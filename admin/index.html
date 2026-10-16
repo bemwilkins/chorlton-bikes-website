@@ -9,10 +9,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../redesign.css">
+    <link rel="stylesheet" href="../redesign.css?v=20261016a">
     <script type="module">
-        import { calendarIcs } from "/calendar.js";
+        import { calendarIcs, calendarLinks } from "/calendar.js";
         window.cbCalendarIcs = calendarIcs;
+        window.cbCalendarLinks = calendarLinks;
     </script>
     <style>
         .sr-only {
@@ -250,7 +251,7 @@
                 <p class="admin-note">The last day is the last day it appears, London time. Dates cannot overlap, so the list stays one message at a time.</p>
                 <fieldset class="admin-calendar">
                     <legend>Add to calendar</legend>
-                    <p class="admin-note">Optional. This adds a button on the bar for the event itself. That day can be different from the days the bar shows.</p>
+                    <p class="admin-note">Optional. The button offers this device, Google Calendar, and Outlook. The event day can be different from the days the bar shows.</p>
                     <div class="admin-dates">
                         <div>
                             <label for="calendarDate">Event day</label>
@@ -414,7 +415,20 @@
             });
         }
 
+        let previewCalendarUrl = "";
+
+        function closePreviewCalendar() {
+            preview.querySelectorAll(".announce-cal-menu").forEach((menu) => {
+                menu.hidden = true;
+                menu.parentElement?.querySelector("button.announce-cal")?.setAttribute("aria-expanded", "false");
+            });
+        }
+
         function paintPreview() {
+            if (previewCalendarUrl) {
+                URL.revokeObjectURL(previewCalendarUrl);
+                previewCalendarUrl = "";
+            }
             const data = Object.fromEntries(new FormData(form));
             const show = Boolean(data.title || data.message);
             preview.hidden = !show;
@@ -436,32 +450,50 @@
                 p.append(link);
             }
             if (data.calendarDate && data.calendarStart && data.calendarEnd && data.calendarStart < data.calendarEnd) {
+                const event = {
+                    id: editingId || "preview",
+                    title: (data.title || data.message || "Chorlton Bikes").replace(/[.\s]+$/g, ""),
+                    message: data.message || "",
+                    date: data.calendarDate,
+                    start: data.calendarStart,
+                    end: data.calendarEnd,
+                    location: data.calendarLocation || ""
+                };
+                const ics = window.cbCalendarIcs?.(event);
+                const links = window.cbCalendarLinks?.(event);
+                if (ics) previewCalendarUrl = URL.createObjectURL(new Blob([ics], { type: "text/calendar" }));
                 p.append(" ");
-                const calendar = document.createElement("a");
-                calendar.className = "announce-cal";
-                calendar.href = "#calendar";
-                calendar.textContent = "Add to calendar";
-                calendar.addEventListener("click", (event) => {
-                    const ics = window.cbCalendarIcs?.({
-                        id: editingId || "preview",
-                        title: (data.title || data.message || "Chorlton Bikes").replace(/[.\s]+$/g, ""),
-                        message: data.message || "",
-                        date: data.calendarDate,
-                        start: data.calendarStart,
-                        end: data.calendarEnd,
-                        location: data.calendarLocation || ""
-                    });
-                    if (!ics) return;
-                    event.preventDefault();
-                    const file = new Blob([ics], { type: "text/calendar" });
-                    const url = URL.createObjectURL(file);
-                    const download = document.createElement("a");
-                    download.href = url;
-                    download.download = "chorlton-bikes.ics";
-                    download.click();
-                    URL.revokeObjectURL(url);
+                const button = document.createElement("button");
+                button.type = "button";
+                button.className = "announce-cal";
+                button.textContent = "Add to calendar";
+                button.setAttribute("aria-expanded", "false");
+                const menu = document.createElement("span");
+                menu.className = "announce-cal-menu";
+                menu.hidden = true;
+                [
+                    ["This device", previewCalendarUrl, false],
+                    ["Google Calendar", links?.google, true],
+                    ["Outlook", links?.outlook, true]
+                ].forEach(([label, href, external]) => {
+                    if (!href) return;
+                    const choice = document.createElement("a");
+                    choice.className = "announce-cal";
+                    choice.href = href;
+                    choice.textContent = label;
+                    if (external) {
+                        choice.target = "_blank";
+                        choice.rel = "noopener";
+                    }
+                    choice.addEventListener("click", () => closePreviewCalendar());
+                    menu.append(choice);
                 });
-                p.append(calendar);
+                button.addEventListener("click", () => {
+                    const open = menu.hidden;
+                    menu.hidden = !open;
+                    button.setAttribute("aria-expanded", open ? "true" : "false");
+                });
+                p.append(button, menu);
             }
             preview.append(p);
         }
@@ -628,6 +660,12 @@
         });
 
         form.addEventListener("input", paintPreview);
+        document.addEventListener("click", (event) => {
+            if (!event.target.closest(".announce-cal, .announce-cal-menu")) closePreviewCalendar();
+        });
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape") closePreviewCalendar();
+        });
         cancelEdit.addEventListener("click", () => {
             resetForm();
             say("");

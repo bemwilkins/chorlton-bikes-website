@@ -1,4 +1,4 @@
-import { calendarIcs } from "../calendar.js";
+import { calendarIcs, calendarLinks } from "../calendar.js";
 
 const KEY = "schedule";
 const STAFF_KEY = "staff";
@@ -166,22 +166,34 @@ export function activeAnnouncement(banner, today = londonToday()) {
         message: banner.message,
         linkLabel: banner.linkLabel,
         linkHref: banner.linkHref,
-        calendar: Boolean(banner.calendarDate)
+        calendar: Boolean(calendarEvent(banner)),
+        ...calendarChoiceLinks(banner)
     };
 }
 
-export function calendarDownload(banner) {
+function calendarEvent(banner) {
     if (!banner?.calendarDate || !banner.calendarStart || !banner.calendarEnd) return null;
-    const title = (banner.title || banner.message || "Chorlton Bikes").replace(/[.\s]+$/g, "");
-    return calendarIcs({
+    return {
         id: banner.id,
-        title,
+        title: (banner.title || banner.message || "Chorlton Bikes").replace(/[.\s]+$/g, ""),
         message: banner.message || "",
         date: banner.calendarDate,
         start: banner.calendarStart,
         end: banner.calendarEnd,
         location: banner.calendarLocation || ""
-    });
+    };
+}
+
+function calendarChoiceLinks(banner) {
+    const event = calendarEvent(banner);
+    if (!event) return { calendarGoogle: "", calendarOutlook: "" };
+    const links = calendarLinks(event);
+    return { calendarGoogle: links.google, calendarOutlook: links.outlook };
+}
+
+export function calendarDownload(banner) {
+    const event = calendarEvent(banner);
+    return event ? calendarIcs(event) : null;
 }
 
 export function activeFromSchedule(banners, today = londonToday()) {
@@ -374,7 +386,7 @@ export async function calendarAnnouncement(request, env) {
     return new Response(body, {
         headers: {
             "Content-Type": "text/calendar; charset=utf-8",
-            "Content-Disposition": "attachment; filename=\"chorlton-bikes.ics\"",
+            "Content-Disposition": "inline; filename=\"chorlton-bikes.ics\"",
             "Cache-Control": "no-store"
         }
     });

@@ -26,6 +26,44 @@ function icsText(value) {
         .replace(/;/g, "\\;");
 }
 
+function lastSunday(year, month) {
+    const last = new Date(Date.UTC(year, month, 0));
+    last.setUTCDate(last.getUTCDate() - last.getUTCDay());
+    return last.getUTCDate();
+}
+
+function londonOffset(date, time) {
+    const [year, month, day] = String(date).split("-").map(Number);
+    const [hour, minute] = String(time).split(":").map(Number);
+    const key = month * 1e6 + day * 1e4 + hour * 100 + minute;
+    const bstStart = 3 * 1e6 + lastSunday(year, 3) * 1e4 + 100;
+    const bstEnd = 10 * 1e6 + lastSunday(year, 10) * 1e4 + 200;
+    return key >= bstStart && key < bstEnd ? "+01:00" : "+00:00";
+}
+
+export function calendarLinks(event) {
+    const title = event.title || "Chorlton Bikes";
+    const date = String(event.date).replaceAll("-", "");
+    const start = String(event.start).replace(":", "") + "00";
+    const end = String(event.end).replace(":", "") + "00";
+    const google = new URL("https://calendar.google.com/calendar/render");
+    google.searchParams.set("action", "TEMPLATE");
+    google.searchParams.set("text", title);
+    google.searchParams.set("dates", `${date}T${start}/${date}T${end}`);
+    google.searchParams.set("ctz", "Europe/London");
+    if (event.location) google.searchParams.set("location", event.location);
+    if (event.message) google.searchParams.set("details", event.message);
+    const outlook = new URL("https://outlook.live.com/calendar/0/deeplink/compose");
+    outlook.searchParams.set("path", "/calendar/action/compose");
+    outlook.searchParams.set("rru", "addevent");
+    outlook.searchParams.set("subject", title);
+    outlook.searchParams.set("startdt", `${event.date}T${event.start}:00${londonOffset(event.date, event.start)}`);
+    outlook.searchParams.set("enddt", `${event.date}T${event.end}:00${londonOffset(event.date, event.end)}`);
+    if (event.location) outlook.searchParams.set("location", event.location);
+    if (event.message) outlook.searchParams.set("body", event.message);
+    return { google: google.toString(), outlook: outlook.toString() };
+}
+
 export function calendarIcs(event) {
     const date = String(event.date).replaceAll("-", "");
     const start = String(event.start).replace(":", "") + "00";
