@@ -70,7 +70,7 @@
             measureHead();
         })
         .catch(() => {
-            if (announce?.isConnected) announce.hidden = false;
+            announce?.remove();
             measureHead();
         });
 
