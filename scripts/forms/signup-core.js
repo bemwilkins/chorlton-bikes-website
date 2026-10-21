@@ -303,7 +303,8 @@ async function recordSignupOnce(env, session) {
   const tablePath = tablePathFor(env);
   const already = await sessionRecords(env, session.id);
   if (already.length) {
-    const kept = await collapseSessionDuplicates(env, session.id);
+    const saved = already.length === 1 && membershipStatus(already[0].fields);
+    const kept = saved ? already[0] : await collapseSessionDuplicates(env, session.id);
     const status = membershipStatus(kept?.fields) || await publishSignupStatus(env, kept?.id, signup);
     return { created: false, pending: isPendingMembership(signup, status), signup };
   }
@@ -423,6 +424,7 @@ function delay(ms) {
 
 export async function reconcileRecentSignups(env, now = Date.now()) {
   const since = Math.floor(now / 1000) - 48 * 60 * 60;
+  const sessions = [];
   let startingAfter = '';
   let pages = 0;
   do {
@@ -433,15 +435,38 @@ export async function reconcileRecentSignups(env, now = Date.now()) {
     for (const session of page.data || []) {
       if (!session.metadata?.cb_form || !session.metadata?.cb_email) continue;
       if (session.payment_status !== 'paid' && session.payment_status !== 'no_payment_required') continue;
-      try {
-        await recordSignup(env, session);
-      } catch (error) {
-        console.error(`Could not record ${session.id}: ${error.message}`);
-      }
+      sessions.push(session);
     }
     startingAfter = page.has_more && page.data?.length ? page.data[page.data.length - 1].id : '';
     pages += 1;
   } while (startingAfter && pages < 5);
+  const saved = await savedCheckoutSessions(env, sessions.map((session) => session.id));
+  for (const session of sessions) {
+    if (saved.has(session.id)) continue;
+    try {
+      await recordSignup(env, session);
+    } catch (error) {
+      console.error(`Could not record ${session.id}: ${error.message}`);
+    }
+  }
+}
+
+async function savedCheckoutSessions(env, sessionIds) {
+  const saved = new Set();
+  for (let index = 0; index < sessionIds.length; index += 10) {
+    const chunk = sessionIds.slice(index, index + 10);
+    const formula = `OR(${chunk.map((id) => `{Checkout session}="${formulaValue(id)}"`).join(',')})`;
+    const params = new URLSearchParams({
+      filterByFormula: formula,
+      pageSize: '20',
+    });
+    params.append('fields[]', 'Checkout session');
+    const page = await airtable(env, 'GET', `${tablePathFor(env)}?${params}`);
+    for (const record of page.records || []) {
+      if (record.fields['Checkout session']) saved.add(record.fields['Checkout session']);
+    }
+  }
+  return saved;
 }
 
 function formulaValue(value) {
