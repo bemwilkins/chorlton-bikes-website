@@ -304,7 +304,8 @@ async function recordSignupOnce(env, session) {
   const already = await sessionRecords(env, session.id);
   if (already.length) {
     const kept = await collapseSessionDuplicates(env, session.id);
-    return { created: false, pending: isPendingMembership(signup, kept), signup };
+    const status = membershipStatus(kept?.fields) || await publishSignupStatus(env, kept?.id, signup);
+    return { created: false, pending: isPendingMembership(signup, status), signup };
   }
 
   const emailFormula = encodeURIComponent(contactFormula(env, signup.email));
@@ -312,7 +313,7 @@ async function recordSignupOnce(env, session) {
   const match = chooseContact(matches.records || []);
   const liveTable = env.AIRTABLE_TABLE_ID === 'tblqgtpXroIv0cmZc';
   const memberId = !match && liveTable ? await nextMemberId(env) : '';
-  const fields = fieldsForSignup(env, signup, session, match?.fields, memberId);
+  const fields = fieldsForSignup(env, signup, session, match?.fields, memberId, { deferStatus: !match });
   const pending = signup.form === 'membership' && !['Live Member', 'Cancelled', 'Deceased'].includes(membershipStatus(match?.fields));
   if (match) {
     await airtable(env, 'PATCH', `${tablePath}/${match.id}`, { fields, typecast: true });
@@ -324,19 +325,43 @@ async function recordSignupOnce(env, session) {
   const kept = await collapseSessionDuplicates(env, session.id);
   if (kept && kept.id !== created.id) {
     console.log(`Dropped duplicate ${signup.form} for ${signup.email} (${session.id})`);
-    return { created: false, pending: isPendingMembership(signup, kept), signup };
+    return { created: false, pending: signup.form === 'membership', signup };
   }
   if (memberId) await separateSharedMemberId(env, created.id, memberId);
+  const status = await publishSignupStatus(env, created.id, signup);
   console.log(`Recorded ${signup.form} for ${signup.email} (${session.id})`);
-  return { created: true, pending, signup };
+  return { created: true, pending: isPendingMembership(signup, status), signup };
 }
 
 function tablePathFor(env) {
   return `/v0/${env.AIRTABLE_BASE_ID}/${env.AIRTABLE_TABLE_ID}`;
 }
 
-function isPendingMembership(signup, record) {
-  return signup.form === 'membership' && membershipStatus(record?.fields) === 'Pending';
+function isPendingMembership(signup, status) {
+  return signup.form === 'membership' && status === 'Pending';
+}
+
+async function publishSignupStatus(env, recordId, signup) {
+  if (!recordId) return '';
+  const response = await fetch(`https://api.airtable.com${tablePathFor(env)}/${recordId}`, {
+    headers: { Authorization: `Bearer ${env.AIRTABLE_TOKEN}` },
+  });
+  if (response.status === 404) return '';
+  const record = await response.json();
+  if (!response.ok) {
+    const message = record.error?.message || `Airtable request failed (${response.status})`;
+    throw new Error(typeof message === 'string' ? message : JSON.stringify(message));
+  }
+  const current = membershipStatus(record.fields);
+  if (current) return current;
+  const liveTable = env.AIRTABLE_TABLE_ID === 'tblqgtpXroIv0cmZc';
+  const statusField = liveTable ? 'Membership status ' : 'Membership status';
+  const status = signup.form === 'membership' ? 'Pending' : 'Non-member';
+  await airtable(env, 'PATCH', `${tablePathFor(env)}/${recordId}`, {
+    fields: { [statusField]: status },
+    typecast: true,
+  });
+  return status;
 }
 
 async function sessionRecords(env, sessionId) {
@@ -468,7 +493,7 @@ function chooseContact(records) {
   })[0];
 }
 
-function fieldsForSignup(env, signup, session, existing, memberId = '') {
+function fieldsForSignup(env, signup, session, existing, memberId = '', options = {}) {
   const liveTable = env.AIRTABLE_TABLE_ID === 'tblqgtpXroIv0cmZc';
   const statusField = liveTable ? 'Membership status ' : 'Membership status';
   const fields = {
@@ -481,7 +506,9 @@ function fieldsForSignup(env, signup, session, existing, memberId = '') {
     fields.Email = signup.email;
   }
   if (!existing) {
-    fields[statusField] = signup.form === 'membership' ? 'Pending' : 'Non-member';
+    if (!options.deferStatus) {
+      fields[statusField] = signup.form === 'membership' ? 'Pending' : 'Non-member';
+    }
     fields['Membership Type'] = 'Individual';
     fields['Donation response from form'] = donationResponse(signup);
     fields.Notes = liveTable
