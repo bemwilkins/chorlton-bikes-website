@@ -1299,9 +1299,11 @@ h1 {
 /* Dialog */
 .sheet {
     width: min(640px, calc(100% - 1.5rem));
+    max-height: calc(100dvh - 1.5rem);
+    overflow: auto;
     border: 0;
     border-radius: 0.8rem;
-    padding: 1.3rem 1.3rem 1.4rem;
+    padding: 0 1.3rem 1.4rem;
     background: var(--cream);
     color: var(--ink);
 }
@@ -1309,11 +1311,14 @@ h1 {
 .sheet::backdrop { background: rgba(7, 51, 28, 0.62); }
 
 .sheet-top {
-    position: relative;
+    position: sticky;
+    top: 0;
     z-index: 5;
     display: flex;
     justify-content: flex-end;
-    margin-bottom: 0.45rem;
+    margin: 0 -1.3rem 0.45rem;
+    padding: 1.3rem 1.3rem 0.35rem;
+    background: var(--cream);
 }
 
 .sheet-close {
@@ -1339,6 +1344,20 @@ h1 {
 }
 
 .sheet-body p { color: var(--muted); }
+
+.sheet-body p.eligibility {
+    margin-bottom: 0.25rem;
+    font-weight: 700;
+    color: var(--ink);
+}
+
+.sheet-body ul {
+    color: var(--muted);
+    margin: 0.15rem 0 0.9rem;
+    padding-left: 1.2rem;
+}
+
+.sheet-body li + li { margin-top: 0.25rem; }
 
 .sheet-contact {
     display: flex;
@@ -1601,13 +1620,7 @@ h1 {
         overflow: auto;
     }
 
-    .sheet-top {
-        position: sticky;
-        top: 0;
-        margin: 0 0 0.75rem;
-        padding: 0 0 0.35rem;
-        background: var(--cream);
-    }
+    .sheet-top { margin-bottom: 0.75rem; }
 
     .sheet-video { max-height: 50vh; }
 
