@@ -235,7 +235,7 @@
         copy.hidden = false;
         if (card.classList.contains("job")) {
             const wrap = document.createElement("div");
-            const label = card.dataset.lane === "commercial" ? "Enquire about this" : "Get in touch";
+            const label = card.dataset.contact || (card.dataset.lane === "commercial" ? "Enquire about this" : "Get in touch");
             wrap.append(copy, contactRow(card.dataset.subject || "Hello", card.dataset.wa || "Hi, I'd like to get in touch about Chorlton Bikes", label));
             openSheet(wrap);
             return;
