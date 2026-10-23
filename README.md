@@ -55,18 +55,9 @@ The bike donation form uses Google Apps Script to send emails with attachments. 
 
 ## Deployment
 
-### GitHub Pages
+The live site is [chorltonbikes.coop](https://chorltonbikes.coop), served by the Cloudflare worker `chorlton-bikes-forms`. The dev site is [dev.chorltonbikes.coop](https://dev.chorltonbikes.coop), served by the Cloudflare Pages project `chorlton-bikes-dev`.
 
-1. Push this repository to GitHub
-2. Go to Settings > Pages
-3. Select your branch (main) and folder (root)
-4. Your site will be live at `https://yourusername.github.io/repository-name`
-
-### Other Hosting
-
-- Upload all files to your hosting provider
-- Ensure `index.html` is in the root directory
-- No server-side configuration needed
+Merging a branch does not publish either site. The steps are in `.cursor/rules/deploy.mdc`.
 
 ## Customization
 

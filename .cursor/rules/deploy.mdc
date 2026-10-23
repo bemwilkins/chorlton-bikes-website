@@ -5,7 +5,7 @@ alwaysApply: true
 
 # Deploy: dev and main
 
-Git merges do not publish the website. GitHub Pages on `main` is not the public site.
+Git merges do not publish the website. GitHub Pages has been removed. Do not turn it back on.
 
 | Spoken request | Git | Then publish |
 |---|---|---|
@@ -44,4 +44,4 @@ unset STRIPE_SECRET_KEY STRIPE_LIVE_SECRET_KEY AIRTABLE_TOKEN AIRTABLE_BASE_ID A
 npx wrangler deploy
 ```
 
-Leave DNS, mail records, and the dev-site login alone. Confirm the hostname shows the new copy before saying it is live. A GitHub Pages success does not count.
+Leave DNS, mail records, and the dev-site login alone. Confirm the hostname shows the new copy before saying it is live.
