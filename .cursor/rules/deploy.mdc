@@ -1,0 +1,47 @@
+---
+description: What "merge to dev" and "merge to main" mean, including the Cloudflare publish
+alwaysApply: true
+---
+
+# Deploy: dev and main
+
+Git merges do not publish the website. GitHub Pages on `main` is not the public site.
+
+| Spoken request | Git | Then publish |
+|---|---|---|
+| "merge to dev", "merge dev domain", "put this on the dev site" | Merge the current branch into `dev` and push `dev` | Cloudflare Pages project `chorlton-bikes-dev`, branch `dev` |
+| "merge to main", "merge dev to main" | Merge `dev` into `main` and push `main` | Worker `chorlton-bikes-forms` with `wrangler deploy` |
+
+Live site: https://chorltonbikes.coop — worker `chorlton-bikes-forms`.
+Dev site: https://dev.chorltonbikes.coop — Pages project `chorlton-bikes-dev`, behind the Chorlton Bikes Google login. Share that hostname. Deployment `pages.dev` links skip the login.
+
+`dev` and `main` stay identical except while one test is on the dev site. One test at a time. Start a feature branch from `dev` when the two match, otherwise from `main`. After a live publish, `dev` and `main` match again. Leave `award/kings-award` off `dev` and off GitHub until asked. The repo is public.
+
+## Publish dev
+
+From the `dev` checkout, after the push:
+
+```bash
+rm -rf /tmp/chorlton-bikes-dev && mkdir -p /tmp/chorlton-bikes-dev
+rsync -a --delete \
+  --exclude .git --exclude .github --exclude .cursor --exclude node_modules \
+  --exclude scripts --exclude .wrangler --exclude CNAME --exclude .env \
+  --exclude '.env.*' --exclude wrangler.jsonc --exclude '.tmp*' \
+  ./ /tmp/chorlton-bikes-dev/
+npx wrangler pages deploy /tmp/chorlton-bikes-dev \
+  --project-name chorlton-bikes-dev --branch dev --commit-dirty=true
+```
+
+## Publish live
+
+From `main`, after the push. Load only the Cloudflare token. Do not send Stripe, Airtable, or Mailchimp secrets from `.env`.
+
+```bash
+set -a
+source <(grep '^CLOUDFLARE_API_TOKEN=' .env)
+set +a
+unset STRIPE_SECRET_KEY STRIPE_LIVE_SECRET_KEY AIRTABLE_TOKEN AIRTABLE_BASE_ID AIRTABLE_TABLE_ID MAILCHIMP_API_KEY MAILCHIMP_LIST_ID
+npx wrangler deploy
+```
+
+Leave DNS, mail records, and the dev-site login alone. Confirm the hostname shows the new copy before saying it is live. A GitHub Pages success does not count.
