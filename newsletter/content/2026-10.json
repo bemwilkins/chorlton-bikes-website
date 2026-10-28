@@ -1,0 +1,164 @@
+{
+  "month": "October",
+  "year": 2026,
+  "intro": {
+    "greeting": "Hello Friends and Members of Chorlton Bikes,",
+    "paragraphs": [
+      "We're really glad you're here. This newsletter is a chance to share what we've been up to - our riders, our partners, and the difference we're making together in Chorlton and beyond.",
+      "October has been a month of partnerships old and new - from prison ROTL visits and NHS evening collections to Women in Cycling, trail barriers, Bikes4Refugees and our website relaunch. Here's what we've been up to."
+    ]
+  },
+  "monthIntro": "From HMP Kirkham and NHS extended hours to Women in Cycling, our AGM date, Transpennine Trail barriers, Bikes4Refugees and a website glow-up - plus Emmeline's Elves in November - October has been full of community momentum.",
+  "sections": [
+    {
+      "title": "Visit to HMP Kirkham",
+      "bullets": [
+        "🔐 On Wednesday 7th October, Tom visited HMP Kirkham to learn more about ROTL (Release on Temporary Licence) schemes - pathways into employment for people nearing the end of their sentence through paid and unpaid work placements.",
+        "🔐 A salutary statistic from the day: 1 in 4 adults of working age have a criminal record - a significant section of society, and rehabilitative work chimes strongly with our values at Chorlton Bikes.",
+        "🔐 We are exploring how this could work with Dave Nicholson and the Brewcycle group, who have a project based at St Margaret's Playing Fields."
+      ],
+      "images": [
+        {
+          "file": "HMP_Kirkham_02.jpg",
+          "alt": "Visit to HMP Kirkham to learn about ROTL schemes"
+        },
+        {
+          "file": "Brewcycle.jpg",
+          "alt": "Brewcycle project at St Margaret's Playing Fields"
+        }
+      ],
+      "layout": "two-col"
+    },
+    {
+      "title": "NHS extended hours collections",
+      "bullets": [
+        "🏥 We are delighted to be supporting our partner surgeries with collections for their extended hours during weekday evenings and at weekends.",
+        "🏥 We have built strong working relationships with these surgeries over a number of years - collecting samples and delivering them to pathology labs.",
+        "🏥 We always strive to strengthen and extend this partnership whenever we can."
+      ],
+      "images": [
+        {
+          "file": "National_Health_Service_(England)_logo.svg.webp",
+          "alt": "NHS England logo - extended hours collections partnership"
+        }
+      ],
+      "layout": "single"
+    },
+    {
+      "title": "Women in Cycling - Anna",
+      "bullets": [
+        "🚴 On Friday 2nd October, Anna attended Women in Cycling at Stretford Public Hall.",
+        "🚴 It was a lovely morning meeting other women-led cycling groups, discussing the challenges we face and brainstorming solutions together."
+      ],
+      "images": [
+        {
+          "file": "Women In Cycling.jpeg",
+          "alt": "Anna at Women in Cycling at Stretford Public Hall"
+        }
+      ],
+      "layout": "single"
+    },
+    {
+      "title": "AGM and election",
+      "bullets": [
+        "📅 Another plug for our AGM / Open Social on 25th November at Dulcimer Bar in Chorlton, 7pm–9pm.",
+        "📅 We will share our experiences in 2026 and look ahead to what the future holds for Chorlton Bikes.",
+        "📅 We will be there from 6pm if anyone would like to talk to our directors about Chorlton Bikes and how to get involved.",
+        "📅 There will be light refreshments available, and the bar at Dulcimer for drinks."
+      ],
+      "cta": {
+        "label": "Interested in becoming a director? Get in touch",
+        "url": "mailto:hello@chorltonbikes.coop?subject=Chorlton%20Bikes%20Director%20interest&body="
+      },
+      "images": [
+        {
+          "file": "AGM and Open Social.jpg",
+          "alt": "Chorlton Bikes AGM and Open Social at Dulcimer Bar"
+        }
+      ],
+      "layout": "single"
+    },
+    {
+      "title": "Walk Wheel Cycle Trust - Transpennine Trail barriers",
+      "bullets": [
+        "🛤️ We were recently contacted by Walk Wheel Cycle Trust (formerly Sustrans) to support their campaign to remove barriers from the Transpennine Trail, after successfully removing some from the Fallowfield Loop.",
+        "🛤️ These barriers often impede cargo bikes - and we have had feedback from local families who would like to use these routes on school runs.",
+        "🛤️ We have written in support of their campaign and are broadly supportive of anything that enables more families to cycle to school and work."
+      ],
+      "images": [
+        {
+          "file": "walk wheel cycle trust.jpeg",
+          "alt": "Walk Wheel Cycle Trust campaign to remove Transpennine Trail barriers"
+        }
+      ],
+      "layout": "single"
+    },
+    {
+      "title": "Bikes4Refugees",
+      "bullets": [
+        "🚲 We continue to collect pre-loved bikes for the charity Bikes 4 Refugees.",
+        "🚲 Our amazing mechanic Dave refurbishes these bikes at a phenomenal rate, and we also help transport bikes between refurbishment and allocation.",
+        "🚲 Please note: we cannot allocate refurbished bikes straight to refugees or others in need. For allocation, contact info@rainbowhaven.org.uk.",
+        "🚲 We nominated both Dave and Lucy (whose energy drives the whole initiative) for a Best of Manchester award - because that is exactly what they are.",
+        "🚲 If you have a pre-loved bike you would like to donate, please get in touch."
+      ],
+      "cta": {
+        "label": "Donate a pre-loved bike - get in touch",
+        "url": "mailto:hello@chorltonbikes.coop?subject=Bikes4Refugees%20donation&body="
+      },
+      "images": [
+        {
+          "file": "Bikes 4 Refugees.jpg",
+          "alt": "Bikes 4 Refugees bike collection and refurbishment"
+        }
+      ],
+      "layout": "single"
+    },
+    {
+      "title": "Website glow-up!",
+      "bullets": [
+        "✨ One of our incredible directors, Ben, has revamped and relaunched our website - chorltonbikes.coop - with a new look and some new features.",
+        "✨ We're so grateful to have volunteer members and directors like Ben who offer their skills to keep our community moving forward.",
+        "✨ We're especially looking for help with mechanics, accountancy, grant-funding, graphic design and videography - if you have a skill to offer, please get in touch."
+      ],
+      "cta": {
+        "label": "Offer a skill or get in touch",
+        "url": "mailto:hello@chorltonbikes.coop?subject=Volunteer%20skills&body="
+      },
+      "images": [
+        {
+          "file": "website.png",
+          "alt": "Chorlton Bikes website relaunch"
+        }
+      ],
+      "layout": "single"
+    },
+    {
+      "title": "Emmeline's Elves - Sunday 29th November, 10am–1pm",
+      "bullets": [
+        "🎅 Our crack team of biking Elves will be out on their e-cargo sleighs on Sunday 29th November, 10am–1pm!",
+        "🎅 We are looking for donations of new toys, books, gift sets, chocolates/cakes/selection boxes or new pyjamas to help our friends at Emmeline's Pantry, who support families who have experienced domestic violence and food insecurity.",
+        "🎅 Please email us with what you would like to contribute and your address - and we will scramble the Elves to your door on the 29th!"
+      ],
+      "cta": {
+        "label": "Donate for Emmeline's Elves - email us",
+        "url": "mailto:hello@chorltonbikes.coop?subject=Emmeline%27s%20Elves%20donation&body="
+      },
+      "images": [
+        {
+          "file": "Emmelines Elves.jpg",
+          "alt": "Emmeline's Elves e-cargo bike toy collection"
+        }
+      ],
+      "layout": "single"
+    }
+  ],
+  "thankYou": {
+    "paragraphs": [
+      "Thank you to everyone for the continued energy, care and commitment that keeps Chorlton Bikes moving forward - from ROTL conversations and NHS runs to Women in Cycling, trail campaigns and festive Elves.",
+      "Whether you're riding, volunteering, donating, or simply spreading the word, you're helping us build a stronger and more connected community. See you at the AGM on 25th November! 🚲💚"
+    ]
+  },
+  "footerYear": 2025,
+  "status": "DRAFT"
+}
